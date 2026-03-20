@@ -38,6 +38,14 @@ export const metadata: Metadata = {
       "Profesjonalny serwis w Krakowie. 15 lat doświadczenia, 3000+ napraw.",
     url: "https://motofix-serwis.vercel.app",
     siteName: "MotoFix Serwis",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "MotoFix Serwis Kraków",
+      },
+    ],
     locale: "pl_PL",
     type: "website",
   },
