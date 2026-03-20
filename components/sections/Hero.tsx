@@ -304,6 +304,22 @@ function Hero() {
             }}
             className="hero-side-panel"
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 0.96, scale: 1 }}
+              transition={{ duration: 1.15, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(14,15,17,0.18) 0%, rgba(14,15,17,0.12) 32%, rgba(14,15,17,0.34) 100%), url('/hero-f1.jpg')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                filter: 'saturate(0.9) contrast(1.02) brightness(0.84)',
+                transformOrigin: 'center center',
+              }}
+            />
+
             <div
               style={{
                 position: 'absolute',
@@ -311,7 +327,16 @@ function Hero() {
                 width: '100%',
                 border: '1px solid rgba(43,127,255,0.18)',
                 background:
-                  'linear-gradient(180deg, rgba(22,24,28,0.56) 0%, rgba(14,15,17,0.16) 100%)',
+                  'linear-gradient(180deg, rgba(14,15,17,0.16) 0%, rgba(14,15,17,0.06) 100%)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background:
+                  'linear-gradient(90deg, rgba(14,15,17,0.16) 0%, rgba(14,15,17,0.04) 35%, rgba(14,15,17,0.18) 100%)',
               }}
             />
 
@@ -357,7 +382,7 @@ function Hero() {
                 height: '28%',
                 border: '1px solid rgba(43,127,255,0.14)',
                 background:
-                  'linear-gradient(135deg, rgba(43,127,255,0.10) 0%, rgba(14,15,17,0.06) 100%)',
+                  'linear-gradient(135deg, rgba(43,127,255,0.10) 0%, rgba(14,15,17,0.16) 100%)',
               }}
             />
 
