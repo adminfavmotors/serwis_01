@@ -204,3 +204,4 @@ h1, h2, h3, h4 {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 ::selection { background: var(--accent); color: #ffffff; }
+
