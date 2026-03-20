@@ -67,6 +67,26 @@ body {
     @apply text-caption text-muted;
   }
 
+  .contact-input {
+    border: 2px solid #0a0a0a;
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-family: var(--font-body), sans-serif;
+    font-size: 15px;
+    background: #ffffff;
+    transition: all 0.15s ease;
+  }
+
+  .contact-input:focus {
+    outline: none;
+    border-color: #e8ff00;
+    box-shadow: 3px 3px 0 0 #0a0a0a;
+  }
+
+  .contact-input.error {
+    border-color: #ff3d00;
+  }
+
   .accent-strip {
     border-top: 4px solid var(--color-accent);
   }

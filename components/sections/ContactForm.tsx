@@ -334,7 +334,7 @@ function FormField({
 
 function inputClassName(error?: string) {
   return cn(
-    "min-h-[56px] w-full rounded-[4px] border-2 bg-surface px-4 py-[14px] text-base text-dark outline-none transition-all duration-150 ease-out placeholder:text-muted/70 focus:border-accent focus:shadow-input",
-    error ? "border-accent-2" : "border-dark",
+    "contact-input min-h-[56px] w-full text-dark placeholder:text-muted/70",
+    error && "error",
   );
 }
