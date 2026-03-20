@@ -3,6 +3,8 @@ import { Bebas_Neue, DM_Sans, Space_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
+import { CookiesBanner } from "@/components/CookiesBanner";
+
 const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
   weight: "400",
@@ -99,6 +101,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
         {children}
+        <CookiesBanner />
       </body>
     </html>
   );
