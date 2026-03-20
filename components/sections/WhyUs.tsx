@@ -1,22 +1,21 @@
 "use client";
 
 import { Clock3, Shield, Sparkles, Users } from "lucide-react";
-import {
-  animate,
-  motion,
-  useInView,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
 const stats = [
-  { value: 15, prefix: "", suffix: "+", label: "LAT NA RYNKU" },
-  { value: 3000, prefix: "", suffix: "+", label: "ZADOWOLONYCH KLIENTÓW" },
-  { value: 98, prefix: "", suffix: "%", label: "POZYTYWNYCH OPINII" },
-  { value: 24, prefix: "", suffix: "H", label: "CZAS REALIZACJI" },
+  { value: 15, suffix: "+", label: "LAT NA RYNKU", animate: true },
+  {
+    value: 3000,
+    suffix: "+",
+    label: "ZADOWOLONYCH KLIENTÓW",
+    animate: true,
+  },
+  { value: 98, suffix: "%", label: "POZYTYWNYCH OPINII", animate: true },
+  { value: 24, suffix: "H", label: "CZAS REALIZACJI", animate: false },
 ];
 
 const trustPoints = [
@@ -46,34 +45,54 @@ const trustPoints = [
   },
 ];
 
-function StatCounter({
-  value,
-  prefix,
-  suffix,
-  label,
-}: {
-  value: number;
-  prefix: string;
-  suffix: string;
-  label: string;
-}) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
-  const motionValue = useMotionValue(0);
-  const rounded = useTransform(motionValue, (latest) => Math.round(latest));
+function useCountUp(target: number, shouldStart: boolean, duration = 1100) {
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView) {
+    if (!shouldStart) {
       return;
     }
 
-    const controls = animate(motionValue, value, {
-      duration: 1.1,
-      ease: "easeOut",
-    });
+    let frameId = 0;
+    const start = performance.now();
 
-    return () => controls.stop();
-  }, [isInView, motionValue, value]);
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setCount(Math.round(target * eased));
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [duration, shouldStart, target]);
+
+  return count;
+}
+
+function formatStatValue(value: number) {
+  return new Intl.NumberFormat("pl-PL").format(value);
+}
+
+function StatCounter({
+  value,
+  suffix,
+  label,
+  animate,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  animate: boolean;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
+  const count = useCountUp(value, isInView && animate);
 
   return (
     <motion.div
@@ -84,11 +103,10 @@ function StatCounter({
       transition={{ duration: 0.35, ease: "easeOut" }}
       className="space-y-2 rounded-[8px] border-2 border-white/15 bg-white/5 p-6"
     >
-      <motion.p className="font-mono text-5xl text-accent md:text-[64px]">
-        {prefix}
-        <motion.span>{rounded}</motion.span>
+      <p className="font-mono text-5xl text-accent md:text-[64px]">
+        {animate ? formatStatValue(count) : formatStatValue(value)}
         {suffix}
-      </motion.p>
+      </p>
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
         {label}
       </p>
