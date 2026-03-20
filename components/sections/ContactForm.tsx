@@ -25,6 +25,12 @@ const contactSchema = z.object({
   vehicle: z.string().min(2, "Podaj markę i model pojazdu."),
   problem: z.string().min(10, "Opisz problem w co najmniej 10 znakach."),
   preferredDate: z.string().min(1, "Wybierz preferowany termin."),
+  consent: z
+    .boolean()
+    .refine(
+      (value) => value,
+      "Musisz wyrazić zgodę na przetwarzanie danych osobowych.",
+    ),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -64,6 +70,7 @@ export function ContactForm() {
       vehicle: "",
       problem: "",
       preferredDate: "",
+      consent: false,
     },
   });
 
@@ -198,6 +205,33 @@ export function ContactForm() {
                       )}
                     />
                   </FormField>
+
+                  <div className="space-y-2">
+                    <label className="flex cursor-pointer items-start gap-3">
+                      <input
+                        {...form.register("consent")}
+                        type="checkbox"
+                        className="mt-1 h-4 w-4 accent-[#E8FF00]"
+                      />
+                      <span className="text-sm text-[#6B6B6B]">
+                        Wyrażam zgodę na przetwarzanie moich danych osobowych
+                        przez MotoFix Serwis w celu odpowiedzi na zapytanie,
+                        zgodnie z{" "}
+                        <a
+                          href="/polityka-prywatnosci"
+                          className="text-[#0A0A0A] underline"
+                        >
+                          Polityką Prywatności
+                        </a>
+                        . *
+                      </span>
+                    </label>
+                    {form.formState.errors.consent?.message ? (
+                      <p className="text-[13px] text-accent-2">
+                        {form.formState.errors.consent.message}
+                      </p>
+                    ) : null}
+                  </div>
 
                   {submitError ? (
                     <p className="text-[13px] text-accent-2">{submitError}</p>
