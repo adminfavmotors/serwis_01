@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Car, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/Card";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -43,8 +43,15 @@ export function Testimonials() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             {testimonials.map((item) => (
-              <Card key={item.author} className="bg-surface">
-                <div className="space-y-6">
+              <Card
+                key={item.author}
+                className="relative overflow-hidden bg-surface"
+              >
+                <span className="pointer-events-none absolute left-6 top-0 font-display text-[120px] leading-none text-accent opacity-15">
+                  "
+                </span>
+
+                <div className="relative z-10 space-y-6">
                   <div className="flex gap-1 text-accent">
                     {Array.from({ length: 5 }).map((_, index) => (
                       <Star
@@ -62,7 +69,8 @@ export function Testimonials() {
 
                   <div className="space-y-1">
                     <p className="text-base font-bold text-dark">{item.author}</p>
-                    <p className="font-mono text-sm uppercase tracking-[0.08em] text-muted">
+                    <p className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-muted">
+                      <Car size={16} strokeWidth={1.5} />
                       {item.car}
                     </p>
                   </div>
