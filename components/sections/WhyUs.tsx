@@ -1,23 +1,11 @@
 "use client";
 
 import { Clock3, Shield, Sparkles, Users } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { useCountUp } from "@/hooks/useCountUp";
 import { cn } from "@/lib/utils";
-
-const stats = [
-  { value: 15, suffix: "+", label: "LAT NA RYNKU", animate: true },
-  {
-    value: 3000,
-    suffix: "+",
-    label: "ZADOWOLONYCH KLIENTÓW",
-    animate: true,
-  },
-  { value: 98, suffix: "%", label: "POZYTYWNYCH OPINII", animate: true },
-  { value: 24, suffix: "H", label: "CZAS REALIZACJI", animate: false },
-];
 
 const trustPoints = [
   {
@@ -49,64 +37,22 @@ const trustPoints = [
 const gearTexture =
   "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1.4' opacity='1'%3E%3Cpath d='M30 18L33 22L38 21L39 26L44 28L42 33L46 37L42 40L43 46L38 47L36 52L30 50L24 52L22 47L17 46L18 40L14 37L18 33L16 28L21 26L22 21L27 22L30 18Z'/%3E%3Ccircle cx='30' cy='35' r='6'/%3E%3C/g%3E%3C/svg%3E\")";
 
-function useCountUp(target: number, shouldStart: boolean, duration = 1100) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!shouldStart) {
-      return;
-    }
-
-    let frameId = 0;
-    const start = performance.now();
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-
-      setCount(Math.round(target * eased));
-
-      if (progress < 1) {
-        frameId = window.requestAnimationFrame(tick);
-      }
-    };
-
-    frameId = window.requestAnimationFrame(tick);
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, [duration, shouldStart, target]);
-
-  return count;
-}
-
-function formatStatValue(value: number) {
-  return new Intl.NumberFormat("pl-PL").format(value);
-}
-
 function StatCounter({
-  value,
+  target,
   suffix,
   label,
-  animate,
   index,
 }: {
-  value: number;
+  target: number;
   suffix: string;
   label: string;
-  animate: boolean;
   index: number;
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
-  const count = useCountUp(value, isInView && animate);
+  const { count, elementRef } = useCountUp(target, 2000);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
+    <div
+      ref={elementRef}
       className={cn(
         "space-y-3 bg-transparent px-0 py-6 sm:px-6",
         index < 3 && "border-b border-white/10",
@@ -117,7 +63,7 @@ function StatCounter({
     >
       <div className="flex items-end gap-1">
         <span className="font-mono text-[56px] font-bold leading-none text-accent md:text-[72px]">
-          {animate ? formatStatValue(count) : formatStatValue(value)}
+          {count}
         </span>
         <span className="font-mono text-[28px] font-bold leading-none text-accent md:text-[36px]">
           {suffix}
@@ -126,7 +72,7 @@ function StatCounter({
       <p className="text-[13px] uppercase tracking-[0.15em] text-white/60">
         {label}
       </p>
-    </motion.div>
+    </div>
   );
 }
 
@@ -149,9 +95,43 @@ export function WhyUs() {
               subtitle="Łączymy sprawny serwis, uczciwą komunikację i tempo, które naprawdę ułatwia życie."
             />
             <div className="grid rounded-[8px] border border-white/10 bg-white/5 sm:grid-cols-2">
-              {stats.map((stat, index) => (
-                <StatCounter key={stat.label} index={index} {...stat} />
-              ))}
+              <StatCounter
+                target={15}
+                suffix="+"
+                label="LAT NA RYNKU"
+                index={0}
+              />
+              <StatCounter
+                target={3000}
+                suffix="+"
+                label="ZADOWOLONYCH KLIENTÓW"
+                index={1}
+              />
+              <StatCounter
+                target={98}
+                suffix="%"
+                label="POZYTYWNYCH OPINII"
+                index={2}
+              />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className={cn("space-y-3 bg-transparent px-0 py-6 sm:px-6")}
+              >
+                <div className="flex items-end gap-1">
+                  <span className="font-mono text-[56px] font-bold leading-none text-accent md:text-[72px]">
+                    24
+                  </span>
+                  <span className="font-mono text-[28px] font-bold leading-none text-accent md:text-[36px]">
+                    H
+                  </span>
+                </div>
+                <p className="text-[13px] uppercase tracking-[0.15em] text-white/60">
+                  CZAS REALIZACJI
+                </p>
+              </motion.div>
             </div>
           </div>
 
