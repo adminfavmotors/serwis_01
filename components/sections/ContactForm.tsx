@@ -292,11 +292,16 @@ export function ContactForm() {
             </div>
 
             <div className="rounded-[8px] border-2 border-dark bg-[#d9d9d2] p-8 shadow-card">
-              <div className="flex min-h-[260px] items-center justify-center border-2 border-dashed border-dark/40 bg-white/40 px-6 text-center">
-                <p className="font-body text-lg font-medium text-dark">
-                  Mapa Google — do wdrożenia
-                </p>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.0!2d19.9450!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAzJzUzLjAiTiAxOcKwNTYnNDIuMCJF!5e0!3m2!1spl!2spl!4v1234567890"
+                width="100%"
+                height="300"
+                style={{ border: 0, borderRadius: "4px" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="MotoFix Serwis lokalizacja"
+              />
             </div>
           </div>
         </div>
