@@ -291,17 +291,43 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="rounded-[8px] border-2 border-dark bg-[#d9d9d2] p-8 shadow-card">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.0!2d19.9450!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDAzJzUzLjAiTiAxOcKwNTYnNDIuMCJF!5e0!3m2!1spl!2spl!4v1234567890"
-                width="100%"
-                height="300"
-                style={{ border: 0, borderRadius: "4px" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="MotoFix Serwis lokalizacja"
-              />
+            <div
+              aria-label="Mapa dojazdu do warsztatu MotoFix Serwis"
+              className="rounded-[8px] border-2 border-dark bg-[#d9d9d2] p-8 shadow-card"
+            >
+              <div className="map-wrapper mt-6 w-full overflow-hidden rounded-sm border-2 border-[#2A2A2A]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.1234!2d19.9450!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b6b6b6b6b6b%3A0x0!2zTW90b0ZpeCBTZXJ3aXM!5e0!3m2!1spl!2spl!4v1234567890!5m2!1spl!2spl"
+                  width="100%"
+                  height="280"
+                  className="block h-[220px] w-full md:h-[280px]"
+                  style={{ border: 0, display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="MotoFix Serwis — lokalizacja Kraków ul. Przemysłowa 12"
+                />
+              </div>
+              <a
+                href="https://maps.google.com/?q=ul.+Przemysłowa+12,+30-701+Kraków"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-2 text-sm font-medium"
+                style={{ color: "var(--accent)" }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Otwórz w Google Maps
+              </a>
             </div>
           </div>
         </div>
