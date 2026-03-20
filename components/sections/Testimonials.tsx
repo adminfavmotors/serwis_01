@@ -1,6 +1,5 @@
 import { Car, Star } from "lucide-react";
 
-import { Card } from "@/components/ui/Card";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
 const testimonials = [
@@ -43,21 +42,14 @@ export function Testimonials() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             {testimonials.map((item) => (
-              <Card
+              <article
                 key={item.author}
-                className="relative overflow-hidden bg-surface"
+                className="relative overflow-hidden rounded-[4px] border border-border bg-surface p-7 transition-all duration-200 hover:border-accent"
               >
                 <span
                   aria-hidden="true"
-                  className="absolute select-none font-display leading-none pointer-events-none"
-                  style={{
-                    top: "12px",
-                    left: "16px",
-                    fontSize: "96px",
-                    lineHeight: 1,
-                    opacity: 0.08,
-                    color: "var(--color-accent)",
-                  }}
+                  className="pointer-events-none absolute left-4 top-3 select-none font-display text-8xl leading-none"
+                  style={{ color: "#FF6B00", opacity: 0.08 }}
                 >
                   &ldquo;
                 </span>
@@ -74,19 +66,21 @@ export function Testimonials() {
                     ))}
                   </div>
 
-                  <p className="text-lg italic leading-[1.7] text-dark">
+                  <p className="font-body text-[15px] italic leading-[1.7] text-[#C0C0C0]">
                     {item.quote}
                   </p>
 
                   <div className="space-y-1">
-                    <p className="text-base font-bold text-dark">{item.author}</p>
-                    <p className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-muted">
+                    <p className="font-body text-base font-bold text-[#F0F0F0]">
+                      {item.author}
+                    </p>
+                    <p className="inline-flex items-center gap-2 font-mono text-[12px] text-accent">
                       <Car size={16} strokeWidth={1.5} />
                       {item.car}
                     </p>
                   </div>
                 </div>
-              </Card>
+              </article>
             ))}
           </div>
         </div>

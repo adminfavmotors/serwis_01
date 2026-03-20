@@ -7,7 +7,6 @@ import {
   Wind,
 } from "lucide-react";
 
-import { Card } from "@/components/ui/Card";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
 const services = [
@@ -57,9 +56,9 @@ const services = [
 
 export function Services() {
   return (
-    <section id="uslugi" className="section-shell scroll-mt-28 bg-surface">
-      <div className="mb-12 h-1 w-full bg-accent" />
-      <div className="container">
+    <section id="uslugi" className="section-shell scroll-mt-28 bg-bg">
+      <div className="h-1 w-full bg-accent" />
+      <div className="container pt-12">
         <div className="space-y-12">
           <SectionTitle title="NASZE USŁUGI" align="center" />
 
@@ -68,23 +67,28 @@ export function Services() {
               const Icon = service.icon;
 
               return (
-                <Card key={service.title} className="flex h-full flex-col">
+                <article
+                  key={service.title}
+                  className="flex h-full flex-col rounded-[4px] border border-border border-l-[3px] border-l-accent bg-surface p-7 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-accent"
+                >
                   <div className="mb-8 flex items-start justify-between gap-4">
-                    <div className="rounded-[8px] bg-dark p-3 text-accent">
-                      <Icon size={32} strokeWidth={1.5} />
+                    <div className="rounded-[6px] bg-accent p-[10px] text-bg">
+                      <Icon size={24} strokeWidth={1.5} />
                     </div>
-                    <span className="rounded-[4px] border-2 border-dark bg-bg px-3 py-2 font-mono text-sm uppercase tracking-[0.08em] text-dark">
+                    <span className="rounded-[2px] bg-[rgba(255,107,0,0.1)] px-[10px] py-1 font-mono text-[13px] text-accent">
                       {service.price}
                     </span>
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-h3 font-semibold text-dark">
+                    <h3 className="font-display text-[20px] text-[#F0F0F0]">
                       {service.title}
                     </h3>
-                    <p className="text-body text-muted">{service.description}</p>
+                    <p className="text-[14px] leading-[1.6] text-[#888888]">
+                      {service.description}
+                    </p>
                   </div>
-                </Card>
+                </article>
               );
             })}
           </div>

@@ -6,8 +6,6 @@ import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/Button";
 
-const headingLines = ["TWÓJ SAMOCHÓD", "W DOBRYCH", "RĘKACH"];
-
 const trustBadges = [
   {
     icon: Gauge,
@@ -23,236 +21,208 @@ const trustBadges = [
   },
 ];
 
-const brands = ["VW", "BMW", "TOYOTA", "FORD", "AUDI"];
-
-const speedLinesPattern =
-  "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.03' stroke='white' stroke-width='1'%3E%3Cpath d='M-8 40L42 0'/%3E%3Cpath d='M8 40L58 0'/%3E%3C/g%3E%3C/svg%3E\")";
-
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-dark pt-24 text-white"
+      className="relative min-h-screen overflow-hidden"
+      style={{ backgroundColor: "#0D0D0D" }}
     >
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(232,255,0,0.08)_0%,rgba(10,10,10,0)_35%,rgba(10,10,10,0)_100%)]" />
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: speedLinesPattern,
-          backgroundRepeat: "repeat",
-          backgroundSize: "40px 40px",
+          backgroundImage: `repeating-linear-gradient(
+        -55deg,
+        transparent,
+        transparent 60px,
+        rgba(255,107,0,0.025) 60px,
+        rgba(255,107,0,0.025) 61px
+      )`,
         }}
       />
 
-      <div className="container relative z-10">
-        <div className="grid items-center gap-14 py-14 lg:grid-cols-[1.3fr_0.9fr] lg:gap-10">
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="space-y-3"
-              >
-                <div className="h-[4px] w-20 bg-accent" />
-                <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
-                  KRAKÓW / WARSZTAT
-                </p>
-              </motion.div>
-
-              <div className="space-y-1">
-                {headingLines.map((line, index) => (
-                  <motion.div
-                    key={line}
-                    initial={{ opacity: 0, y: 48 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      ease: [0.22, 1, 0.36, 1],
-                      delay: 0.08 * index,
-                    }}
-                    className="overflow-hidden"
-                  >
-                    <h1 className="font-display text-display-hero-mobile uppercase leading-[0.9] tracking-[-0.02em] text-white md:text-display-hero">
-                      {line}
-                    </h1>
-                  </motion.div>
-                ))}
-              </div>
-
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.36, ease: "easeOut" }}
-                className="max-w-[480px] text-lg leading-[1.6] text-white/70"
-              >
-                Profesjonalny warsztat samochodowy w Krakowie. Szybka
-                diagnostyka, uczciwa wycena i naprawy, po których wracasz na
-                drogę bez stresu.
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.48, ease: "easeOut" }}
-              className="flex flex-col gap-4 sm:flex-row"
+      <div className="container mx-auto grid min-h-screen grid-cols-1 items-center gap-12 px-6 py-32 lg:grid-cols-2 lg:px-20">
+        <div>
+          <div className="inline-flex items-center gap-2 mb-6">
+            <span
+              className="px-3 py-1.5 text-xs uppercase tracking-[0.25em] font-mono"
+              style={{
+                color: "#FF6B00",
+                border: "1px solid rgba(255,107,0,0.35)",
+                borderRadius: "2px",
+                fontFamily: "var(--font-mono)",
+              }}
             >
-              <Button asChild>
-                <Link href="#kontakt">Umów wizytę</Link>
-              </Button>
-              <Button
-                variant="secondary"
-                asChild
-                className="border-white text-white shadow-[4px_4px_0_0_#FFFFFF] hover:bg-white hover:text-dark hover:shadow-[6px_6px_0_0_#FFFFFF]"
-              >
-                <Link href="#uslugi">Zobacz usługi</Link>
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.6, ease: "easeOut" }}
-              className="flex flex-col gap-4 pt-2 sm:flex-row sm:flex-wrap"
-            >
-              {trustBadges.map((badge) => {
-                const Icon = badge.icon;
-
-                return (
-                  <div
-                    key={badge.label}
-                    className="inline-flex items-center gap-3 rounded-[4px] border-2 border-white/15 bg-white/5 px-4 py-3"
-                  >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-accent bg-accent text-dark">
-                      <Icon size={24} strokeWidth={1.5} />
-                    </div>
-                    <span className="text-sm font-medium text-white/85">
-                      {badge.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.7, ease: "easeOut" }}
-              className="border-t border-white/10 pt-5"
-            >
-              <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-[12px] uppercase tracking-[0.2em] text-muted">
-                {brands.map((brand, index) => (
-                  <span key={brand}>
-                    {brand}
-                    {index < brands.length - 1 ? " •" : ""}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+              ⬡ AUTORYZOWANY SERWIS • KRAKÓW
+            </span>
           </div>
 
+          <h1
+            className="mb-4 uppercase leading-none tracking-tight"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(52px, 8vw, 92px)",
+              lineHeight: 0.88,
+              color: "#F0F0F0",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            TWÓJ SAMOCHÓD
+            <br />
+            W DOBRYCH
+            <br />
+            RĘKACH
+          </h1>
+
+          <div
+            className="my-6"
+            style={{ width: "64px", height: "4px", backgroundColor: "#FF6B00" }}
+          />
+
+          <p className="max-w-[520px] text-lg leading-[1.75] text-[#888888]">
+            Profesjonalny warsztat samochodowy w Krakowie. Szybka diagnostyka,
+            uczciwa wycena i naprawy, po których wracasz na drogę bez stresu.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Button asChild>
+              <Link href="#kontakt">Umów wizytę</Link>
+            </Button>
+            <Button asChild variant="secondary">
+              <Link href="#uslugi">Zobacz usługi</Link>
+            </Button>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+            {trustBadges.map((badge) => {
+              const Icon = badge.icon;
+
+              return (
+                <div
+                  key={badge.label}
+                  className="inline-flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-[4px] bg-accent text-bg">
+                    <Icon size={22} strokeWidth={1.6} />
+                  </div>
+                  <span className="text-sm text-[#C0C0C0]">{badge.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
           <motion.div
             animate={{ y: [0, -12, 0] }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-            className="relative hidden h-[320px] items-center justify-center lg:flex"
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="hidden w-full items-center justify-center lg:flex"
           >
             <svg
-              width="500"
-              height="250"
-              viewBox="0 0 500 250"
+              viewBox="0 0 600 280"
+              className="w-full max-w-[560px]"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="opacity-60"
+              aria-hidden="true"
             >
               <path
-                d="M74 156L116 113C137 91 157 80 194 80H309C341 80 362 92 384 116L429 156"
-                stroke="#E8FF00"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                d="M80 200 L80 160 Q120 100 200 85 L360 80 Q430 80 480 120 L540 160 L540 200 Z"
+                stroke="#FF6B00"
+                strokeWidth="2"
+                fill="rgba(255,107,0,0.06)"
               />
               <path
-                d="M60 156H442C452 156 460 164 460 174V180C460 188 454 194 446 194H434"
-                stroke="#E8FF00"
-                strokeWidth="1.5"
-                strokeLinecap="round"
+                d="M200 85 Q240 45 300 38 Q360 35 400 80"
+                stroke="#FF6B00"
+                strokeWidth="2"
+                fill="none"
               />
               <path
-                d="M60 156C47 156 36 165 36 178C36 190 46 200 58 200H88"
-                stroke="#E8FF00"
+                d="M210 83 Q240 55 295 48 L295 83 Z"
+                stroke="#FF6B00"
                 strokeWidth="1.5"
-                strokeLinecap="round"
+                fill="rgba(255,107,0,0.08)"
               />
               <path
-                d="M147 98L164 156"
-                stroke="#E8FF00"
+                d="M300 83 L300 48 Q345 48 390 80 L390 83 Z"
+                stroke="#FF6B00"
                 strokeWidth="1.5"
-                strokeLinecap="round"
+                fill="rgba(255,107,0,0.08)"
               />
-              <path
-                d="M326 81L352 156"
-                stroke="#E8FF00"
-                strokeWidth="1.5"
-                strokeLinecap="round"
+              <circle
+                cx="160"
+                cy="200"
+                r="40"
+                stroke="#FF6B00"
+                strokeWidth="2"
+                fill="rgba(255,107,0,0.05)"
               />
-              <path
-                d="M166 156H353"
-                stroke="#E8FF00"
+              <circle
+                cx="160"
+                cy="200"
+                r="22"
+                stroke="#FF6B00"
                 strokeWidth="1.5"
-                strokeLinecap="round"
+                fill="none"
               />
-              <path
-                d="M188 108H308"
-                stroke="#E8FF00"
-                strokeWidth="1.5"
-                strokeLinecap="round"
+              <circle cx="160" cy="200" r="5" fill="#FF6B00" />
+              <circle
+                cx="460"
+                cy="200"
+                r="40"
+                stroke="#FF6B00"
+                strokeWidth="2"
+                fill="rgba(255,107,0,0.05)"
               />
-              <circle cx="127" cy="194" r="34" stroke="#E8FF00" strokeWidth="1.5" />
-              <circle cx="127" cy="194" r="13" stroke="#E8FF00" strokeWidth="1.5" />
-              <circle cx="388" cy="194" r="34" stroke="#E8FF00" strokeWidth="1.5" />
-              <circle cx="388" cy="194" r="13" stroke="#E8FF00" strokeWidth="1.5" />
-              <path
-                d="M453 146L472 146"
-                stroke="#E8FF00"
+              <circle
+                cx="460"
+                cy="200"
+                r="22"
+                stroke="#FF6B00"
                 strokeWidth="1.5"
-                strokeLinecap="round"
+                fill="none"
               />
-              <path
-                d="M15 170L0 170"
-                stroke="#E8FF00"
+              <circle cx="460" cy="200" r="5" fill="#FF6B00" />
+              <line
+                x1="40"
+                y1="240"
+                x2="560"
+                y2="240"
+                stroke="#FF6B00"
+                strokeWidth="1"
+                strokeDasharray="8 5"
+                opacity="0.35"
+              />
+              <line
+                x1="20"
+                y1="148"
+                x2="65"
+                y2="148"
+                stroke="#FF6B00"
+                strokeWidth="2"
+                opacity="0.55"
+              />
+              <line
+                x1="10"
+                y1="163"
+                x2="62"
+                y2="163"
+                stroke="#FF6B00"
                 strokeWidth="1.5"
-                strokeLinecap="round"
+                opacity="0.35"
+              />
+              <line
+                x1="18"
+                y1="178"
+                x2="58"
+                y2="178"
+                stroke="#FF6B00"
+                strokeWidth="1"
+                opacity="0.25"
               />
             </svg>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.72 }}
-          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/50 md:flex"
-        >
-          <span className="font-mono text-[11px] uppercase tracking-[0.28em]">
-            Scroll
-          </span>
-          <div className="flex h-14 w-8 justify-center rounded-full border-2 border-white/25 p-1">
-            <motion.div
-              animate={{ y: [0, 18, 0] }}
-              transition={{
-                duration: 1.6,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-              className="h-3 w-3 rounded-full bg-accent"
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
   );

@@ -34,9 +34,6 @@ const trustPoints = [
   },
 ];
 
-const gearTexture =
-  "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1.4' opacity='1'%3E%3Cpath d='M30 18L33 22L38 21L39 26L44 28L42 33L46 37L42 40L43 46L38 47L36 52L30 50L24 52L22 47L17 46L18 40L14 37L18 33L16 28L21 26L22 21L27 22L30 18Z'/%3E%3Ccircle cx='30' cy='35' r='6'/%3E%3C/g%3E%3C/svg%3E\")";
-
 function StatCounter({
   target,
   suffix,
@@ -54,24 +51,36 @@ function StatCounter({
     <div
       ref={elementRef}
       className={cn(
-        "space-y-3 bg-transparent px-0 py-6 sm:px-6",
-        index < 3 && "border-b border-white/10",
-        index === 0 && "sm:border-r",
-        index === 1 && "sm:border-b",
-        index === 2 && "sm:border-r sm:border-b-0",
+        "space-y-2 px-0 py-6 sm:px-6",
+        index < 3 && "border-b border-border",
+        index === 0 && "sm:border-r sm:border-border",
+        index === 2 && "sm:border-r sm:border-border sm:border-b-0",
+        index === 1 && "sm:border-b sm:border-border",
       )}
     >
-      <div className="flex items-end gap-1">
-        <span className="font-mono text-[56px] font-bold leading-none text-accent md:text-[72px]">
-          {count}
-        </span>
-        <span className="font-mono text-[28px] font-bold leading-none text-accent md:text-[36px]">
-          {suffix}
-        </span>
+      <div
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(56px, 7vw, 80px)",
+          color: "#FF6B00",
+          lineHeight: 1,
+        }}
+      >
+        {count}
+        {suffix}
       </div>
-      <p className="text-[13px] uppercase tracking-[0.15em] text-white/60">
+      <div
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "12px",
+          textTransform: "uppercase",
+          letterSpacing: "0.2em",
+          color: "#888888",
+          marginTop: "8px",
+        }}
+      >
         {label}
-      </p>
+      </div>
     </div>
   );
 }
@@ -80,12 +89,8 @@ export function WhyUs() {
   return (
     <section
       id="o-nas"
-      className="section-shell section-dark scroll-mt-28"
-      style={{
-        backgroundImage: gearTexture,
-        backgroundRepeat: "repeat",
-        backgroundSize: "60px 60px",
-      }}
+      className="section-shell scroll-mt-28 bg-bg"
+      style={{ borderTop: "3px solid #FF6B00" }}
     >
       <div className="container">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
@@ -94,13 +99,8 @@ export function WhyUs() {
               title="DLACZEGO MY"
               subtitle="Łączymy sprawny serwis, uczciwą komunikację i tempo, które naprawdę ułatwia życie."
             />
-            <div className="grid rounded-[8px] border border-white/10 bg-white/5 sm:grid-cols-2">
-              <StatCounter
-                target={15}
-                suffix="+"
-                label="LAT NA RYNKU"
-                index={0}
-              />
+            <div className="grid border-y border-border sm:grid-cols-2">
+              <StatCounter target={15} suffix="+" label="LAT NA RYNKU" index={0} />
               <StatCounter
                 target={3000}
                 suffix="+"
@@ -118,19 +118,30 @@ export function WhyUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className={cn("space-y-3 bg-transparent px-0 py-6 sm:px-6")}
+                className="space-y-2 px-0 py-6 sm:px-6"
               >
-                <div className="flex items-end gap-1">
-                  <span className="font-mono text-[56px] font-bold leading-none text-accent md:text-[72px]">
-                    24
-                  </span>
-                  <span className="font-mono text-[28px] font-bold leading-none text-accent md:text-[36px]">
-                    H
-                  </span>
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(56px, 7vw, 80px)",
+                    color: "#FF6B00",
+                    lineHeight: 1,
+                  }}
+                >
+                  24H
                 </div>
-                <p className="text-[13px] uppercase tracking-[0.15em] text-white/60">
+                <div
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "12px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    color: "#888888",
+                    marginTop: "8px",
+                  }}
+                >
                   CZAS REALIZACJI
-                </p>
+                </div>
               </motion.div>
             </div>
           </div>
@@ -150,17 +161,15 @@ export function WhyUs() {
                     delay: index * 0.08,
                     ease: "easeOut",
                   }}
-                  className="flex gap-5 rounded-[8px] border-2 border-white/15 bg-white/5 p-6"
+                  className="flex gap-5 rounded-[4px] border border-border bg-surface p-6"
                 >
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-accent text-dark">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[4px] bg-accent text-bg">
                     <Icon size={24} strokeWidth={1.5} />
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-h3 font-semibold text-white">
-                      {point.title}
-                    </h3>
-                    <p className="text-body text-white/70">
+                    <h3 className="text-[20px] text-white">{point.title}</h3>
+                    <p className="text-[14px] leading-[1.7] text-muted">
                       {point.description}
                     </p>
                   </div>

@@ -26,9 +26,9 @@ export function CookiesBanner() {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[9999] border-t-2 border-white/10 bg-dark px-4 py-4 text-white">
+    <div className="fixed inset-x-0 bottom-0 z-[9999] border-t border-border bg-bg px-4 py-4 text-white">
       <div className="mx-auto flex max-w-[1280px] flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <p className="max-w-3xl text-sm leading-relaxed text-white/80">
+        <p className="max-w-3xl text-sm leading-relaxed text-muted">
           Ta strona używa plików cookies w celu analizy ruchu. Kontynuując,
           wyrażasz na to zgodę.
         </p>
@@ -38,7 +38,7 @@ export function CookiesBanner() {
           </Button>
           <Link
             href="/polityka-prywatnosci"
-            className="text-sm text-white/75 underline underline-offset-4 transition-colors hover:text-accent"
+            className="text-sm text-muted underline underline-offset-4 transition-colors hover:text-accent"
           >
             Więcej informacji
           </Link>

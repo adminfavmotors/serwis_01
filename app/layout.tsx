@@ -1,28 +1,26 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, DM_Sans, Space_Mono } from "next/font/google";
+import { Russo_One, Barlow, Space_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
 import { CookiesBanner } from "@/components/CookiesBanner";
 
-const bebasNeue = Bebas_Neue({
-  subsets: ["latin"],
+const russoOne = Russo_One({
   weight: "400",
+  subsets: ["latin"],
   variable: "--font-display",
-  display: "swap",
 });
 
-const dmSans = DM_Sans({
-  subsets: ["latin", "latin-ext"],
+const barlow = Barlow({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
   variable: "--font-body",
-  display: "swap",
 });
 
 const spaceMono = Space_Mono({
-  subsets: ["latin"],
   weight: ["400", "700"],
+  subsets: ["latin"],
   variable: "--font-mono",
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -101,7 +99,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-        className={`${bebasNeue.variable} ${dmSans.variable} ${spaceMono.variable} bg-bg font-body text-body text-dark antialiased`}
+        className={`${russoOne.variable} ${barlow.variable} ${spaceMono.variable}`}
       >
         <Script
           id="autrepair-schema"

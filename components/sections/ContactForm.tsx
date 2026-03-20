@@ -102,10 +102,10 @@ export function ContactForm() {
   });
 
   return (
-    <section id="kontakt" className="section-shell scroll-mt-28 bg-surface">
+    <section id="kontakt" className="section-shell scroll-mt-28 bg-bg">
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-[8px] border-2 border-dark bg-bg p-6 shadow-card md:p-8">
+          <div className="rounded-[4px] border border-border bg-surface p-6 md:p-8">
             <SectionTitle
               title="UMÓW WIZYTĘ"
               subtitle="Napisz do nas, a odezwiemy się z potwierdzeniem terminu i wstępną wyceną."
@@ -122,15 +122,11 @@ export function ContactForm() {
                     initial={{ scale: 0.7, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="mb-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-dark bg-accent shadow-card"
+                    className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent text-bg"
                   >
-                    <CheckCheck
-                      size={40}
-                      strokeWidth={1.5}
-                      className="text-dark"
-                    />
+                    <CheckCheck size={40} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="text-h3 font-semibold text-dark">
+                  <h3 className="text-[20px] text-white">
                     Dziękujemy! Odezwiemy się wkrótce.
                   </h3>
                 </motion.div>
@@ -211,15 +207,15 @@ export function ContactForm() {
                       <input
                         {...form.register("consent")}
                         type="checkbox"
-                        className="mt-1 h-4 w-4 accent-[#E8FF00]"
+                        className="mt-1 h-4 w-4 accent-[#FF6B00]"
                       />
-                      <span className="text-sm text-[#6B6B6B]">
+                      <span className="text-sm text-muted">
                         Wyrażam zgodę na przetwarzanie moich danych osobowych
                         przez MotoFix Serwis w celu odpowiedzi na zapytanie,
                         zgodnie z{" "}
                         <a
                           href="/polityka-prywatnosci"
-                          className="text-[#0A0A0A] underline"
+                          className="text-accent underline"
                         >
                           Polityką Prywatności
                         </a>
@@ -227,14 +223,14 @@ export function ContactForm() {
                       </span>
                     </label>
                     {form.formState.errors.consent?.message ? (
-                      <p className="text-[13px] text-accent-2">
+                      <p className="text-[13px] text-accent">
                         {form.formState.errors.consent.message}
                       </p>
                     ) : null}
                   </div>
 
                   {submitError ? (
-                    <p className="text-[13px] text-accent-2">{submitError}</p>
+                    <p className="text-[13px] text-accent">{submitError}</p>
                   ) : null}
 
                   <Button
@@ -261,7 +257,7 @@ export function ContactForm() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-[8px] border-2 border-dark bg-dark p-6 text-white shadow-card md:p-8">
+            <div className="rounded-[4px] border border-border bg-surface p-6 text-white md:p-8">
               <div className="space-y-5">
                 <p className="font-mono text-sm uppercase tracking-[0.2em] text-accent">
                   Kontakt bezpośredni
@@ -272,13 +268,13 @@ export function ContactForm() {
                   return (
                     <div
                       key={item.title}
-                      className="flex gap-4 border-t-2 border-white/10 pt-5 first:border-t-0 first:pt-0"
+                      className="flex gap-4 border-t border-border pt-5 first:border-t-0 first:pt-0"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-accent text-dark">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] bg-accent text-bg">
                         <Icon size={24} strokeWidth={1.5} />
                       </div>
                       <div className="space-y-1">
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/70">
+                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-muted">
                           {item.title}
                         </p>
                         <p className="text-base leading-relaxed text-white">
@@ -293,9 +289,9 @@ export function ContactForm() {
 
             <div
               aria-label="Mapa dojazdu do warsztatu MotoFix Serwis"
-              className="rounded-[8px] border-2 border-dark bg-[#d9d9d2] p-8 shadow-card"
+              className="rounded-[4px] border border-border bg-surface p-6"
             >
-              <div className="map-wrapper mt-6 w-full overflow-hidden rounded-sm border-2 border-[#2A2A2A]">
+              <div className="map-wrapper w-full overflow-hidden rounded-sm border border-border">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.1234!2d19.9450!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b6b6b6b6b6b%3A0x0!2zTW90b0ZpeCBTZXJ3aXM!5e0!3m2!1spl!2spl!4v1234567890!5m2!1spl!2spl"
                   width="100%"
@@ -312,8 +308,7 @@ export function ContactForm() {
                 href="https://maps.google.com/?q=ul.+Przemysłowa+12,+30-701+Kraków"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-2 text-sm font-medium"
-                style={{ color: "var(--accent)" }}
+                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-accent"
               >
                 <svg
                   width="16"
@@ -347,12 +342,12 @@ function FormField({
 }) {
   return (
     <label className="block space-y-2">
-      <span className="text-sm font-semibold uppercase tracking-[0.12em] text-dark">
+      <span className="text-sm font-semibold uppercase tracking-[0.12em] text-white">
         {label}
       </span>
       {children}
       {error ? (
-        <span className="block text-[13px] text-accent-2">{error}</span>
+        <span className="block text-[13px] text-accent">{error}</span>
       ) : null}
     </label>
   );
@@ -360,7 +355,7 @@ function FormField({
 
 function inputClassName(error?: string) {
   return cn(
-    "contact-input min-h-[56px] w-full text-dark placeholder:text-muted/70",
+    "contact-input min-h-[56px] w-full placeholder:text-muted",
     error && "error",
   );
 }

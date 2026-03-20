@@ -23,7 +23,9 @@ export function SectionTitle({
     >
       <h2 className="section-title">{title}</h2>
       {subtitle ? (
-        <p className="mx-auto max-w-2xl text-body text-muted">{subtitle}</p>
+        <p className="mx-auto max-w-2xl text-base leading-[1.7] text-muted">
+          {subtitle}
+        </p>
       ) : null}
     </div>
   );

@@ -9,19 +9,22 @@ const quickLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-dark text-white">
+    <footer
+      className="bg-[#080808] text-white"
+      style={{ borderTop: "1px solid #2A2A2A" }}
+    >
       <div className="container py-16">
-        <div className="grid gap-10 border-b-2 border-white/10 pb-10 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-10 pb-10 md:grid-cols-2 xl:grid-cols-3">
           <div className="space-y-4">
             <div className="leading-none">
-              <p className="font-display text-[40px] uppercase tracking-[0.04em]">
+              <p className="font-display text-[40px] uppercase tracking-[0.04em] text-white">
                 MOTOFIX
               </p>
-              <p className="font-body text-sm uppercase tracking-[0.2em] text-white/55">
+              <p className="font-body text-sm uppercase tracking-[0.2em] text-accent">
                 SERWIS
               </p>
             </div>
-            <p className="max-w-sm text-body text-white/70">
+            <p className="max-w-sm text-[14px] leading-[1.7] text-muted">
               Warsztat samochodowy w Krakowie, który stawia na szybką
               diagnostykę, uczciwą komunikację i konkretne efekty.
             </p>
@@ -36,7 +39,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-base text-white/75 transition-colors hover:text-accent"
+                  className="text-[14px] text-muted transition-colors duration-150 hover:text-accent"
                 >
                   {link.label}
                 </Link>
@@ -48,11 +51,11 @@ export function Footer() {
             <p className="font-mono text-sm uppercase tracking-[0.22em] text-accent">
               Kontakt
             </p>
-            <div className="grid gap-3 text-base text-white/75">
+            <div className="grid gap-3 text-[14px] text-muted">
               <p>ul. Przemysłowa 12, 30-701 Kraków</p>
               <a
                 href="tel:+48123456789"
-                className="transition-colors hover:text-accent"
+                className="transition-colors duration-150 hover:text-accent"
               >
                 +48 123 456 789
               </a>
@@ -62,7 +65,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pt-6 text-sm text-white/50 md:flex-row md:items-center md:justify-between">
+        <div
+          className="flex flex-col gap-3 pt-4 text-[13px] text-muted md:flex-row md:items-center md:justify-between"
+          style={{ borderTop: "3px solid #FF6B00" }}
+        >
           <p>© 2026 MotoFix Serwis. Wszelkie prawa zastrzeżone.</p>
           <p>
             Realizacja: <span className="text-accent">FavMotors Studio</span>

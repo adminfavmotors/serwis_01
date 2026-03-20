@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "#uslugi", label: "Usługi" },
@@ -38,25 +37,34 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 px-4 py-3 md:px-6">
-        <div
-          className={cn(
-            "mx-auto flex h-16 w-full max-w-[1280px] items-center justify-between rounded-[8px] border-2 border-dark px-4 transition-all duration-200 ease-out md:px-6",
-            isScrolled
-              ? "bg-dark text-white shadow-card"
-              : "bg-bg/95 text-dark backdrop-blur-0",
-          )}
-        >
-          <Link
-            href="#top"
-            className="inline-flex min-w-[126px] flex-col items-start rounded-[4px] bg-dark px-3 py-2 leading-none text-white"
-            aria-label="MotoFix Serwis Kraków"
-          >
-            <span className="block font-display text-[26px] uppercase leading-none tracking-[0.04em] text-white">
+      <header
+        className="fixed inset-x-0 top-0 z-50"
+        style={{
+          background: isScrolled ? "rgba(13,13,13,0.95)" : "#0D0D0D",
+          borderBottom: "1px solid #2A2A2A",
+          backdropFilter: isScrolled ? "blur(12px)" : "none",
+        }}
+      >
+        <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 lg:px-20">
+          <Link href="#top" className="flex flex-col leading-none">
+            <span
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "24px",
+                color: "#F0F0F0",
+                letterSpacing: "0.05em",
+              }}
+            >
               MOTOFIX
             </span>
             <span
-              className="mt-1 block font-body text-[11px] uppercase leading-none tracking-[0.2em] text-accent"
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "10px",
+                color: "#FF6B00",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+              }}
             >
               SERWIS
             </span>
@@ -67,10 +75,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "text-[14px] font-semibold uppercase tracking-[0.12em] transition-colors",
-                  isScrolled ? "hover:text-accent" : "hover:text-accent-2",
-                )}
+                className="font-body text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-accent"
               >
                 {link.label}
               </Link>
@@ -80,32 +85,26 @@ export function Navbar() {
           <div className="hidden items-center gap-4 lg:flex">
             <a
               href="tel:+48123456789"
-              className={cn(
-                "font-mono text-[14px] transition-colors",
-                isScrolled ? "text-white" : "text-dark",
-              )}
+              className="font-mono text-[13px] text-[#F0F0F0]"
             >
               +48 123 456 789
             </a>
-            <Button asChild>
+            <Button asChild className="px-6 py-2.5">
               <Link href="#kontakt">Umów wizytę</Link>
             </Button>
           </div>
 
           <button
             type="button"
-            className={cn(
-              "inline-flex h-11 w-11 items-center justify-center rounded-[4px] border-2 border-current lg:hidden",
-              isScrolled ? "text-white" : "text-dark",
-            )}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-[2px] border border-border text-white lg:hidden"
             onClick={() => setIsOpen((current) => !current)}
             aria-expanded={isOpen}
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
           >
             {isOpen ? (
-              <X size={24} strokeWidth={1.5} />
+              <X size={22} strokeWidth={1.75} />
             ) : (
-              <Menu size={24} strokeWidth={1.5} />
+              <Menu size={22} strokeWidth={1.75} />
             )}
           </button>
         </div>
@@ -117,8 +116,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-dark px-6 pb-10 pt-28 text-white lg:hidden"
+            className="fixed inset-0 z-40 bg-bg px-6 pb-10 pt-28 lg:hidden"
           >
             <div className="flex h-full flex-col justify-between">
               <div className="space-y-5">
@@ -128,11 +126,11 @@ export function Navbar() {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 12 }}
-                    transition={{ delay: 0.05 * index, duration: 0.2 }}
+                    transition={{ delay: index * 0.05, duration: 0.2 }}
                   >
                     <Link
                       href={link.href}
-                      className="block font-display text-5xl uppercase tracking-[0.04em]"
+                      className="block font-display text-5xl uppercase text-white"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
@@ -144,9 +142,9 @@ export function Navbar() {
               <div className="space-y-6">
                 <a
                   href="tel:+48123456789"
-                  className="flex items-center gap-3 font-mono text-base"
+                  className="flex items-center gap-3 font-mono text-base text-white"
                 >
-                  <Phone size={24} strokeWidth={1.5} />
+                  <Phone size={20} strokeWidth={1.5} />
                   +48 123 456 789
                 </a>
                 <Button asChild className="w-full">
