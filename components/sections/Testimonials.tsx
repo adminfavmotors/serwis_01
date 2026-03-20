@@ -47,8 +47,19 @@ export function Testimonials() {
                 key={item.author}
                 className="relative overflow-hidden bg-surface"
               >
-                <span className="pointer-events-none absolute left-6 top-0 font-display text-[120px] leading-none text-accent opacity-15">
-                  &quot;
+                <span
+                  aria-hidden="true"
+                  className="absolute select-none font-display leading-none pointer-events-none"
+                  style={{
+                    top: "12px",
+                    left: "16px",
+                    fontSize: "96px",
+                    lineHeight: 1,
+                    opacity: 0.08,
+                    color: "var(--color-accent)",
+                  }}
+                >
+                  &ldquo;
                 </span>
 
                 <div className="relative z-10 space-y-6">
@@ -64,7 +75,7 @@ export function Testimonials() {
                   </div>
 
                   <p className="text-lg italic leading-[1.7] text-dark">
-                    &ldquo;{item.quote}&rdquo;
+                    {item.quote}
                   </p>
 
                   <div className="space-y-1">
