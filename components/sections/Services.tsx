@@ -57,7 +57,10 @@ const services = [
 
 export function Services() {
   return (
-    <section id="uslugi" className="section-shell accent-strip bg-surface">
+    <section
+      id="uslugi"
+      className="section-shell accent-strip scroll-mt-28 bg-surface"
+    >
       <div className="container">
         <div className="space-y-12">
           <SectionTitle title="NASZE USŁUGI" align="center" />

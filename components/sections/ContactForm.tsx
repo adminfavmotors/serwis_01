@@ -47,7 +47,11 @@ const contactInfo = [
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const today = new Date().toISOString().split("T")[0];
+  const now = new Date();
+  const timezoneOffsetMs = now.getTimezoneOffset() * 60 * 1000;
+  const today = new Date(now.getTime() - timezoneOffsetMs)
+    .toISOString()
+    .split("T")[0];
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -88,7 +92,7 @@ export function ContactForm() {
   });
 
   return (
-    <section id="kontakt" className="section-shell bg-surface">
+    <section id="kontakt" className="section-shell scroll-mt-28 bg-surface">
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="rounded-[8px] border-2 border-dark bg-bg p-6 shadow-card md:p-8">

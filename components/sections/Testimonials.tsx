@@ -32,7 +32,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="opinie" className="section-shell bg-bg">
+    <section id="opinie" className="section-shell scroll-mt-28 bg-bg">
       <div className="container">
         <div className="space-y-12">
           <SectionTitle
@@ -57,7 +57,7 @@ export function Testimonials() {
                   </div>
 
                   <p className="text-lg italic leading-[1.7] text-dark">
-                    "{item.quote}"
+                    &ldquo;{item.quote}&rdquo;
                   </p>
 
                   <div className="space-y-1">

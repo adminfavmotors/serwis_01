@@ -92,7 +92,7 @@ function StatCounter({
 
 export function WhyUs() {
   return (
-    <section id="o-nas" className="section-shell section-dark">
+    <section id="o-nas" className="section-shell section-dark scroll-mt-28">
       <div className="container">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
           <div className="space-y-8">
