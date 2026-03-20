@@ -150,7 +150,7 @@ function Hero() {
           zIndex: 1,
           width: '100%',
           paddingTop: '136px',
-          paddingBottom: '92px',
+          paddingBottom: '56px',
         }}
       >
         <div
@@ -415,44 +415,6 @@ function Hero() {
           </motion.div>
         </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        style={{
-          position: 'absolute',
-          bottom: '30px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '10px',
-            color: '#3A4150',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-          }}
-        >
-          scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{
-            width: '1px',
-            height: '30px',
-            backgroundColor: '#2B7FFF',
-            opacity: 0.4,
-          }}
-        />
-      </motion.div>
 
       <style>{`
         @media (max-width: 960px) {
