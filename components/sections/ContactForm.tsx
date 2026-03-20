@@ -1,265 +1,327 @@
-"use client";
+'use client'
 
-import type { ReactNode } from "react";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
-import { CheckCheck, Clock3, Loader2, MapPin, Phone } from "lucide-react";
-import { useForm, useWatch } from "react-hook-form";
-import { z } from "zod";
+import { useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { motion } from 'framer-motion'
+import { MapPin, Phone, Clock, CheckCircle, ArrowRight } from 'lucide-react'
 
-import { Button } from "@/components/ui/Button";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { cn } from "@/lib/utils";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "Imię i nazwisko musi mieć co najmniej 2 znaki" }),
+const schema = z.object({
+  name: z.string().min(2, { message: 'Imię i nazwisko musi mieć co najmniej 2 znaki' }),
   phone: z
     .string()
-    .min(9, { message: "Podaj prawidłowy numer telefonu" })
-    .regex(/^[\d\s\+\-\(\)]{9,}$/, {
-      message: "Nieprawidłowy format numeru telefonu",
-    }),
-  car: z.string().min(2, { message: "Podaj markę i model pojazdu" }),
-  problem: z
-    .string()
-    .min(10, { message: "Opis musi mieć co najmniej 10 znaków" }),
-  date: z.string().min(1, { message: "Wybierz preferowany termin" }),
+    .min(9, { message: 'Podaj prawidłowy numer telefonu' })
+    .regex(/^[\d\s\+\-\(\)]{9,}$/, { message: 'Nieprawidłowy format numeru' }),
+  car: z.string().min(2, { message: 'Podaj markę i model pojazdu' }),
+  problem: z.string().min(10, { message: 'Opis musi mieć co najmniej 10 znaków' }),
+  date: z.string().min(1, { message: 'Wybierz preferowany termin' }),
   rodo: z.boolean().refine((val) => val === true, {
-    message: "Zgoda na przetwarzanie danych jest wymagana",
+    message: 'Zgoda na przetwarzanie danych jest wymagana',
   }),
-});
+})
 
-type ContactFormValues = z.infer<typeof formSchema>;
+type FormData = z.infer<typeof schema>
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Adres",
-    content: (
-      <p className="font-body text-body-md text-text">
-        ul. Przemysłowa 12, 30-701 Kraków
-      </p>
-    ),
-  },
-  {
-    icon: Phone,
-    title: "Telefon",
-    content: (
-      <p className="font-mono text-mono-lg text-text">+48 123 456 789</p>
-    ),
-  },
-  {
-    icon: Clock3,
-    title: "Godziny",
-    content: (
-      <div className="space-y-1 font-mono text-mono-md text-text">
-        <p>Pn-Pt 08:00–18:00</p>
-        <p>Sob 09:00–14:00</p>
-      </div>
-    ),
-  },
-];
+export default function ContactForm() {
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(false)
 
-export function ContactForm() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const now = new Date();
-  const timezoneOffsetMs = now.getTimezoneOffset() * 60 * 1000;
-  const today = new Date(now.getTime() - timezoneOffsetMs)
-    .toISOString()
-    .split("T")[0];
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: { rodo: false },
+  })
 
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      phone: "",
-      car: "",
-      problem: "",
-      date: "",
-      rodo: false,
-    },
-  });
+  const rodoValue = useWatch({ control, name: 'rodo' })
 
-  const rodoValue = useWatch({ control: form.control, name: "rodo" });
-
-  const onSubmit = form.handleSubmit(async (values) => {
-    setSubmitError(null);
-
+  const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName: values.name,
-          phone: values.phone,
-          vehicle: values.car,
-          problem: values.problem,
-          preferredDate: values.date,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          "Wystąpił błąd. Spróbuj ponownie lub zadzwoń do nas bezpośrednio.",
-        );
-      }
-
-      setIsSubmitted(true);
-      form.reset();
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (res.ok) setSubmitted(true)
+      else setError(true)
     } catch {
-      setSubmitError(
-        "Wystąpił błąd. Spróbuj ponownie lub zadzwoń do nas bezpośrednio.",
-      );
+      setError(true)
     }
-  });
+  }
+
+  const inputStyle = {
+    width: '100%',
+    backgroundColor: '#16181C',
+    border: '1px solid #252830',
+    color: '#EAEDF2',
+    fontFamily: 'var(--font-body)',
+    fontSize: '15px',
+    padding: '14px 16px',
+    borderRadius: '2px',
+    outline: 'none',
+    transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+  }
+
+  const labelStyle = {
+    fontFamily: 'var(--font-body)',
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#6B7280',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.1em',
+    display: 'block',
+    marginBottom: '8px',
+  }
+
+  const errorStyle = {
+    fontFamily: 'var(--font-body)',
+    fontSize: '12px',
+    color: '#FF3B3B',
+    marginTop: '6px',
+  }
 
   return (
-    <section id="kontakt" className="section-padding scroll-mt-28 bg-bg">
+    <section
+      id="kontakt"
+      style={{
+        backgroundColor: '#0E0F11',
+        borderTop: '1px solid #252830',
+      }}
+      className="section-padding"
+    >
       <div className="container-site">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-[4px] border border-border bg-surface p-6 md:p-8">
-            <SectionTitle
-              title="UMÓW WIZYTĘ"
-              subtitle="Napisz do nas, a odezwiemy się z potwierdzeniem terminu i wstępną wyceną."
-            />
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          style={{ marginBottom: '56px' }}
+        >
+          <span className="section-label">Kontakt</span>
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(36px, 5vw, 64px)',
+              fontWeight: 700,
+              color: '#EAEDF2',
+              textTransform: 'uppercase',
+              lineHeight: 0.92,
+            }}
+          >
+            UMÓW
+            <br />
+            <span style={{ color: '#2B7FFF' }}>WIZYTĘ</span>
+          </h2>
+        </motion.div>
 
-            <div className="mt-8">
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex min-h-[420px] flex-col items-center justify-center text-center"
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '64px',
+            alignItems: 'start',
+          }}
+          className="contact-grid"
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }}
+          >
+            {submitted ? (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: '16px',
+                  padding: '40px',
+                  backgroundColor: '#16181C',
+                  border: '1px solid #252830',
+                  borderRadius: '4px',
+                }}
+              >
+                <CheckCircle size={40} color="#2B7FFF" strokeWidth={1.5} />
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '28px',
+                    color: '#EAEDF2',
+                    textTransform: 'uppercase',
+                  }}
                 >
-                  <motion.div
-                    initial={{ scale: 0.7, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent text-white"
-                  >
-                    <CheckCheck size={40} strokeWidth={1.5} />
-                  </motion.div>
-                  <p className="font-body text-[20px] text-text">
-                    Dziękujemy! Odezwiemy się wkrótce z potwierdzeniem terminu.
-                  </p>
-                </motion.div>
-              ) : (
-                <form className="space-y-5" onSubmit={onSubmit} noValidate>
-                  <FormField
-                    label="Imię i nazwisko"
-                    htmlFor="name"
-                    error={form.formState.errors.name?.message}
-                  >
+                  DZIĘKUJEMY!
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '15px',
+                    color: '#6B7280',
+                    lineHeight: 1.7,
+                  }}
+                >
+                  Twoje zgłoszenie zostało przyjęte. Odezwiemy się w ciągu 15 minut z
+                  potwierdzeniem terminu.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  <div>
+                    <label style={labelStyle}>Imię i nazwisko *</label>
                     <input
-                      {...form.register("name")}
-                      id="name"
-                      type="text"
+                      {...register('name')}
                       placeholder="np. Jan Kowalski"
-                      aria-label="Imię i nazwisko"
-                      className={inputClassName(form.formState.errors.name?.message)}
+                      style={{
+                        ...inputStyle,
+                        borderColor: errors.name ? '#FF3B3B' : '#252830',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#2B7FFF'
+                        e.target.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.name ? '#FF3B3B' : '#252830'
+                        e.target.style.boxShadow = 'none'
+                      }}
                     />
-                  </FormField>
+                    {errors.name && <p style={errorStyle}>{errors.name.message}</p>}
+                  </div>
 
-                  <FormField
-                    label="Numer telefonu"
-                    htmlFor="phone"
-                    error={form.formState.errors.phone?.message}
-                  >
+                  <div>
+                    <label style={labelStyle}>Numer telefonu *</label>
                     <input
-                      {...form.register("phone")}
-                      id="phone"
-                      type="tel"
+                      {...register('phone')}
                       placeholder="np. +48 600 000 000"
-                      aria-label="Numer telefonu"
-                      className={inputClassName(form.formState.errors.phone?.message)}
+                      type="tel"
+                      style={{
+                        ...inputStyle,
+                        borderColor: errors.phone ? '#FF3B3B' : '#252830',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#2B7FFF'
+                        e.target.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.phone ? '#FF3B3B' : '#252830'
+                        e.target.style.boxShadow = 'none'
+                      }}
                     />
-                  </FormField>
+                    {errors.phone && <p style={errorStyle}>{errors.phone.message}</p>}
+                  </div>
 
-                  <FormField
-                    label="Marka i model pojazdu"
-                    htmlFor="car"
-                    error={form.formState.errors.car?.message}
-                  >
+                  <div>
+                    <label style={labelStyle}>Marka i model pojazdu *</label>
                     <input
-                      {...form.register("car")}
-                      id="car"
-                      type="text"
+                      {...register('car')}
                       placeholder="np. Volkswagen Golf VII 1.6 TDI"
-                      aria-label="Marka i model pojazdu"
-                      className={inputClassName(form.formState.errors.car?.message)}
+                      style={{
+                        ...inputStyle,
+                        borderColor: errors.car ? '#FF3B3B' : '#252830',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#2B7FFF'
+                        e.target.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.car ? '#FF3B3B' : '#252830'
+                        e.target.style.boxShadow = 'none'
+                      }}
                     />
-                  </FormField>
+                    {errors.car && <p style={errorStyle}>{errors.car.message}</p>}
+                  </div>
 
-                  <FormField
-                    label="Opis problemu"
-                    htmlFor="problem"
-                    error={form.formState.errors.problem?.message}
-                  >
+                  <div>
+                    <label style={labelStyle}>Opis problemu *</label>
                     <textarea
-                      {...form.register("problem")}
-                      id="problem"
-                      rows={5}
+                      {...register('problem')}
                       placeholder="Opisz objawy lub usterkę, którą chcesz naprawić..."
-                      aria-label="Opis problemu z pojazdem"
-                      className={inputClassName(
-                        form.formState.errors.problem?.message,
-                      )}
+                      rows={4}
+                      style={{
+                        ...inputStyle,
+                        borderColor: errors.problem ? '#FF3B3B' : '#252830',
+                        resize: 'vertical',
+                        minHeight: '120px',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#2B7FFF'
+                        e.target.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.problem ? '#FF3B3B' : '#252830'
+                        e.target.style.boxShadow = 'none'
+                      }}
                     />
-                  </FormField>
+                    {errors.problem && <p style={errorStyle}>{errors.problem.message}</p>}
+                  </div>
 
-                  <FormField
-                    label="Preferowany termin"
-                    htmlFor="date"
-                    error={form.formState.errors.date?.message}
-                  >
+                  <div>
+                    <label style={labelStyle}>Preferowany termin *</label>
                     <input
-                      {...form.register("date")}
-                      id="date"
+                      {...register('date')}
                       type="date"
-                      min={today}
-                      aria-label="Preferowany termin wizyty"
-                      className={inputClassName(form.formState.errors.date?.message)}
+                      min={new Date().toISOString().split('T')[0]}
+                      style={{
+                        ...inputStyle,
+                        borderColor: errors.date ? '#FF3B3B' : '#252830',
+                        colorScheme: 'dark',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#2B7FFF'
+                        e.target.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.date ? '#FF3B3B' : '#252830'
+                        e.target.style.boxShadow = 'none'
+                      }}
                     />
-                  </FormField>
+                    {errors.date && <p style={errorStyle}>{errors.date.message}</p>}
+                  </div>
 
                   <div
-                    className="mt-8 pt-6"
-                    style={{ borderTop: "1px solid var(--border)" }}
+                    style={{
+                      paddingTop: '8px',
+                      borderTop: '1px solid #252830',
+                    }}
                   >
-                    <div className="flex items-start gap-3">
-                      <div className="relative mt-0.5 shrink-0">
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <div style={{ position: 'relative', flexShrink: 0, marginTop: '2px' }}>
                         <input
                           type="checkbox"
                           id="rodo"
-                          {...form.register("rodo")}
-                          className="peer sr-only"
-                        />
-                        <label
-                          htmlFor="rodo"
-                          className="flex h-5 w-5 cursor-pointer items-center justify-center transition-all duration-150"
+                          {...register('rodo')}
                           style={{
-                            border: `2px solid ${
-                              rodoValue ? "var(--accent)" : "var(--border)"
-                            }`,
-                            borderRadius: "2px",
+                            position: 'absolute',
+                            opacity: 0,
+                            width: '20px',
+                            height: '20px',
+                            cursor: 'pointer',
+                            zIndex: 1,
+                          }}
+                        />
+                        <div
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            border: `2px solid ${rodoValue ? '#2B7FFF' : '#252830'}`,
+                            borderRadius: '2px',
                             backgroundColor: rodoValue
-                              ? "var(--accent-glow)"
-                              : "transparent",
-                            transition: "all 0.15s ease",
+                              ? 'rgba(43,127,255,0.12)'
+                              : 'transparent',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.15s ease',
+                            pointerEvents: 'none',
                           }}
                         >
                           {rodoValue && (
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                               <polyline
                                 points="2 6 5 9 10 3"
                                 stroke="#2B7FFF"
@@ -269,190 +331,257 @@ export function ContactForm() {
                               />
                             </svg>
                           )}
-                        </label>
+                        </div>
                       </div>
 
-                      <div className="flex flex-col gap-1">
-                        <label
-                          htmlFor="rodo"
-                          className="cursor-pointer leading-relaxed"
+                      <label
+                        htmlFor="rodo"
+                        style={{
+                          fontFamily: 'var(--font-body)',
+                          fontSize: '13px',
+                          color: '#6B7280',
+                          lineHeight: 1.6,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Wyrażam zgodę na przetwarzanie moich danych osobowych przez{' '}
+                        <span style={{ color: '#EAEDF2' }}>MotoFix Serwis</span> w celu
+                        udzielenia odpowiedzi na przesłane zapytanie, zgodnie z{' '}
+                        <a
+                          href="/polityka-prywatnosci"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#2B7FFF', textDecoration: 'underline' }}
+                        >
+                          Polityką Prywatności
+                        </a>
+                        . <span style={{ color: '#2B7FFF' }}>*</span>
+                      </label>
+                    </div>
+                    {errors.rodo && <p style={errorStyle}>{errors.rodo.message}</p>}
+                  </div>
+
+                  {error && (
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '14px',
+                        color: '#FF3B3B',
+                        padding: '12px 16px',
+                        backgroundColor: 'rgba(255,59,59,0.08)',
+                        border: '1px solid rgba(255,59,59,0.2)',
+                        borderRadius: '2px',
+                      }}
+                    >
+                      Wystąpił błąd. Spróbuj ponownie lub zadzwoń do nas bezpośrednio.
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
+                    style={{
+                      width: '100%',
+                      opacity: isSubmitting ? 0.7 : 1,
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    }}
+                  >
+                    {isSubmitting ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
+                    {!isSubmitting && <ArrowRight size={16} />}
+                  </button>
+                </div>
+              </form>
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{
+              duration: 0.55,
+              delay: 0.1,
+              ease: [0.22, 1, 0.36, 1] as const,
+            }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+          >
+            <div
+              style={{
+                backgroundColor: '#16181C',
+                border: '1px solid #252830',
+                borderRadius: '4px',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ height: '3px', backgroundColor: '#2B7FFF' }} />
+
+              <div
+                style={{
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '20px',
+                }}
+              >
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '18px',
+                    fontWeight: 700,
+                    color: '#EAEDF2',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  Kontakt bezpośredni
+                </h3>
+
+                {[
+                  {
+                    icon: MapPin,
+                    label: 'Adres',
+                    value: 'ul. Przemysłowa 12, 30-701 Kraków',
+                  },
+                  {
+                    icon: Phone,
+                    label: 'Telefon',
+                    value: '+48 123 456 789',
+                    href: 'tel:+48123456789',
+                  },
+                  {
+                    icon: Clock,
+                    label: 'Godziny',
+                    value: 'Pn–Pt 08:00–18:00\nSob 09:00–14:00',
+                  },
+                ].map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <div
+                      key={item.label}
+                      style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}
+                    >
+                      <div
+                        style={{
+                          width: '36px',
+                          height: '36px',
+                          backgroundColor: 'rgba(43,127,255,0.1)',
+                          borderRadius: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Icon size={16} color="#2B7FFF" strokeWidth={1.5} />
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                        <span
                           style={{
-                            fontFamily: "var(--font-body)",
-                            fontSize: "13px",
-                            color: "var(--muted)",
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '11px',
+                            color: '#3A4150',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.15em',
                           }}
                         >
-                          Wyrażam zgodę na przetwarzanie moich danych osobowych
-                          przez{" "}
-                          <span style={{ color: "var(--text)" }}>
-                            MotoFix Serwis
-                          </span>{" "}
-                          w celu udzielenia odpowiedzi na przesłane zapytanie,
-                          zgodnie z{" "}
+                          {item.label}
+                        </span>
+                        {item.href ? (
                           <a
-                            href="/polityka-prywatnosci"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={item.href}
                             style={{
-                              color: "var(--accent)",
-                              textDecoration: "underline",
+                              fontFamily: 'var(--font-mono)',
+                              fontSize: '15px',
+                              color: '#EAEDF2',
+                              textDecoration: 'none',
+                              transition: 'color 0.15s ease',
                             }}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = '#2B7FFF')}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = '#EAEDF2')}
                           >
-                            Polityką Prywatności
+                            {item.value}
                           </a>
-                          . <span style={{ color: "var(--accent)" }}>*</span>
-                        </label>
-
-                        {form.formState.errors.rodo && (
-                          <p
+                        ) : (
+                          <span
                             style={{
-                              fontFamily: "var(--font-body)",
-                              fontSize: "12px",
-                              color: "var(--danger)",
-                              marginTop: "2px",
+                              fontFamily: 'var(--font-body)',
+                              fontSize: '14px',
+                              color: '#EAEDF2',
+                              whiteSpace: 'pre-line',
+                              lineHeight: 1.6,
                             }}
                           >
-                            {form.formState.errors.rodo.message}
-                          </p>
+                            {item.value}
+                          </span>
                         )}
                       </div>
                     </div>
-                  </div>
-
-                  {submitError ? (
-                    <p className="text-[13px] text-accent">{submitError}</p>
-                  ) : null}
-
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={form.formState.isSubmitting}
-                  >
-                    {form.formState.isSubmitting ? (
-                      <span className="inline-flex items-center gap-2">
-                        <Loader2
-                          size={18}
-                          className="animate-spin"
-                          strokeWidth={1.5}
-                        />
-                        Wysyłanie...
-                      </span>
-                    ) : (
-                      "Wyślij zgłoszenie"
-                    )}
-                  </Button>
-                </form>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="rounded-[4px] border border-border bg-surface p-6 text-text md:p-8">
-              <div className="space-y-5">
-                <p className="font-mono text-sm uppercase tracking-[0.2em] text-accent">
-                  Kontakt bezpośredni
-                </p>
-                {contactInfo.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <div
-                      key={item.title}
-                      className="flex gap-4 border-t border-border pt-5 first:border-t-0 first:pt-0"
-                    >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] bg-accent text-white">
-                        <Icon size={24} strokeWidth={1.5} />
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-muted">
-                          {item.title}
-                        </p>
-                        {item.content}
-                      </div>
-                    </div>
-                  );
+                  )
                 })}
               </div>
             </div>
 
             <div
-              aria-label="Mapa dojazdu do warsztatu MotoFix Serwis"
-              className="rounded-[4px] border border-border bg-surface p-6"
+              style={{
+                borderRadius: '4px',
+                overflow: 'hidden',
+                border: '1px solid #252830',
+              }}
             >
-              <div className="map-wrapper w-full overflow-hidden rounded-sm border border-border">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.1234!2d19.9450!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b6b6b6b6b6b%3A0x0!2zTW90b0ZpeCBTZXJ3aXM!5e0!3m2!1spl!2spl!4v1234567890!5m2!1spl!2spl"
-                  width="100%"
-                  height="280"
-                  className="block h-[220px] w-full md:h-[280px]"
-                  style={{
-                    border: 0,
-                    display: "block",
-                    filter: "invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.1)",
-                  }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="MotoFix Serwis — lokalizacja Kraków ul. Przemysłowa 12"
-                />
-              </div>
-              <a
-                href="https://maps.google.com/?q=ul.+Przemysłowa+12,+30-701+Kraków"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-accent"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                Otwórz w Google Maps
-              </a>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.1234!2d19.9450!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMotoFix+Serwis!5e0!3m2!1spl!2spl!4v1234567890"
+                width="100%"
+                height="240"
+                style={{
+                  border: 0,
+                  display: 'block',
+                  filter: 'invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.05)',
+                }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="MotoFix Serwis — lokalizacja Kraków"
+              />
             </div>
-          </div>
+
+            <a
+              href="https://maps.google.com/?q=ul.+Przemysłowa+12,+30-701+Kraków"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: 'var(--font-body)',
+                fontSize: '13px',
+                color: '#2B7FFF',
+                textDecoration: 'none',
+                transition: 'opacity 0.15s ease',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+            >
+              <MapPin size={14} />
+              Otwórz w Google Maps
+            </a>
+          </motion.div>
         </div>
       </div>
+
+      <style>{`
+        .contact-grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+        @media (max-width: 768px) {
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+      `}</style>
     </section>
-  );
+  )
 }
 
-function FormField({
-  label,
-  htmlFor,
-  error,
-  children,
-}: {
-  label: string;
-  htmlFor: string;
-  error?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="space-y-2">
-      <label
-        htmlFor={htmlFor}
-        className="block text-sm font-semibold uppercase tracking-[0.12em] text-text"
-      >
-        {label}
-      </label>
-      {children}
-      {error ? (
-        <span className="block text-[13px] text-accent">{error}</span>
-      ) : null}
-    </div>
-  );
-}
-
-function inputClassName(error?: string) {
-  return cn(
-    "input-base min-h-[56px] w-full placeholder:text-muted",
-    error && "error",
-  );
-}
+export { ContactForm }

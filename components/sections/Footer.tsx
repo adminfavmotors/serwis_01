@@ -1,80 +1,232 @@
-import Link from "next/link";
+'use client'
+
+import { MapPin, Phone, Clock } from 'lucide-react'
 
 const quickLinks = [
-  { href: "#uslugi", label: "Usługi" },
-  { href: "#o-nas", label: "O nas" },
-  { href: "#opinie", label: "Opinie" },
-  { href: "#kontakt", label: "Kontakt" },
-];
+  { label: 'Usługi', href: '#uslugi' },
+  { label: 'O nas', href: '#o-nas' },
+  { label: 'Opinie', href: '#opinie' },
+  { label: 'Kontakt', href: '#kontakt' },
+]
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer
-      className="bg-bg text-text"
-      style={{ borderTop: "1px solid var(--border)" }}
+      style={{
+        backgroundColor: '#080A0C',
+        borderTop: '1px solid #252830',
+      }}
     >
-      <div className="container-site py-16">
-        <div className="grid gap-10 pb-10 md:grid-cols-2 xl:grid-cols-3">
-          <div className="space-y-4">
-            <div className="leading-none">
-              <p className="font-display text-[40px] uppercase tracking-[0.04em] text-text">
-                MOTOFIX
-              </p>
-              <p className="font-body text-sm uppercase tracking-[0.2em] text-accent">
-                SERWIS
-              </p>
-            </div>
-            <p className="max-w-sm text-[14px] leading-[1.7] text-muted">
-              Warsztat samochodowy w Krakowie, który stawia na szybką
-              diagnostykę, uczciwą komunikację i konkretne efekty.
-            </p>
+      <div
+        className="container-site"
+        style={{
+          paddingTop: '64px',
+          paddingBottom: '48px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '48px',
+        }}
+        id="footer-grid"
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1, gap: '3px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '28px',
+                fontWeight: 700,
+                color: '#EAEDF2',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              MOTOFIX
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                color: '#2B7FFF',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+              }}
+            >
+              SERWIS
+            </span>
           </div>
-
-          <div className="space-y-4">
-            <p className="font-mono text-sm uppercase tracking-[0.22em] text-accent">
-              Szybkie linki
-            </p>
-            <nav className="grid gap-3">
-              {quickLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-[14px] text-muted transition-colors duration-150 hover:text-accent"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          <div className="space-y-4">
-            <p className="font-mono text-sm uppercase tracking-[0.22em] text-accent">
-              Kontakt
-            </p>
-            <div className="grid gap-3 text-[14px] text-muted">
-              <p>ul. Przemysłowa 12, 30-701 Kraków</p>
-              <a
-                href="tel:+48123456789"
-                className="transition-colors duration-150 hover:text-accent"
-              >
-                +48 123 456 789
-              </a>
-              <p>Pn-Pt 08:00-18:00</p>
-              <p>Sobota 09:00-14:00</p>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="flex flex-col gap-3 pt-4 text-[13px] text-muted md:flex-row md:items-center md:justify-between"
-          style={{ borderTop: "3px solid var(--accent)" }}
-        >
-          <p>© 2026 MotoFix Serwis. Wszelkie prawa zastrzeżone.</p>
-          <p>
-            Realizacja: <span className="text-accent">FavMotors Studio</span>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '14px',
+              color: '#6B7280',
+              lineHeight: 1.7,
+              maxWidth: '260px',
+            }}
+          >
+            Profesjonalny warsztat samochodowy w Krakowie. Szybka diagnostyka,
+            uczciwa komunikacja i konkretne efekty.
           </p>
         </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: '#3A4150',
+              textTransform: 'uppercase',
+              letterSpacing: '0.2em',
+            }}
+          >
+            Nawigacja
+          </span>
+          {quickLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '14px',
+                color: '#6B7280',
+                textDecoration: 'none',
+                transition: 'color 0.15s ease',
+                width: 'fit-content',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="/polityka-prywatnosci"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '14px',
+              color: '#6B7280',
+              textDecoration: 'none',
+              transition: 'color 0.15s ease',
+              width: 'fit-content',
+              marginTop: '8px',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
+          >
+            Polityka Prywatności
+          </a>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: '#3A4150',
+              textTransform: 'uppercase',
+              letterSpacing: '0.2em',
+            }}
+          >
+            Kontakt
+          </span>
+
+          {[
+            { icon: MapPin, value: 'ul. Przemysłowa 12\n30-701 Kraków' },
+            { icon: Phone, value: '+48 123 456 789', href: 'tel:+48123456789' },
+            { icon: Clock, value: 'Pn–Pt 08:00–18:00\nSob 09:00–14:00' },
+          ].map((item, i) => {
+            const Icon = item.icon
+            return (
+              <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                <Icon
+                  size={14}
+                  color="#2B7FFF"
+                  strokeWidth={1.5}
+                  style={{ marginTop: '3px', flexShrink: 0 }}
+                />
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '13px',
+                      color: '#6B7280',
+                      textDecoration: 'none',
+                      transition: 'color 0.15s',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
+                  >
+                    {item.value}
+                  </a>
+                ) : (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '13px',
+                      color: '#6B7280',
+                      whiteSpace: 'pre-line',
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {item.value}
+                  </span>
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
+
+      <div style={{ borderTop: '1px solid #252830' }}>
+        <div
+          className="container-site"
+          style={{
+            paddingTop: '20px',
+            paddingBottom: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '12px',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '13px',
+              color: '#3A4150',
+            }}
+          >
+            © 2026 MotoFix Serwis. Wszelkie prawa zastrzeżone.
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              color: '#3A4150',
+              letterSpacing: '0.1em',
+            }}
+          >
+            Realizacja: <span style={{ color: '#2B7FFF' }}>FavMotors Studio</span>
+          </span>
+        </div>
+      </div>
+
+      <style>{`
+        #footer-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+        @media (max-width: 768px) {
+          #footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+      `}</style>
     </footer>
-  );
+  )
 }
+
+export { Footer }
