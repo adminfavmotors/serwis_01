@@ -160,6 +160,34 @@ export function Hero() {
               </div>
             ))}
           </div>
+
+          <div
+            className="hidden sm:flex items-center gap-0 mt-6 pt-6"
+            style={{ borderTop: "1px solid #2A2A2A" }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                color: "#555555",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+              }}
+            >
+              {["VW", "BMW", "TOYOTA", "FORD", "AUDI", "SKODA"].map(
+                (brand, index, arr) => (
+                  <span key={brand}>
+                    {brand}
+                    {index < arr.length - 1 && (
+                      <span style={{ color: "#FF6B00", margin: "0 10px" }}>
+                        •
+                      </span>
+                    )}
+                  </span>
+                ),
+              )}
+            </span>
+          </div>
         </div>
 
         <div>
