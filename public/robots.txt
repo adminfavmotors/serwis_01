@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://motofix-serwis.vercel.app/sitemap.xml
+Sitemap: https://serwis01.vercel.app/sitemap.xml

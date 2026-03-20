@@ -44,7 +44,10 @@ export const metadata: Metadata = {
   creator: "FavMotors Studio",
   metadataBase: new URL("https://serwis01.vercel.app"),
   alternates: {
-    canonical: "https://serwis01.vercel.app",
+    canonical: "/",
+  },
+  verification: {
+    google: "REPLACE_WITH_GOOGLE_VERIFICATION_CODE",
   },
   openGraph: {
     title: "MotoFix Serwis — Warsztat Samochodowy Kraków",
