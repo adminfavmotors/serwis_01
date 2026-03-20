@@ -48,7 +48,7 @@ export function Testimonials() {
                 className="relative overflow-hidden bg-surface"
               >
                 <span className="pointer-events-none absolute left-6 top-0 font-display text-[120px] leading-none text-accent opacity-15">
-                  "
+                  &quot;
                 </span>
 
                 <div className="relative z-10 space-y-6">
