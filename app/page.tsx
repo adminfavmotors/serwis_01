@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/sections/ContactForm";
+import { Footer } from "@/components/sections/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Navbar } from "@/components/sections/Navbar";
@@ -18,6 +19,7 @@ export default function Home() {
         <Testimonials />
         <ContactForm />
       </main>
+      <Footer />
     </>
   );
 }
