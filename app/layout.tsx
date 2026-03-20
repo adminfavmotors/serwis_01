@@ -3,7 +3,7 @@ import { Russo_One, Barlow, Space_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-import { CookiesBanner } from "@/components/CookiesBanner";
+import CookiesBanner from "@/components/CookiesBanner";
 
 const russoOne = Russo_One({
   weight: "400",
