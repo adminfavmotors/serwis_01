@@ -23,25 +23,42 @@ const trustBadges = [
   },
 ];
 
+const brands = ["VW", "BMW", "TOYOTA", "FORD", "AUDI"];
+
+const speedLinesPattern =
+  "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.03' stroke='white' stroke-width='1'%3E%3Cpath d='M-8 40L42 0'/%3E%3Cpath d='M8 40L58 0'/%3E%3C/g%3E%3C/svg%3E\")";
+
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-dark bg-hero-grid bg-[length:220px_220px] bg-repeat pt-24 text-white"
+      className="relative flex min-h-[100svh] items-center overflow-hidden bg-dark pt-24 text-white"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(232,255,0,0.12)_0%,rgba(10,10,10,0)_28%,rgba(10,10,10,0)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(232,255,0,0.08)_0%,rgba(10,10,10,0)_35%,rgba(10,10,10,0)_100%)]" />
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: speedLinesPattern,
+          backgroundRepeat: "repeat",
+          backgroundSize: "40px 40px",
+        }}
+      />
+
       <div className="container relative z-10">
-        <div className="grid items-center gap-12 py-14 lg:grid-cols-[1.5fr_1fr] lg:gap-8">
+        <div className="grid items-center gap-14 py-14 lg:grid-cols-[1.3fr_0.9fr] lg:gap-10">
           <div className="space-y-8">
             <div className="space-y-6">
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="inline-flex items-center rounded-[4px] border-2 border-white/20 bg-white/5 px-4 py-2 font-mono text-sm uppercase tracking-[0.22em] text-accent"
+                className="space-y-3"
               >
-                Kraków • ul. Przemysłowa 12
-              </motion.p>
+                <div className="h-[4px] w-20 bg-accent" />
+                <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
+                  KRAKÓW / WARSZTAT
+                </p>
+              </motion.div>
 
               <div className="space-y-1">
                 {headingLines.map((line, index) => (
@@ -117,35 +134,101 @@ export function Hero() {
                 );
               })}
             </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.7, ease: "easeOut" }}
+              className="border-t border-white/10 pt-5"
+            >
+              <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-[12px] uppercase tracking-[0.2em] text-muted">
+                {brands.map((brand, index) => (
+                  <span key={brand}>
+                    {brand}
+                    {index < brands.length - 1 ? " •" : ""}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, rotate: -8 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            animate={{ y: [0, -12, 0] }}
             transition={{
-              duration: 0.65,
-              delay: 0.2,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 4,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
             }}
-            className="relative mx-auto w-full max-w-[460px]"
+            className="relative hidden h-[320px] items-center justify-center lg:flex"
           >
-            <div className="absolute -left-4 top-8 h-24 w-24 rounded-[8px] border-4 border-accent bg-dark" />
-            <div className="absolute right-0 top-0 h-12 w-36 border-b-4 border-t-4 border-accent bg-accent" />
-            <div className="relative aspect-square rounded-full border-4 border-dark bg-accent shadow-[12px_12px_0_0_#FFFFFF]">
-              <div className="absolute inset-[14%] rounded-full border-[18px] border-dark" />
-              <div className="absolute left-[18%] top-[38%] h-[18%] w-[62%] rounded-[40px] border-4 border-dark bg-dark" />
-              <div className="absolute left-[22%] top-[32%] h-[16%] w-[28%] rounded-t-[38px] border-4 border-dark border-b-0 bg-dark" />
-              <div className="absolute right-[15%] top-[43%] h-[10%] w-[16%] rounded-[20px] border-4 border-dark bg-accent-2" />
-              <div className="absolute bottom-[18%] left-[20%] h-[18%] w-[18%] rounded-full border-4 border-dark bg-surface" />
-              <div className="absolute bottom-[18%] right-[20%] h-[18%] w-[18%] rounded-full border-4 border-dark bg-surface" />
-            </div>
-
-            <div className="absolute -bottom-4 left-4 rounded-[8px] border-2 border-dark bg-surface px-4 py-3 text-dark shadow-card">
-              <p className="font-mono text-3xl text-accent-2">24H</p>
-              <p className="text-sm font-semibold uppercase tracking-[0.12em]">
-                Szybka realizacja
-              </p>
-            </div>
+            <svg
+              width="500"
+              height="250"
+              viewBox="0 0 500 250"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="opacity-60"
+            >
+              <path
+                d="M74 156L116 113C137 91 157 80 194 80H309C341 80 362 92 384 116L429 156"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M60 156H442C452 156 460 164 460 174V180C460 188 454 194 446 194H434"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M60 156C47 156 36 165 36 178C36 190 46 200 58 200H88"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M147 98L164 156"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M326 81L352 156"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M166 156H353"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M188 108H308"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <circle cx="127" cy="194" r="34" stroke="#E8FF00" strokeWidth="1.5" />
+              <circle cx="127" cy="194" r="13" stroke="#E8FF00" strokeWidth="1.5" />
+              <circle cx="388" cy="194" r="34" stroke="#E8FF00" strokeWidth="1.5" />
+              <circle cx="388" cy="194" r="13" stroke="#E8FF00" strokeWidth="1.5" />
+              <path
+                d="M453 146L472 146"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M15 170L0 170"
+                stroke="#E8FF00"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
           </motion.div>
         </div>
 
