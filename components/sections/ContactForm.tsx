@@ -5,7 +5,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { CheckCheck, Clock3, Loader2, MapPin, Phone } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/Button";
@@ -27,11 +27,9 @@ const formSchema = z.object({
     .string()
     .min(10, { message: "Opis musi mieć co najmniej 10 znaków" }),
   date: z.string().min(1, { message: "Wybierz preferowany termin" }),
-  rodo: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: "Zgoda na przetwarzanie danych jest wymagana",
-    }),
+  rodo: z.boolean().refine((val) => val === true, {
+    message: "Zgoda na przetwarzanie danych jest wymagana",
+  }),
 });
 
 type ContactFormValues = z.infer<typeof formSchema>;
@@ -85,6 +83,8 @@ export function ContactForm() {
       rodo: false,
     },
   });
+
+  const rodoValue = useWatch({ control: form.control, name: "rodo" });
 
   const onSubmit = form.handleSubmit(async (values) => {
     setSubmitError(null);
@@ -227,36 +227,96 @@ export function ContactForm() {
                     />
                   </FormField>
 
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="rodo"
-                      className="flex cursor-pointer items-start gap-3"
-                    >
-                      <input
-                        {...form.register("rodo")}
-                        id="rodo"
-                        type="checkbox"
-                        className="mt-1 h-4 w-4 accent-[#FF6B00]"
-                      />
-                      <span className="text-sm text-muted">
-                        Wyrażam zgodę na przetwarzanie moich danych osobowych
-                        przez MotoFix Serwis{" "}
-                        w celu udzielenia odpowiedzi na przesłane zapytanie,
-                        zgodnie z{" "}
-                        <a
-                          href="/polityka-prywatnosci"
-                          className="text-accent underline"
+                  <div
+                    className="mt-8 pt-6"
+                    style={{ borderTop: "1px solid #2A2A2A" }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="relative mt-0.5 shrink-0">
+                        <input
+                          type="checkbox"
+                          id="rodo"
+                          {...form.register("rodo")}
+                          className="peer sr-only"
+                        />
+                        <label
+                          htmlFor="rodo"
+                          className="flex h-5 w-5 cursor-pointer items-center justify-center transition-all duration-150"
+                          style={{
+                            border: `2px solid ${
+                              rodoValue ? "#FF6B00" : "#2A2A2A"
+                            }`,
+                            borderRadius: "2px",
+                            backgroundColor: rodoValue
+                              ? "rgba(255,107,0,0.1)"
+                              : "transparent",
+                            transition: "all 0.15s ease",
+                          }}
                         >
-                          Polityką Prywatności
-                        </a>
-                        . Zgoda jest wymagana.*
-                      </span>
-                    </label>
-                    {form.formState.errors.rodo?.message ? (
-                      <p className="text-[13px] text-accent">
-                        {form.formState.errors.rodo.message}
-                      </p>
-                    ) : null}
+                          {rodoValue && (
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                            >
+                              <polyline
+                                points="2 6 5 9 10 3"
+                                stroke="#FF6B00"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </label>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <label
+                          htmlFor="rodo"
+                          className="cursor-pointer leading-relaxed"
+                          style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: "13px",
+                            color: "#888888",
+                          }}
+                        >
+                          Wyrażam zgodę na przetwarzanie moich danych osobowych
+                          przez{" "}
+                          <span style={{ color: "#F0F0F0" }}>
+                            MotoFix Serwis
+                          </span>{" "}
+                          w celu udzielenia odpowiedzi na przesłane zapytanie,
+                          zgodnie z{" "}
+                          <a
+                            href="/polityka-prywatnosci"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: "#FF6B00",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            Polityką Prywatności
+                          </a>
+                          . <span style={{ color: "#FF6B00" }}>*</span>
+                        </label>
+
+                        {form.formState.errors.rodo && (
+                          <p
+                            style={{
+                              fontFamily: "var(--font-body)",
+                              fontSize: "12px",
+                              color: "#FF6B00",
+                              marginTop: "2px",
+                            }}
+                          >
+                            {form.formState.errors.rodo.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
                   {submitError ? (
@@ -379,7 +439,9 @@ function FormField({
         {label}
       </label>
       {children}
-      {error ? <span className="block text-[13px] text-accent">{error}</span> : null}
+      {error ? (
+        <span className="block text-[13px] text-accent">{error}</span>
+      ) : null}
     </div>
   );
 }
