@@ -1,25 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Award, Gauge, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
-
-const trustBadges = [
-  {
-    icon: Gauge,
-    label: "15 lat doświadczenia",
-  },
-  {
-    icon: Award,
-    label: "3000+ napraw",
-  },
-  {
-    icon: ShieldCheck,
-    label: "Gwarancja na usługi",
-  },
-];
 
 export function Hero() {
   return (
@@ -43,9 +27,9 @@ export function Hero() {
 
       <div className="container mx-auto grid min-h-screen grid-cols-1 items-center gap-12 px-6 py-32 lg:grid-cols-2 lg:px-20">
         <div>
-          <div className="inline-flex items-center gap-2 mb-6">
+          <div className="mb-6 inline-flex items-center gap-2">
             <span
-              className="px-3 py-1.5 text-xs uppercase tracking-[0.25em] font-mono"
+              className="font-mono px-3 py-1.5 text-xs uppercase tracking-[0.25em]"
               style={{
                 color: "#FF6B00",
                 border: "1px solid rgba(255,107,0,0.35)",
@@ -93,22 +77,88 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-            {trustBadges.map((badge) => {
-              const Icon = badge.icon;
-
-              return (
-                <div
-                  key={badge.label}
-                  className="inline-flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3"
+          <div
+            className="mt-8 mb-0 w-full"
+            style={{ height: "1px", backgroundColor: "#2A2A2A" }}
+          />
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            {[
+              { icon: "clock", text: "15 lat doświadczenia" },
+              { icon: "wrench", text: "3000+ napraw" },
+              { icon: "shield", text: "Gwarancja na usługi" },
+              { icon: "zap", text: "24H realizacja" },
+            ].map((badge, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <span
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm"
+                  style={{ backgroundColor: "rgba(255,107,0,0.15)" }}
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-[4px] bg-accent text-bg">
-                    <Icon size={22} strokeWidth={1.6} />
-                  </div>
-                  <span className="text-sm text-[#C0C0C0]">{badge.label}</span>
-                </div>
-              );
-            })}
+                  {badge.icon === "clock" && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#FF6B00"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  )}
+                  {badge.icon === "wrench" && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#FF6B00"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                    </svg>
+                  )}
+                  {badge.icon === "shield" && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#FF6B00"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  )}
+                  {badge.icon === "zap" && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#FF6B00"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
+                  )}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "13px",
+                    color: "#888888",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {badge.text}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
