@@ -1,165 +1,285 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { Menu, Phone, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-
-import { Button } from "@/components/ui/Button";
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { href: "#uslugi", label: "Usługi" },
-  { href: "#o-nas", label: "O nas" },
-  { href: "#opinie", label: "Opinie" },
-  { href: "#kontakt", label: "Kontakt" },
-];
+  { label: 'Usługi', href: '#uslugi' },
+  { label: 'O nas', href: '#o-nas' },
+  { label: 'Opinie', href: '#opinie' },
+  { label: 'Kontakt', href: '#kontakt' },
+]
 
-export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
 
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50"
         style={{
-          background: isScrolled ? "rgba(14,15,17,0.95)" : "#0E0F11",
-          borderBottom: "1px solid var(--border)",
-          backdropFilter: isScrolled ? "blur(12px)" : "none",
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          height: '68px',
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: scrolled ? 'rgba(14,15,17,0.96)' : 'transparent',
+          borderBottom: scrolled ? '1px solid #252830' : '1px solid transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+          transition:
+            'background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
         }}
       >
-        <div className="container-site flex h-20 items-center justify-between">
-          <a href="#top" className="flex shrink-0 flex-col gap-0 leading-none no-underline">
+        <div
+          className="container-site"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <a
+            href="#top"
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              lineHeight: 1,
+              gap: '2px',
+              flexShrink: 0,
+            }}
+          >
             <span
               style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "22px",
-                color: "var(--text)",
-                letterSpacing: "0.06em",
-                lineHeight: 1,
+                fontFamily: 'var(--font-display)',
+                fontSize: '22px',
+                fontWeight: 700,
+                color: '#EAEDF2',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
               }}
             >
               MOTOFIX
             </span>
             <span
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "9px",
-                color: "var(--accent)",
-                letterSpacing: "0.28em",
-                textTransform: "uppercase",
-                lineHeight: 1,
-                marginTop: "3px",
+                fontFamily: 'var(--font-mono)',
+                fontSize: '9px',
+                color: '#2B7FFF',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
               }}
             >
               SERWIS
             </span>
           </a>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav
+            style={{ display: 'flex', alignItems: 'center', gap: '36px' }}
+            className="hidden-mobile"
+          >
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
-                className="font-body text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-accent"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: '#6B7280',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.12em',
+                  textDecoration: 'none',
+                  transition: 'color 0.15s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-4 lg:flex">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '20px',
+              flexShrink: 0,
+            }}
+            className="hidden-mobile"
+          >
             <a
               href="tel:+48123456789"
-              className="font-mono text-[13px] text-text"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '13px',
+                color: '#6B7280',
+                textDecoration: 'none',
+                letterSpacing: '0.05em',
+                transition: 'color 0.15s ease',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
             >
               +48 123 456 789
             </a>
-            <Button asChild className="px-6 py-2.5">
-              <Link href="#kontakt">Umów wizytę</Link>
-            </Button>
+
+            <a
+              href="#kontakt"
+              className="btn-primary"
+              style={{ padding: '10px 22px', fontSize: '13px' }}
+            >
+              Umów wizytę
+            </a>
           </div>
 
           <button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[2px] border border-border text-text lg:hidden"
-            onClick={() => setIsOpen((current) => !current)}
-            aria-expanded={isOpen}
-            aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              display: 'none',
+              flexDirection: 'column',
+              gap: '5px',
+            }}
+            className="show-mobile"
           >
-            {isOpen ? (
-              <X size={22} strokeWidth={1.75} />
-            ) : (
-              <Menu size={22} strokeWidth={1.75} />
-            )}
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  display: 'block',
+                  width: i === 1 ? '20px' : '28px',
+                  height: '2px',
+                  backgroundColor: '#EAEDF2',
+                  transition: 'all 0.2s ease',
+                  marginLeft: i === 1 ? '4px' : '0',
+                }}
+              />
+            ))}
           </button>
         </div>
       </header>
 
       <AnimatePresence>
-        {isOpen ? (
+        {menuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-bg px-6 pb-10 pt-28 lg:hidden"
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: 'fixed',
+              top: '68px',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 99,
+              backgroundColor: '#0E0F11',
+              borderTop: '1px solid #252830',
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '40px 24px',
+              gap: '8px',
+            }}
           >
-            <div className="flex h-full flex-col justify-between">
-              <div className="space-y-5">
-                {navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 12 }}
-                    transition={{ delay: index * 0.05, duration: 0.2 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="block font-display text-5xl uppercase text-text"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+            {navLinks.map((link, i) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: i * 0.06,
+                  duration: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '36px',
+                  fontWeight: 700,
+                  color: '#EAEDF2',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  textDecoration: 'none',
+                  padding: '12px 0',
+                  borderBottom: '1px solid #252830',
+                  transition: 'color 0.15s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#2B7FFF')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#EAEDF2')}
+              >
+                {link.label}
+              </motion.a>
+            ))}
 
-              <div className="space-y-6">
-                <a
-                  href="tel:+48123456789"
-                  className="flex items-center gap-3 font-mono text-base text-text"
-                >
-                  <Phone size={20} strokeWidth={1.5} />
-                  +48 123 456 789
-                </a>
-                <Button asChild className="w-full">
-                  <Link href="#kontakt" onClick={() => setIsOpen(false)}>
-                    Umów wizytę
-                  </Link>
-                </Button>
-              </div>
+            <div
+              style={{
+                marginTop: '32px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+              }}
+            >
+              <a
+                href="tel:+48123456789"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '18px',
+                  color: '#6B7280',
+                  textDecoration: 'none',
+                }}
+              >
+                +48 123 456 789
+              </a>
+              <a
+                href="#kontakt"
+                onClick={() => setMenuOpen(false)}
+                className="btn-primary"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                Umów wizytę
+              </a>
             </div>
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
+
+      <style>{`
+        .hidden-mobile { display: flex !important; }
+        .show-mobile   { display: none  !important; }
+
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none  !important; }
+          .show-mobile   { display: flex  !important; }
+        }
+      `}</style>
     </>
-  );
+  )
 }
+
+export { Navbar }
