@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Russo_One, Barlow, Space_Mono } from "next/font/google";
+import { Barlow, Russo_One, Space_Mono } from "next/font/google";
 import Script from "next/script";
-import "./globals.css";
 
 import CookiesBanner from "@/components/CookiesBanner";
+
+import "./globals.css";
 
 const russoOne = Russo_One({
   weight: "400",
@@ -24,43 +25,77 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://motofix-serwis.vercel.app"),
   title: "MotoFix Serwis Kraków | Warsztat Samochodowy ul. Przemysłowa",
   description:
     "Profesjonalny serwis samochodowy w Krakowie. Wymiana oleju, geometria kół, diagnostyka, blacharstwo. Umów wizytę online. ☎ +48 123 456 789",
-  keywords:
-    "serwis samochodowy Kraków, warsztat samochodowy Kraków, wymiana oleju Kraków, geometria kół Kraków, diagnostyka komputerowa Kraków",
+  keywords: [
+    "serwis samochodowy Kraków",
+    "warsztat samochodowy Kraków",
+    "wymiana oleju Kraków",
+    "geometria kół Kraków",
+    "diagnostyka komputerowa Kraków",
+    "wymiana opon Kraków",
+    "blacharstwo Kraków",
+    "serwis klimatyzacji Kraków",
+    "MotoFix Serwis",
+    "warsztat Kraków Przemysłowa",
+  ],
+  authors: [{ name: "FavMotors Studio" }],
+  creator: "FavMotors Studio",
+  metadataBase: new URL("https://serwis01.vercel.app"),
+  alternates: {
+    canonical: "https://serwis01.vercel.app",
+  },
   openGraph: {
     title: "MotoFix Serwis — Warsztat Samochodowy Kraków",
     description:
-      "Profesjonalny serwis w Krakowie. 15 lat doświadczenia, 3000+ napraw.",
-    url: "https://motofix-serwis.vercel.app",
+      "Profesjonalny serwis w Krakowie. 15 lat doświadczenia, 3000+ napraw. Umów wizytę online.",
+    url: "https://serwis01.vercel.app",
     siteName: "MotoFix Serwis",
-    images: [
-      {
-        url: "/og-image.svg",
-        width: 1200,
-        height: 630,
-        alt: "MotoFix Serwis Kraków",
-      },
-    ],
     locale: "pl_PL",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MotoFix Serwis — Warsztat Samochodowy Kraków",
+      },
+    ],
   },
-  robots: { index: true, follow: true },
-  alternates: { canonical: "https://motofix-serwis.vercel.app" },
+  twitter: {
+    card: "summary_large_image",
+    title: "MotoFix Serwis — Warsztat Samochodowy Kraków",
+    description: "Profesjonalny serwis samochodowy w Krakowie.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
-const localBusinessSchema = {
+const autoRepairSchema = {
   "@context": "https://schema.org",
   "@type": "AutoRepair",
   name: "MotoFix Serwis",
+  image: "https://serwis01.vercel.app/og-image.jpg",
   url: "https://serwis01.vercel.app",
   telephone: "+48123456789",
+  email: "kontakt@motofix-serwis.pl",
+  description:
+    "Profesjonalny serwis samochodowy w Krakowie. Wymiana oleju, geometria kół, diagnostyka komputerowa, wymiana opon, blacharstwo, klimatyzacja.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "ul. Przemysłowa 12",
     addressLocality: "Kraków",
+    addressRegion: "małopolskie",
     postalCode: "30-701",
     addressCountry: "PL",
   },
@@ -69,6 +104,7 @@ const localBusinessSchema = {
     latitude: 50.0647,
     longitude: 19.945,
   },
+  hasMap: "https://maps.google.com/?q=ul.+Przemysłowa+12,+30-701+Kraków",
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -84,11 +120,48 @@ const localBusinessSchema = {
     },
   ],
   priceRange: "zł zł",
+  currenciesAccepted: "PLN",
+  paymentAccepted: "Cash, Credit Card, Bank Transfer",
+  areaServed: {
+    "@type": "City",
+    name: "Kraków",
+  },
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "4.9",
     reviewCount: "127",
+    bestRating: "5",
+    worstRating: "1",
   },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+      },
+      author: {
+        "@type": "Person",
+        name: "Marek K.",
+      },
+      reviewBody:
+        "Wszystko jasno wyjaśnione, termin dotrzymany i auto odebrane jeszcze tego samego dnia.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+      },
+      author: {
+        "@type": "Person",
+        name: "Anna W.",
+      },
+      reviewBody:
+        "Bardzo sprawna diagnostyka i uczciwa wycena. Czuć, że zespół naprawdę zna się na swojej pracy.",
+    },
+  ],
+  sameAs: ["https://maps.google.com/?q=MotoFix+Serwis+Kraków"],
 };
 
 export default function RootLayout({
@@ -98,14 +171,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
+      <head>
+        <Script
+          id="schema-autorepar"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(autoRepairSchema),
+          }}
+        />
+      </head>
       <body
         className={`${russoOne.variable} ${barlow.variable} ${spaceMono.variable}`}
       >
-        <Script
-          id="autrepair-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-        />
         {children}
         <CookiesBanner />
       </body>
