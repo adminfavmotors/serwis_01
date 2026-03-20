@@ -56,9 +56,9 @@ const services = [
 
 export function Services() {
   return (
-    <section id="uslugi" className="section-shell scroll-mt-28 bg-bg">
+    <section id="uslugi" className="section-padding scroll-mt-28 bg-bg">
       <div className="h-1 w-full bg-accent" />
-      <div className="container pt-12">
+      <div className="container-site pt-12">
         <div className="space-y-12">
           <SectionTitle title="NASZE USŁUGI" align="center" />
 
@@ -75,16 +75,16 @@ export function Services() {
                     <div className="rounded-[6px] bg-accent p-[10px] text-bg">
                       <Icon size={24} strokeWidth={1.5} />
                     </div>
-                    <span className="rounded-[2px] bg-[rgba(255,107,0,0.1)] px-[10px] py-1 font-mono text-[13px] text-accent">
+                    <span className="rounded-[2px] bg-accent-glow px-[10px] py-1 font-mono text-[13px] text-accent">
                       {service.price}
                     </span>
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="font-display text-[20px] text-[#F0F0F0]">
+                    <h3 className="font-display text-[20px] text-text">
                       {service.title}
                     </h3>
-                    <p className="text-[14px] leading-[1.6] text-[#888888]">
+                    <p className="text-body-sm text-muted">
                       {service.description}
                     </p>
                   </div>

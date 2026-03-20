@@ -11,10 +11,10 @@ export default function PolitykaPrywatnosci() {
   return (
     <main
       className="min-h-screen"
-      style={{ backgroundColor: "#0D0D0D", color: "#F0F0F0" }}
+      style={{ backgroundColor: "#0E0F11", color: "#EAEDF2" }}
     >
       <div
-        style={{ height: "3px", backgroundColor: "#FF6B00", width: "100%" }}
+        style={{ height: "3px", backgroundColor: "#2B7FFF", width: "100%" }}
       />
 
       <div className="mx-auto px-6 py-24" style={{ maxWidth: "800px" }}>
@@ -23,7 +23,7 @@ export default function PolitykaPrywatnosci() {
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "11px",
-              color: "#FF6B00",
+              color: "#2B7FFF",
               letterSpacing: "0.25em",
               textTransform: "uppercase",
             }}
@@ -34,7 +34,7 @@ export default function PolitykaPrywatnosci() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(36px, 5vw, 56px)",
-              color: "#F0F0F0",
+              color: "#EAEDF2",
               marginTop: "8px",
               lineHeight: 0.95,
             }}
@@ -47,7 +47,7 @@ export default function PolitykaPrywatnosci() {
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "14px",
-              color: "#555555",
+              color: "#6B7280",
               marginTop: "16px",
             }}
           >
@@ -59,7 +59,7 @@ export default function PolitykaPrywatnosci() {
           style={{
             fontFamily: "var(--font-body)",
             fontSize: "15px",
-            color: "#888888",
+            color: "#6B7280",
             lineHeight: 1.8,
             display: "flex",
             flexDirection: "column",
@@ -116,7 +116,7 @@ export default function PolitykaPrywatnosci() {
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: "12px",
-                    color: "#FF6B00",
+                    color: "#2B7FFF",
                     marginTop: "3px",
                     flexShrink: 0,
                   }}
@@ -128,7 +128,7 @@ export default function PolitykaPrywatnosci() {
                     style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "20px",
-                      color: "#F0F0F0",
+                      color: "#EAEDF2",
                       marginBottom: "10px",
                       letterSpacing: "0.03em",
                     }}
@@ -142,14 +142,14 @@ export default function PolitykaPrywatnosci() {
           ))}
         </div>
 
-        <div className="mt-16 pt-8" style={{ borderTop: "1px solid #2A2A2A" }}>
+        <div className="mt-16 pt-8" style={{ borderTop: "1px solid #252830" }}>
           <a
             href="/"
             className="inline-flex items-center gap-2"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "14px",
-              color: "#FF6B00",
+              color: "#2B7FFF",
               textDecoration: "none",
             }}
           >

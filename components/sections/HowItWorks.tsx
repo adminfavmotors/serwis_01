@@ -28,8 +28,8 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="section-shell bg-surface">
-      <div className="container">
+    <section className="section-padding bg-surface">
+      <div className="container-site">
         <div className="space-y-14">
           <SectionTitle
             title="JAK TO DZIAŁA"
@@ -40,7 +40,7 @@ export function HowItWorks() {
           <div className="relative">
             <div
               className="absolute left-[16.5%] top-[64px] hidden w-[67%] lg:block"
-              style={{ borderTop: "2px dashed rgba(255,107,0,0.3)" }}
+              style={{ borderTop: "2px dashed rgba(43,127,255,0.3)" }}
             />
 
             <div className="grid gap-8 lg:grid-cols-3">
@@ -50,14 +50,14 @@ export function HowItWorks() {
                 return (
                   <article
                     key={step.number}
-                    className="relative overflow-hidden rounded-[4px] border border-border bg-[var(--surface-2)] p-8"
+                    className="relative overflow-hidden rounded-[4px] border border-border bg-surface2 p-8"
                   >
                     <p
                       className="pointer-events-none absolute left-4 top-[-20px] select-none font-display leading-none opacity-[0.08]"
                       style={{
                         fontSize: "120px",
                         color: "transparent",
-                        WebkitTextStroke: "1px #FF6B00",
+                        WebkitTextStroke: "1px #2B7FFF",
                       }}
                     >
                       {step.number}
@@ -67,8 +67,8 @@ export function HowItWorks() {
                         <Icon size={24} strokeWidth={1.5} />
                       </div>
                       <div className="space-y-3">
-                        <h3 className="text-[20px] text-white">{step.title}</h3>
-                        <p className="max-w-[320px] text-[14px] leading-[1.7] text-muted">
+                        <h3 className="text-[20px] text-text">{step.title}</h3>
+                        <p className="max-w-[320px] text-body-sm text-muted">
                           {step.description}
                         </p>
                       </div>

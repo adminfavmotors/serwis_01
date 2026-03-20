@@ -40,18 +40,18 @@ export function Navbar() {
       <header
         className="fixed inset-x-0 top-0 z-50"
         style={{
-          background: isScrolled ? "rgba(13,13,13,0.95)" : "#0D0D0D",
-          borderBottom: "1px solid #2A2A2A",
+          background: isScrolled ? "rgba(14,15,17,0.95)" : "#0E0F11",
+          borderBottom: "1px solid var(--border)",
           backdropFilter: isScrolled ? "blur(12px)" : "none",
         }}
       >
-        <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 lg:px-20">
+        <div className="container-site flex h-20 items-center justify-between">
           <a href="#top" className="flex shrink-0 flex-col gap-0 leading-none no-underline">
             <span
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "22px",
-                color: "#F0F0F0",
+                color: "var(--text)",
                 letterSpacing: "0.06em",
                 lineHeight: 1,
               }}
@@ -62,7 +62,7 @@ export function Navbar() {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "9px",
-                color: "#FF6B00",
+                color: "var(--accent)",
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
                 lineHeight: 1,
@@ -88,7 +88,7 @@ export function Navbar() {
           <div className="hidden items-center gap-4 lg:flex">
             <a
               href="tel:+48123456789"
-              className="font-mono text-[13px] text-[#F0F0F0]"
+              className="font-mono text-[13px] text-text"
             >
               +48 123 456 789
             </a>
@@ -99,7 +99,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[2px] border border-border text-white lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-[2px] border border-border text-text lg:hidden"
             onClick={() => setIsOpen((current) => !current)}
             aria-expanded={isOpen}
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
@@ -133,7 +133,7 @@ export function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className="block font-display text-5xl uppercase text-white"
+                      className="block font-display text-5xl uppercase text-text"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
@@ -145,7 +145,7 @@ export function Navbar() {
               <div className="space-y-6">
                 <a
                   href="tel:+48123456789"
-                  className="flex items-center gap-3 font-mono text-base text-white"
+                  className="flex items-center gap-3 font-mono text-base text-text"
                 >
                   <Phone size={20} strokeWidth={1.5} />
                   +48 123 456 789

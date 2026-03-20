@@ -39,7 +39,7 @@ const contactInfo = [
     icon: MapPin,
     title: "Adres",
     content: (
-      <p className="text-base leading-relaxed text-white">
+      <p className="font-body text-body-md text-text">
         ul. Przemysłowa 12, 30-701 Kraków
       </p>
     ),
@@ -48,14 +48,14 @@ const contactInfo = [
     icon: Phone,
     title: "Telefon",
     content: (
-      <p className="text-base leading-relaxed text-white">+48 123 456 789</p>
+      <p className="font-mono text-mono-lg text-text">+48 123 456 789</p>
     ),
   },
   {
     icon: Clock3,
     title: "Godziny",
     content: (
-      <div className="space-y-1 text-base leading-relaxed text-white">
+      <div className="space-y-1 font-mono text-mono-md text-text">
         <p>Pn-Pt 08:00–18:00</p>
         <p>Sob 09:00–14:00</p>
       </div>
@@ -120,8 +120,8 @@ export function ContactForm() {
   });
 
   return (
-    <section id="kontakt" className="section-shell scroll-mt-28 bg-bg">
-      <div className="container">
+    <section id="kontakt" className="section-padding scroll-mt-28 bg-bg">
+      <div className="container-site">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="rounded-[4px] border border-border bg-surface p-6 md:p-8">
             <SectionTitle
@@ -140,11 +140,11 @@ export function ContactForm() {
                     initial={{ scale: 0.7, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent text-bg"
+                    className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent text-white"
                   >
                     <CheckCheck size={40} strokeWidth={1.5} />
                   </motion.div>
-                  <p className="text-[20px] text-white">
+                  <p className="font-body text-[20px] text-text">
                     Dziękujemy! Odezwiemy się wkrótce z potwierdzeniem terminu.
                   </p>
                 </motion.div>
@@ -229,7 +229,7 @@ export function ContactForm() {
 
                   <div
                     className="mt-8 pt-6"
-                    style={{ borderTop: "1px solid #2A2A2A" }}
+                    style={{ borderTop: "1px solid var(--border)" }}
                   >
                     <div className="flex items-start gap-3">
                       <div className="relative mt-0.5 shrink-0">
@@ -244,11 +244,11 @@ export function ContactForm() {
                           className="flex h-5 w-5 cursor-pointer items-center justify-center transition-all duration-150"
                           style={{
                             border: `2px solid ${
-                              rodoValue ? "#FF6B00" : "#2A2A2A"
+                              rodoValue ? "var(--accent)" : "var(--border)"
                             }`,
                             borderRadius: "2px",
                             backgroundColor: rodoValue
-                              ? "rgba(255,107,0,0.1)"
+                              ? "var(--accent-glow)"
                               : "transparent",
                             transition: "all 0.15s ease",
                           }}
@@ -262,7 +262,7 @@ export function ContactForm() {
                             >
                               <polyline
                                 points="2 6 5 9 10 3"
-                                stroke="#FF6B00"
+                                stroke="#2B7FFF"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -279,12 +279,12 @@ export function ContactForm() {
                           style={{
                             fontFamily: "var(--font-body)",
                             fontSize: "13px",
-                            color: "#888888",
+                            color: "var(--muted)",
                           }}
                         >
                           Wyrażam zgodę na przetwarzanie moich danych osobowych
                           przez{" "}
-                          <span style={{ color: "#F0F0F0" }}>
+                          <span style={{ color: "var(--text)" }}>
                             MotoFix Serwis
                           </span>{" "}
                           w celu udzielenia odpowiedzi na przesłane zapytanie,
@@ -294,13 +294,13 @@ export function ContactForm() {
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                              color: "#FF6B00",
+                              color: "var(--accent)",
                               textDecoration: "underline",
                             }}
                           >
                             Polityką Prywatności
                           </a>
-                          . <span style={{ color: "#FF6B00" }}>*</span>
+                          . <span style={{ color: "var(--accent)" }}>*</span>
                         </label>
 
                         {form.formState.errors.rodo && (
@@ -308,7 +308,7 @@ export function ContactForm() {
                             style={{
                               fontFamily: "var(--font-body)",
                               fontSize: "12px",
-                              color: "#FF6B00",
+                              color: "var(--danger)",
                               marginTop: "2px",
                             }}
                           >
@@ -347,7 +347,7 @@ export function ContactForm() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-[4px] border border-border bg-surface p-6 text-white md:p-8">
+            <div className="rounded-[4px] border border-border bg-surface p-6 text-text md:p-8">
               <div className="space-y-5">
                 <p className="font-mono text-sm uppercase tracking-[0.2em] text-accent">
                   Kontakt bezpośredni
@@ -360,7 +360,7 @@ export function ContactForm() {
                       key={item.title}
                       className="flex gap-4 border-t border-border pt-5 first:border-t-0 first:pt-0"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] bg-accent text-bg">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] bg-accent text-white">
                         <Icon size={24} strokeWidth={1.5} />
                       </div>
                       <div className="space-y-1">
@@ -385,7 +385,11 @@ export function ContactForm() {
                   width="100%"
                   height="280"
                   className="block h-[220px] w-full md:h-[280px]"
-                  style={{ border: 0, display: "block" }}
+                  style={{
+                    border: 0,
+                    display: "block",
+                    filter: "invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.1)",
+                  }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -434,7 +438,7 @@ function FormField({
     <div className="space-y-2">
       <label
         htmlFor={htmlFor}
-        className="block text-sm font-semibold uppercase tracking-[0.12em] text-white"
+        className="block text-sm font-semibold uppercase tracking-[0.12em] text-text"
       >
         {label}
       </label>
@@ -448,7 +452,7 @@ function FormField({
 
 function inputClassName(error?: string) {
   return cn(
-    "contact-input min-h-[56px] w-full placeholder:text-muted",
+    "input-base min-h-[56px] w-full placeholder:text-muted",
     error && "error",
   );
 }

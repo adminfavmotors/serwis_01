@@ -62,7 +62,7 @@ function StatCounter({
         style={{
           fontFamily: "var(--font-display)",
           fontSize: "clamp(56px, 7vw, 80px)",
-          color: "#FF6B00",
+          color: "var(--accent)",
           lineHeight: 1,
         }}
       >
@@ -75,7 +75,7 @@ function StatCounter({
           fontSize: "12px",
           textTransform: "uppercase",
           letterSpacing: "0.2em",
-          color: "#888888",
+          color: "var(--muted)",
           marginTop: "8px",
         }}
       >
@@ -89,10 +89,10 @@ export function WhyUs() {
   return (
     <section
       id="o-nas"
-      className="section-shell scroll-mt-28 bg-bg"
-      style={{ borderTop: "3px solid #FF6B00" }}
+      className="section-padding scroll-mt-28 bg-bg"
+      style={{ borderTop: "3px solid var(--accent)" }}
     >
-      <div className="container">
+      <div className="container-site">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
           <div className="space-y-8">
             <SectionTitle
@@ -124,7 +124,7 @@ export function WhyUs() {
                   style={{
                     fontFamily: "var(--font-display)",
                     fontSize: "clamp(56px, 7vw, 80px)",
-                    color: "#FF6B00",
+                    color: "var(--accent)",
                     lineHeight: 1,
                   }}
                 >
@@ -136,7 +136,7 @@ export function WhyUs() {
                     fontSize: "12px",
                     textTransform: "uppercase",
                     letterSpacing: "0.2em",
-                    color: "#888888",
+                    color: "var(--muted)",
                     marginTop: "8px",
                   }}
                 >
@@ -168,8 +168,8 @@ export function WhyUs() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-[20px] text-white">{point.title}</h3>
-                    <p className="text-[14px] leading-[1.7] text-muted">
+                    <h3 className="text-[20px] text-text">{point.title}</h3>
+                    <p className="text-body-sm text-muted">
                       {point.description}
                     </p>
                   </div>

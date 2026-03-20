@@ -10,14 +10,14 @@ const quickLinks = [
 export function Footer() {
   return (
     <footer
-      className="bg-[#080808] text-white"
-      style={{ borderTop: "1px solid #2A2A2A" }}
+      className="bg-bg text-text"
+      style={{ borderTop: "1px solid var(--border)" }}
     >
-      <div className="container py-16">
+      <div className="container-site py-16">
         <div className="grid gap-10 pb-10 md:grid-cols-2 xl:grid-cols-3">
           <div className="space-y-4">
             <div className="leading-none">
-              <p className="font-display text-[40px] uppercase tracking-[0.04em] text-white">
+              <p className="font-display text-[40px] uppercase tracking-[0.04em] text-text">
                 MOTOFIX
               </p>
               <p className="font-body text-sm uppercase tracking-[0.2em] text-accent">
@@ -67,7 +67,7 @@ export function Footer() {
 
         <div
           className="flex flex-col gap-3 pt-4 text-[13px] text-muted md:flex-row md:items-center md:justify-between"
-          style={{ borderTop: "3px solid #FF6B00" }}
+          style={{ borderTop: "3px solid var(--accent)" }}
         >
           <p>© 2026 MotoFix Serwis. Wszelkie prawa zastrzeżone.</p>
           <p>

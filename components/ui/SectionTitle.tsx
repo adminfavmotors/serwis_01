@@ -16,14 +16,19 @@ export function SectionTitle({
   return (
     <div
       className={cn(
-        "space-y-4",
+        "space-y-5",
         align === "center" ? "mx-auto text-center" : "text-left",
         className,
       )}
     >
-      <h2 className="section-title">{title}</h2>
+      <h2 className="text-display-md">{title}</h2>
       {subtitle ? (
-        <p className="mx-auto max-w-2xl text-base leading-[1.7] text-muted">
+        <p
+          className={cn(
+            "text-body-md text-muted",
+            align === "center" && "mx-auto max-w-2xl",
+          )}
+        >
           {subtitle}
         </p>
       ) : null}

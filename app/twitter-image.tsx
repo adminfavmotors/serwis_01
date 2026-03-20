@@ -12,7 +12,7 @@ export default async function Image() {
         style={{
           width: "1200px",
           height: "630px",
-          backgroundColor: "#0D0D0D",
+          backgroundColor: "#0E0F11",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -28,7 +28,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: "6px",
-            backgroundColor: "#FF6B00",
+            backgroundColor: "#2B7FFF",
             display: "flex",
           }}
         />
@@ -40,7 +40,7 @@ export default async function Image() {
             top: "80px",
             bottom: "80px",
             width: "4px",
-            backgroundColor: "#FF6B00",
+            backgroundColor: "#2B7FFF",
             display: "flex",
           }}
         />
@@ -62,10 +62,10 @@ export default async function Image() {
             <span
               style={{
                 fontSize: "14px",
-                color: "#FF6B00",
+                color: "#2B7FFF",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                border: "1px solid rgba(255,107,0,0.4)",
+                border: "1px solid rgba(43,127,255,0.4)",
                 padding: "6px 16px",
                 borderRadius: "2px",
               }}
@@ -78,7 +78,7 @@ export default async function Image() {
             style={{
               fontSize: "88px",
               fontWeight: 900,
-              color: "#F0F0F0",
+              color: "#EAEDF2",
               lineHeight: 0.88,
               letterSpacing: "-0.02em",
               marginBottom: "32px",
@@ -87,14 +87,14 @@ export default async function Image() {
             }}
           >
             <span>MOTOFIX</span>
-            <span style={{ color: "#FF6B00" }}>SERWIS</span>
+            <span style={{ color: "#2B7FFF" }}>SERWIS</span>
           </div>
 
           <div
             style={{
               width: "64px",
               height: "4px",
-              backgroundColor: "#FF6B00",
+              backgroundColor: "#2B7FFF",
               marginBottom: "28px",
               display: "flex",
             }}
@@ -103,7 +103,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: "24px",
-              color: "#888888",
+              color: "#6B7280",
               letterSpacing: "0.02em",
               display: "flex",
             }}
@@ -131,7 +131,7 @@ export default async function Image() {
                   style={{
                     fontSize: "32px",
                     fontWeight: 700,
-                    color: "#FF6B00",
+                    color: "#2B7FFF",
                   }}
                 >
                   {stat.value}
@@ -139,7 +139,7 @@ export default async function Image() {
                 <span
                   style={{
                     fontSize: "12px",
-                    color: "#555555",
+                    color: "#6B7280",
                     letterSpacing: "0.15em",
                   }}
                 >
@@ -156,7 +156,7 @@ export default async function Image() {
             bottom: "40px",
             right: "80px",
             fontSize: "14px",
-            color: "#555555",
+            color: "#6B7280",
             display: "flex",
           }}
         >

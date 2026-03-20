@@ -1,27 +1,30 @@
 import type { Metadata } from "next";
-import { Barlow, Russo_One, Space_Mono } from "next/font/google";
+import { Rajdhani, Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 
 import CookiesBanner from "@/components/CookiesBanner";
 
 import "./globals.css";
 
-const russoOne = Russo_One({
-  weight: "400",
+const rajdhani = Rajdhani({
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
 });
 
-const barlow = Barlow({
-  weight: ["400", "500", "600", "700"],
+const inter = Inter({
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
   variable: "--font-body",
+  display: "swap",
 });
 
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["400", "500"],
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -185,7 +188,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${russoOne.variable} ${barlow.variable} ${spaceMono.variable}`}
+        className={`${rajdhani.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       >
         {children}
         <CookiesBanner />

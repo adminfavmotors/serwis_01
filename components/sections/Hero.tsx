@@ -5,52 +5,46 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
 
+const badges = [
+  { icon: "clock", text: "15 lat doświadczenia" },
+  { icon: "wrench", text: "3000+ napraw" },
+  { icon: "shield", text: "Gwarancja na usługi" },
+  { icon: "zap", text: "24H realizacja" },
+] as const;
+
+const brands = ["VW", "BMW", "TOYOTA", "FORD", "AUDI", "SKODA"];
+
 export function Hero() {
   return (
-    <section
-      id="top"
-      className="relative min-h-screen overflow-hidden"
-      style={{ backgroundColor: "#0D0D0D" }}
-    >
+    <section id="top" className="relative min-h-screen overflow-hidden bg-bg">
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage: `repeating-linear-gradient(
-        -55deg,
-        transparent,
-        transparent 60px,
-        rgba(255,107,0,0.025) 60px,
-        rgba(255,107,0,0.025) 61px
-      )`,
+            -55deg,
+            transparent,
+            transparent 60px,
+            rgba(43,127,255,0.04) 60px,
+            rgba(43,127,255,0.04) 61px
+          )`,
         }}
       />
 
-      <div className="container mx-auto grid min-h-screen grid-cols-1 items-center gap-12 px-6 py-32 lg:grid-cols-2 lg:px-20">
+      <div className="container-site grid min-h-screen grid-cols-1 items-center gap-12 py-32 lg:grid-cols-2">
         <div>
           <div className="mb-6 inline-flex items-center gap-2">
             <span
-              className="font-mono px-3 py-1.5 text-xs uppercase tracking-[0.25em]"
+              className="font-mono px-3 py-1.5 text-xs uppercase tracking-[0.25em] text-accent"
               style={{
-                color: "#FF6B00",
-                border: "1px solid rgba(255,107,0,0.35)",
+                border: "1px solid rgba(43,127,255,0.35)",
                 borderRadius: "2px",
-                fontFamily: "var(--font-mono)",
               }}
             >
-              ⬡ AUTORYZOWANY SERWIS • KRAKÓW
+              AUTORYZOWANY SERWIS • KRAKÓW
             </span>
           </div>
 
-          <h1
-            className="mb-4 uppercase leading-none tracking-tight"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(52px, 8vw, 92px)",
-              lineHeight: 0.88,
-              color: "#F0F0F0",
-              letterSpacing: "-0.01em",
-            }}
-          >
+          <h1 className="mb-4 text-display-xl text-text">
             TWÓJ SAMOCHÓD
             <br />
             W DOBRYCH
@@ -58,12 +52,9 @@ export function Hero() {
             RĘKACH
           </h1>
 
-          <div
-            className="my-6"
-            style={{ width: "64px", height: "4px", backgroundColor: "#FF6B00" }}
-          />
+          <div className="accent-line my-6" />
 
-          <p className="max-w-[520px] text-lg leading-[1.75] text-[#888888]">
+          <p className="max-w-[520px] font-body text-body-lg text-muted">
             Profesjonalny warsztat samochodowy w Krakowie. Szybka diagnostyka,
             uczciwa wycena i naprawy, po których wracasz na drogę bez stresu.
           </p>
@@ -78,20 +69,16 @@ export function Hero() {
           </div>
 
           <div
-            className="mt-8 mb-0 w-full"
-            style={{ height: "1px", backgroundColor: "#2A2A2A" }}
+            className="mb-0 mt-8 w-full"
+            style={{ height: "1px", backgroundColor: "var(--border)" }}
           />
+
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            {[
-              { icon: "clock", text: "15 lat doświadczenia" },
-              { icon: "wrench", text: "3000+ napraw" },
-              { icon: "shield", text: "Gwarancja na usługi" },
-              { icon: "zap", text: "24H realizacja" },
-            ].map((badge, index) => (
-              <div key={index} className="flex items-center gap-2">
+            {badges.map((badge) => (
+              <div key={badge.text} className="flex items-center gap-2">
                 <span
                   className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm"
-                  style={{ backgroundColor: "rgba(255,107,0,0.15)" }}
+                  style={{ backgroundColor: "var(--accent-glow)" }}
                 >
                   {badge.icon === "clock" && (
                     <svg
@@ -99,7 +86,7 @@ export function Hero() {
                       height="14"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#FF6B00"
+                      stroke="#2B7FFF"
                       strokeWidth="2"
                       strokeLinecap="round"
                     >
@@ -113,7 +100,7 @@ export function Hero() {
                       height="14"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#FF6B00"
+                      stroke="#2B7FFF"
                       strokeWidth="2"
                       strokeLinecap="round"
                     >
@@ -126,7 +113,7 @@ export function Hero() {
                       height="14"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#FF6B00"
+                      stroke="#2B7FFF"
                       strokeWidth="2"
                       strokeLinecap="round"
                     >
@@ -139,7 +126,7 @@ export function Hero() {
                       height="14"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#FF6B00"
+                      stroke="#2B7FFF"
                       strokeWidth="2"
                       strokeLinecap="round"
                     >
@@ -147,11 +134,12 @@ export function Hero() {
                     </svg>
                   )}
                 </span>
+
                 <span
                   style={{
                     fontFamily: "var(--font-body)",
                     fontSize: "13px",
-                    color: "#888888",
+                    color: "var(--muted)",
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -162,30 +150,27 @@ export function Hero() {
           </div>
 
           <div
-            className="hidden sm:flex items-center gap-0 mt-6 pt-6"
-            style={{ borderTop: "1px solid #2A2A2A" }}
+            className="mt-6 hidden items-center gap-0 border-t border-border pt-6 sm:flex"
           >
             <span
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "11px",
-                color: "#555555",
+                color: "var(--steel)",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
               }}
             >
-              {["VW", "BMW", "TOYOTA", "FORD", "AUDI", "SKODA"].map(
-                (brand, index, arr) => (
-                  <span key={brand}>
-                    {brand}
-                    {index < arr.length - 1 && (
-                      <span style={{ color: "#FF6B00", margin: "0 10px" }}>
-                        •
-                      </span>
-                    )}
-                  </span>
-                ),
-              )}
+              {brands.map((brand, index) => (
+                <span key={brand}>
+                  {brand}
+                  {index < brands.length - 1 && (
+                    <span style={{ color: "var(--accent)", margin: "0 10px" }}>
+                      •
+                    </span>
+                  )}
+                </span>
+              ))}
             </span>
           </div>
         </div>
@@ -205,68 +190,68 @@ export function Hero() {
             >
               <path
                 d="M80 200 L80 160 Q120 100 200 85 L360 80 Q430 80 480 120 L540 160 L540 200 Z"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="2"
-                fill="rgba(255,107,0,0.06)"
+                fill="rgba(43,127,255,0.06)"
               />
               <path
                 d="M200 85 Q240 45 300 38 Q360 35 400 80"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="2"
                 fill="none"
               />
               <path
                 d="M210 83 Q240 55 295 48 L295 83 Z"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1.5"
-                fill="rgba(255,107,0,0.08)"
+                fill="rgba(43,127,255,0.08)"
               />
               <path
                 d="M300 83 L300 48 Q345 48 390 80 L390 83 Z"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1.5"
-                fill="rgba(255,107,0,0.08)"
+                fill="rgba(43,127,255,0.08)"
               />
               <circle
                 cx="160"
                 cy="200"
                 r="40"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="2"
-                fill="rgba(255,107,0,0.05)"
+                fill="rgba(43,127,255,0.05)"
               />
               <circle
                 cx="160"
                 cy="200"
                 r="22"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1.5"
                 fill="none"
               />
-              <circle cx="160" cy="200" r="5" fill="#FF6B00" />
+              <circle cx="160" cy="200" r="5" fill="#2B7FFF" />
               <circle
                 cx="460"
                 cy="200"
                 r="40"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="2"
-                fill="rgba(255,107,0,0.05)"
+                fill="rgba(43,127,255,0.05)"
               />
               <circle
                 cx="460"
                 cy="200"
                 r="22"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1.5"
                 fill="none"
               />
-              <circle cx="460" cy="200" r="5" fill="#FF6B00" />
+              <circle cx="460" cy="200" r="5" fill="#2B7FFF" />
               <line
                 x1="40"
                 y1="240"
                 x2="560"
                 y2="240"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1"
                 strokeDasharray="8 5"
                 opacity="0.35"
@@ -276,7 +261,7 @@ export function Hero() {
                 y1="148"
                 x2="65"
                 y2="148"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="2"
                 opacity="0.55"
               />
@@ -285,7 +270,7 @@ export function Hero() {
                 y1="163"
                 x2="62"
                 y2="163"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1.5"
                 opacity="0.35"
               />
@@ -294,7 +279,7 @@ export function Hero() {
                 y1="178"
                 x2="58"
                 y2="178"
-                stroke="#FF6B00"
+                stroke="#2B7FFF"
                 strokeWidth="1"
                 opacity="0.25"
               />

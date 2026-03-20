@@ -31,8 +31,8 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="opinie" className="section-shell scroll-mt-28 bg-bg">
-      <div className="container">
+    <section id="opinie" className="section-padding scroll-mt-28 bg-bg">
+      <div className="container-site">
         <div className="space-y-12">
           <SectionTitle
             title="OPINIE KLIENTÓW"
@@ -49,7 +49,7 @@ export function Testimonials() {
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute left-4 top-3 select-none font-display text-8xl leading-none"
-                  style={{ color: "#FF6B00", opacity: 0.08 }}
+                  style={{ color: "var(--accent)", opacity: 0.08 }}
                 >
                   &ldquo;
                 </span>
@@ -66,12 +66,12 @@ export function Testimonials() {
                     ))}
                   </div>
 
-                  <p className="font-body text-[15px] italic leading-[1.7] text-[#C0C0C0]">
+                  <p className="font-body text-[15px] italic leading-[1.7] text-muted">
                     {item.quote}
                   </p>
 
                   <div className="space-y-1">
-                    <p className="font-body text-base font-bold text-[#F0F0F0]">
+                    <p className="font-body text-base font-bold text-text">
                       {item.author}
                     </p>
                     <p className="inline-flex items-center gap-2 font-mono text-[12px] text-accent">
