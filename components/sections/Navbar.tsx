@@ -50,7 +50,7 @@ export function Navbar() {
           <Link
             href="#top"
             className="flex min-w-[120px] flex-col leading-none"
-            aria-label="MotoFix Serwis Krakow"
+            aria-label="MotoFix Serwis Kraków"
           >
             <span className="font-display text-[28px] uppercase tracking-[0.04em]">
               MOTOFIX
@@ -103,9 +103,13 @@ export function Navbar() {
             )}
             onClick={() => setIsOpen((current) => !current)}
             aria-expanded={isOpen}
-            aria-label={isOpen ? "Zamknij menu" : "Otworz menu"}
+            aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
           >
-            {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+            {isOpen ? (
+              <X size={24} strokeWidth={1.5} />
+            ) : (
+              <Menu size={24} strokeWidth={1.5} />
+            )}
           </button>
         </div>
       </header>

@@ -21,8 +21,8 @@ export async function POST(request: Request) {
   }
 
   const text = [
-    "Nowe zgloszenie MotoFix Serwis",
-    `Imie i nazwisko: ${payload.fullName}`,
+    "Nowe zgłoszenie MotoFix Serwis",
+    `Imię i nazwisko: ${payload.fullName}`,
     `Telefon: ${payload.phone}`,
     `Marka i model: ${payload.vehicle}`,
     `Opis problemu: ${payload.problem}`,

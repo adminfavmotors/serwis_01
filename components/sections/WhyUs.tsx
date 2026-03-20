@@ -1,7 +1,13 @@
 "use client";
 
 import { Clock3, Shield, Sparkles, Users } from "lucide-react";
-import { animate, motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef } from "react";
 
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -98,7 +104,7 @@ export function WhyUs() {
           <div className="space-y-8">
             <SectionTitle
               title="DLACZEGO MY"
-              subtitle="Laczymy sprawny serwis, uczciwa komunikacje i tempo, ktore naprawde ulatwia zycie."
+              subtitle="Łączymy sprawny serwis, uczciwą komunikację i tempo, które naprawdę ułatwia życie."
             />
             <div className="grid gap-4 sm:grid-cols-2">
               {stats.map((stat) => (
@@ -117,7 +123,11 @@ export function WhyUs() {
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.35, delay: index * 0.08, ease: "easeOut" }}
+                  transition={{
+                    duration: 0.35,
+                    delay: index * 0.08,
+                    ease: "easeOut",
+                  }}
                   className="flex gap-5 rounded-[8px] border-2 border-white/15 bg-white/5 p-6"
                 >
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-accent text-dark">

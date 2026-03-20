@@ -73,8 +73,8 @@ export function Hero() {
                 className="max-w-[480px] text-lg leading-[1.6] text-white/70"
               >
                 Profesjonalny warsztat samochodowy w Krakowie. Szybka
-                diagnostyka, uczciwa wycena i naprawy, po ktorych wracasz na
-                droge bez stresu.
+                diagnostyka, uczciwa wycena i naprawy, po których wracasz na
+                drogę bez stresu.
               </motion.p>
             </div>
 
@@ -87,7 +87,11 @@ export function Hero() {
               <Button asChild>
                 <Link href="#kontakt">Umów wizytę</Link>
               </Button>
-              <Button variant="secondary" asChild className="border-white text-white shadow-[4px_4px_0_0_#FFFFFF] hover:bg-white hover:text-dark hover:shadow-[6px_6px_0_0_#FFFFFF]">
+              <Button
+                variant="secondary"
+                asChild
+                className="border-white text-white shadow-[4px_4px_0_0_#FFFFFF] hover:bg-white hover:text-dark hover:shadow-[6px_6px_0_0_#FFFFFF]"
+              >
                 <Link href="#uslugi">Zobacz usługi</Link>
               </Button>
             </motion.div>
@@ -121,7 +125,11 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.92, rotate: -8 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.65,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="relative mx-auto w-full max-w-[460px]"
           >
             <div className="absolute -left-4 top-8 h-24 w-24 rounded-[8px] border-4 border-accent bg-dark" />
@@ -156,7 +164,11 @@ export function Hero() {
           <div className="flex h-14 w-8 justify-center rounded-full border-2 border-white/25 p-1">
             <motion.div
               animate={{ y: [0, 18, 0] }}
-              transition={{ duration: 1.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{
+                duration: 1.6,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
               className="h-3 w-3 rounded-full bg-accent"
             />
           </div>

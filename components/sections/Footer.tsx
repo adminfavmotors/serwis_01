@@ -22,8 +22,8 @@ export function Footer() {
               </p>
             </div>
             <p className="max-w-sm text-body text-white/70">
-              Warsztat samochodowy w Krakowie, który stawia na szybka
-              diagnostyke, uczciwa komunikacje i konkretne efekty.
+              Warsztat samochodowy w Krakowie, który stawia na szybką
+              diagnostykę, uczciwą komunikację i konkretne efekty.
             </p>
           </div>
 
@@ -50,7 +50,10 @@ export function Footer() {
             </p>
             <div className="grid gap-3 text-base text-white/75">
               <p>ul. Przemysłowa 12, 30-701 Kraków</p>
-              <a href="tel:+48123456789" className="transition-colors hover:text-accent">
+              <a
+                href="tel:+48123456789"
+                className="transition-colors hover:text-accent"
+              >
                 +48 123 456 789
               </a>
               <p>Pn-Pt 08:00-18:00</p>

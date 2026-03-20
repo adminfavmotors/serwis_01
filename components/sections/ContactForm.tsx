@@ -18,7 +18,10 @@ const contactSchema = z.object({
   phone: z
     .string()
     .min(1, "Podaj numer telefonu.")
-    .refine((value) => phoneRegex.test(value.trim()), "Podaj poprawny polski numer telefonu."),
+    .refine(
+      (value) => phoneRegex.test(value.trim()),
+      "Podaj poprawny polski numer telefonu.",
+    ),
   vehicle: z.string().min(2, "Podaj markę i model pojazdu."),
   problem: z.string().min(10, "Opisz problem w co najmniej 10 znakach."),
   preferredDate: z.string().min(1, "Wybierz preferowany termin."),
@@ -114,7 +117,11 @@ export function ContactForm() {
                     transition={{ duration: 0.35, ease: "easeOut" }}
                     className="mb-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-dark bg-accent shadow-card"
                   >
-                    <CheckCheck size={40} strokeWidth={1.5} className="text-dark" />
+                    <CheckCheck
+                      size={40}
+                      strokeWidth={1.5}
+                      className="text-dark"
+                    />
                   </motion.div>
                   <h3 className="text-h3 font-semibold text-dark">
                     Dziękujemy! Odezwiemy się wkrótce.
@@ -130,7 +137,9 @@ export function ContactForm() {
                       {...form.register("fullName")}
                       type="text"
                       placeholder="Jan Kowalski"
-                      className={inputClassName(form.formState.errors.fullName?.message)}
+                      className={inputClassName(
+                        form.formState.errors.fullName?.message,
+                      )}
                     />
                   </FormField>
 
@@ -142,7 +151,9 @@ export function ContactForm() {
                       {...form.register("phone")}
                       type="tel"
                       placeholder="+48 123 456 789"
-                      className={inputClassName(form.formState.errors.phone?.message)}
+                      className={inputClassName(
+                        form.formState.errors.phone?.message,
+                      )}
                     />
                   </FormField>
 
@@ -154,7 +165,9 @@ export function ContactForm() {
                       {...form.register("vehicle")}
                       type="text"
                       placeholder="Volkswagen Golf VII"
-                      className={inputClassName(form.formState.errors.vehicle?.message)}
+                      className={inputClassName(
+                        form.formState.errors.vehicle?.message,
+                      )}
                     />
                   </FormField>
 
@@ -166,7 +179,9 @@ export function ContactForm() {
                       {...form.register("problem")}
                       rows={5}
                       placeholder="Opisz, co dzieje się z autem."
-                      className={inputClassName(form.formState.errors.problem?.message)}
+                      className={inputClassName(
+                        form.formState.errors.problem?.message,
+                      )}
                     />
                   </FormField>
 
@@ -178,7 +193,9 @@ export function ContactForm() {
                       {...form.register("preferredDate")}
                       type="date"
                       min={today}
-                      className={inputClassName(form.formState.errors.preferredDate?.message)}
+                      className={inputClassName(
+                        form.formState.errors.preferredDate?.message,
+                      )}
                     />
                   </FormField>
 
@@ -193,7 +210,11 @@ export function ContactForm() {
                   >
                     {form.formState.isSubmitting ? (
                       <span className="inline-flex items-center gap-2">
-                        <Loader2 size={18} className="animate-spin" strokeWidth={1.5} />
+                        <Loader2
+                          size={18}
+                          className="animate-spin"
+                          strokeWidth={1.5}
+                        />
                         Wysyłanie...
                       </span>
                     ) : (
@@ -215,7 +236,10 @@ export function ContactForm() {
                   const Icon = item.icon;
 
                   return (
-                    <div key={item.title} className="flex gap-4 border-t-2 border-white/10 pt-5 first:border-t-0 first:pt-0">
+                    <div
+                      key={item.title}
+                      className="flex gap-4 border-t-2 border-white/10 pt-5 first:border-t-0 first:pt-0"
+                    >
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-accent text-dark">
                         <Icon size={24} strokeWidth={1.5} />
                       </div>
@@ -262,7 +286,9 @@ function FormField({
         {label}
       </span>
       {children}
-      {error ? <span className="block text-[13px] text-accent-2">{error}</span> : null}
+      {error ? (
+        <span className="block text-[13px] text-accent-2">{error}</span>
+      ) : null}
     </label>
   );
 }
