@@ -1,115 +1,170 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-export default function CookiesBanner() {
-  const [visible, setVisible] = useState(false);
+function CookiesBanner() {
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     try {
-      const accepted = localStorage.getItem("cookies_accepted");
-      if (!accepted) setVisible(true);
+      const accepted = localStorage.getItem('cookies_accepted')
+      if (!accepted) {
+        setVisible(true)
+      }
     } catch {
-      setVisible(true);
+      setVisible(true)
     }
-  }, []);
+  }, [])
 
   const accept = () => {
     try {
-      localStorage.setItem("cookies_accepted", "true");
+      localStorage.setItem('cookies_accepted', 'true')
     } catch {}
-    setVisible(false);
-  };
 
-  if (!visible) return null;
+    setVisible(false)
+  }
+
+  if (!visible) {
+    return null
+  }
 
   return (
     <div
       role="dialog"
       aria-label="Informacja o plikach cookies"
-      className="fixed bottom-0 left-0 right-0 z-[9999]"
       style={{
-        backgroundColor: "var(--surface)",
-        borderTop: "1px solid var(--border)",
-        borderTopLeftRadius: "0px",
-        borderTopRightRadius: "0px",
+        position: 'fixed',
+        left: '24px',
+        right: '24px',
+        bottom: '24px',
+        zIndex: 9999,
+        display: 'flex',
+        justifyContent: 'center',
+        pointerEvents: 'none',
       }}
     >
       <div
-        style={{ height: "3px", backgroundColor: "var(--accent)", width: "100%" }}
-      />
-
-      <div
-        className="mx-auto flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
         style={{
-          maxWidth: "1280px",
-          padding: "16px 24px",
+          width: '100%',
+          maxWidth: '1180px',
+          backgroundColor: 'rgba(22,24,28,0.96)',
+          border: '1px solid #252830',
+          borderRadius: '4px',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          overflow: 'hidden',
+          pointerEvents: 'auto',
         }}
       >
-        <p
+        <div style={{ height: '3px', backgroundColor: '#2B7FFF', width: '100%' }} />
+
+        <div
+          className="cookies-layout"
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "13px",
-            color: "var(--muted)",
-            lineHeight: 1.6,
-            maxWidth: "680px",
-            margin: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '24px',
+            padding: '18px 22px',
           }}
         >
-          Ta strona używa plików <span style={{ color: "var(--text)" }}>cookies</span>{" "}
-          w celu analizy ruchu i poprawy jakości usług. Kontynuując przeglądanie,
-          wyrażasz zgodę na ich używanie zgodnie z naszą{" "}
-          <a
-            href="/polityka-prywatnosci"
-            style={{ color: "var(--accent)", textDecoration: "underline" }}
-          >
-            Polityką Prywatności
-          </a>
-          .
-        </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '760px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                color: '#2B7FFF',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Cookies i prywatność
+            </span>
 
-        <div className="flex shrink-0 items-center gap-3">
-          <a
-            href="/polityka-prywatnosci"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "13px",
-              color: "var(--muted)",
-              textDecoration: "underline",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Więcej informacji
-          </a>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '13px',
+                color: '#6B7280',
+                lineHeight: 1.65,
+              }}
+            >
+              Ta strona używa plików <span style={{ color: '#EAEDF2' }}>cookies</span> do
+              analizy ruchu i poprawy jakości usług. Kontynuując przeglądanie, akceptujesz
+              ich użycie zgodnie z naszą{' '}
+              <a
+                href="/polityka-prywatnosci"
+                style={{ color: '#2B7FFF', textDecoration: 'underline' }}
+              >
+                Polityką Prywatności
+              </a>
+              .
+            </p>
+          </div>
 
-          <button
-            onClick={accept}
+          <div
+            className="cookies-actions"
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "13px",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              backgroundColor: "var(--accent)",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "2px",
-              padding: "10px 24px",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-              transition: "background-color 0.15s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--accent-dim)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--accent)";
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              flexShrink: 0,
             }}
           >
-            Akceptuję
-          </button>
+            <a
+              href="/polityka-prywatnosci"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '13px',
+                color: '#6B7280',
+                textDecoration: 'none',
+                border: '1px solid #252830',
+                padding: '10px 16px',
+                borderRadius: '2px',
+                transition: 'color 0.15s ease, border-color 0.15s ease',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(event) => {
+                event.currentTarget.style.color = '#EAEDF2'
+                event.currentTarget.style.borderColor = '#2B7FFF'
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.color = '#6B7280'
+                event.currentTarget.style.borderColor = '#252830'
+              }}
+            >
+              Więcej informacji
+            </a>
+
+            <button
+              type="button"
+              onClick={accept}
+              className="btn-primary"
+              style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}
+            >
+              Akceptuję
+            </button>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .cookies-layout {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+
+          .cookies-actions {
+            width: 100% !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+        }
+      `}</style>
     </div>
-  );
+  )
 }
+
+export default CookiesBanner

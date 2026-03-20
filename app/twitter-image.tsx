@@ -1,169 +1,219 @@
-import { ImageResponse } from "next/og";
+import { ImageResponse } from 'next/og'
 
-export const runtime = "edge";
-export const alt = "MotoFix Serwis — Warsztat Samochodowy Kraków";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const runtime = 'edge'
+export const alt = 'MotoFix Serwis — Warsztat Samochodowy Kraków'
+export const size = { width: 1200, height: 630 }
+export const contentType = 'image/png'
 
 export default async function Image() {
   return new ImageResponse(
     (
       <div
         style={{
-          width: "1200px",
-          height: "630px",
-          backgroundColor: "#0E0F11",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          position: "relative",
-          fontFamily: "sans-serif",
+          width: '1200px',
+          height: '630px',
+          display: 'flex',
+          backgroundColor: '#0E0F11',
+          position: 'relative',
+          overflow: 'hidden',
+          fontFamily: 'sans-serif',
         }}
       >
         <div
           style={{
-            position: "absolute",
+            position: 'absolute',
+            inset: 0,
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+
+        <div
+          style={{
+            position: 'absolute',
+            top: '-120px',
+            left: '-80px',
+            width: '520px',
+            height: '520px',
+            borderRadius: '999px',
+            background: 'radial-gradient(circle, rgba(43,127,255,0.14) 0%, transparent 72%)',
+          }}
+        />
+
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '-220px',
+            right: '-120px',
+            width: '680px',
+            height: '680px',
+            borderRadius: '999px',
+            background: 'radial-gradient(circle, rgba(43,127,255,0.10) 0%, transparent 72%)',
+          }}
+        />
+
+        <div
+          style={{
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: "6px",
-            backgroundColor: "#2B7FFF",
-            display: "flex",
+            height: '5px',
+            backgroundColor: '#2B7FFF',
           }}
         />
 
         <div
           style={{
-            position: "absolute",
-            left: "80px",
-            top: "80px",
-            bottom: "80px",
-            width: "4px",
-            backgroundColor: "#2B7FFF",
-            display: "flex",
-          }}
-        />
-
-        <div
-          style={{
-            paddingLeft: "32px",
-            display: "flex",
-            flexDirection: "column",
+            position: 'relative',
+            zIndex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '100%',
+            padding: '78px 84px',
           }}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "24px",
+              display: 'flex',
+              alignItems: 'center',
+              gap: '14px',
+              marginBottom: '24px',
             }}
           >
+            <div
+              style={{
+                width: '26px',
+                height: '2px',
+                backgroundColor: '#2B7FFF',
+              }}
+            />
             <span
               style={{
-                fontSize: "14px",
-                color: "#2B7FFF",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                border: "1px solid rgba(43,127,255,0.4)",
-                padding: "6px 16px",
-                borderRadius: "2px",
+                fontSize: '14px',
+                color: '#2B7FFF',
+                letterSpacing: '0.24em',
+                textTransform: 'uppercase',
               }}
             >
-              ⬡ AUTORYZOWANY SERWIS • KRAKÓW
+              Warsztat samochodowy • Kraków
             </span>
           </div>
 
           <div
             style={{
-              fontSize: "88px",
+              display: 'flex',
+              flexDirection: 'column',
+              fontSize: '96px',
               fontWeight: 900,
-              color: "#EAEDF2",
+              color: '#EAEDF2',
               lineHeight: 0.88,
-              letterSpacing: "-0.02em",
-              marginBottom: "32px",
-              display: "flex",
-              flexDirection: "column",
+              letterSpacing: '-0.03em',
+              marginBottom: '28px',
+              textTransform: 'uppercase',
             }}
           >
-            <span>MOTOFIX</span>
-            <span style={{ color: "#2B7FFF" }}>SERWIS</span>
+            <span>MotoFix</span>
+            <span style={{ color: '#2B7FFF' }}>Serwis</span>
           </div>
 
           <div
             style={{
-              width: "64px",
-              height: "4px",
-              backgroundColor: "#2B7FFF",
-              marginBottom: "28px",
-              display: "flex",
+              width: '64px',
+              height: '4px',
+              backgroundColor: '#2B7FFF',
+              marginBottom: '24px',
             }}
           />
 
           <div
             style={{
-              fontSize: "24px",
-              color: "#6B7280",
-              letterSpacing: "0.02em",
-              display: "flex",
+              display: 'flex',
+              maxWidth: '760px',
+              fontSize: '26px',
+              color: '#6B7280',
+              lineHeight: 1.45,
             }}
           >
-            Warsztat Samochodowy • ul. Przemysłowa 12, Kraków
+            Diagnostyka, serwis i naprawy premium. Uczciwa wycena, szybkie terminy i
+            konkretna komunikacja.
           </div>
 
           <div
             style={{
-              display: "flex",
-              gap: "48px",
-              marginTop: "40px",
+              display: 'flex',
+              gap: '44px',
+              marginTop: '42px',
             }}
           >
             {[
-              { value: "15+", label: "LAT NA RYNKU" },
-              { value: "3000+", label: "NAPRAW" },
-              { value: "4.9★", label: "OCENA GOOGLE" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                style={{ display: "flex", flexDirection: "column" }}
-              >
+              { value: '15+', label: 'lat doświadczenia' },
+              { value: '3000+', label: 'napraw' },
+              { value: '4.9', label: 'ocena klientów' },
+            ].map((item) => (
+              <div key={item.label} style={{ display: 'flex', flexDirection: 'column' }}>
                 <span
                   style={{
-                    fontSize: "32px",
+                    fontSize: '34px',
                     fontWeight: 700,
-                    color: "#2B7FFF",
+                    color: '#EAEDF2',
+                    lineHeight: 1,
                   }}
                 >
-                  {stat.value}
+                  {item.value}
                 </span>
                 <span
                   style={{
-                    fontSize: "12px",
-                    color: "#6B7280",
-                    letterSpacing: "0.15em",
+                    fontSize: '12px',
+                    color: '#2B7FFF',
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    marginTop: '10px',
                   }}
                 >
-                  {stat.label}
+                  {item.label}
                 </span>
               </div>
             ))}
           </div>
-        </div>
 
-        <div
-          style={{
-            position: "absolute",
-            bottom: "40px",
-            right: "80px",
-            fontSize: "14px",
-            color: "#6B7280",
-            display: "flex",
-          }}
-        >
-          serwis01.vercel.app
+          <div
+            style={{
+              position: 'absolute',
+              right: '84px',
+              bottom: '62px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: '10px',
+            }}
+          >
+            <span
+              style={{
+                fontSize: '15px',
+                color: '#EAEDF2',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+              }}
+            >
+              ul. Przemysłowa 12
+            </span>
+            <span
+              style={{
+                fontSize: '13px',
+                color: '#6B7280',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Kraków • serwis01.vercel.app
+            </span>
+          </div>
         </div>
       </div>
     ),
     { ...size },
-  );
+  )
 }
