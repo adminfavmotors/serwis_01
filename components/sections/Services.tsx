@@ -1,46 +1,53 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Crosshair, Droplets, Hammer, MonitorCheck, RotateCcw, Wind } from 'lucide-react'
+import {
+  CarFront,
+  CircleGauge,
+  ScanSearch,
+  Shield,
+  Snowflake,
+  Wrench,
+} from 'lucide-react'
 
 const services = [
   {
-    icon: Droplets,
+    icon: Wrench,
     name: 'Wymiana oleju i filtrów',
     description:
       'Szybki serwis eksploatacyjny z doborem części i płynów do konkretnego silnika.',
     price: 'od 89 zł',
   },
   {
-    icon: Crosshair,
+    icon: CircleGauge,
     name: 'Geometria kół',
     description:
       'Precyzyjne ustawienie zbieżności poprawiające prowadzenie i zużycie opon.',
     price: 'od 120 zł',
   },
   {
-    icon: MonitorCheck,
+    icon: ScanSearch,
     name: 'Diagnostyka komputerowa',
     description:
       'Odczyt błędów, analiza parametrów i wskazanie realnej przyczyny problemu.',
     price: 'od 150 zł',
   },
   {
-    icon: RotateCcw,
+    icon: CarFront,
     name: 'Wymiana i wyważanie opon',
     description:
       'Kompleksowa obsługa sezonowa z kontrolą stanu bieżnika i ciśnienia.',
     price: 'od 40 zł/szt',
   },
   {
-    icon: Hammer,
+    icon: Shield,
     name: 'Naprawy blacharsko-lakiernicze',
     description:
       'Od drobnych poprawek po większe naprawy po kolizjach i uszkodzeniach.',
     price: 'wycena indywidualna',
   },
   {
-    icon: Wind,
+    icon: Snowflake,
     name: 'Serwis klimatyzacji',
     description:
       'Odgrzybianie, szczelność układu i nabijanie czynnika dla komfortu jazdy.',
@@ -142,7 +149,7 @@ function Services() {
                       justifyContent: 'center',
                     }}
                   >
-                    <Icon size={22} color="#2B7FFF" strokeWidth={1.5} />
+                    <Icon size={22} color="#2B7FFF" strokeWidth={1.6} />
                   </div>
 
                   <span
