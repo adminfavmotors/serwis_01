@@ -60,14 +60,14 @@ h1, h2, h3, h4 {
 }
 
 .section-padding {
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 @media (max-width: 768px) {
   .section-padding {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 52px;
+    padding-bottom: 52px;
   }
 }
 

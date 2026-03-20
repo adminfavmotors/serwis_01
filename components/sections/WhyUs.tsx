@@ -66,7 +66,7 @@ function WhyUs() {
           </h2>
         </motion.div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '64px', borderBottom: '1px solid #252830' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '40px', borderBottom: '1px solid #252830' }}>
           <StatCount target={15} suffix="+" label="Lat na rynku" index={0} />
           <div style={{ width: '1px', backgroundColor: '#252830', margin: '32px 40px' }} className="stat-div" />
           <StatCount target={3000} suffix="+" label="Zadowolonych klientów" index={1} />

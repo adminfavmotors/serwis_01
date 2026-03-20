@@ -61,7 +61,7 @@ function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          style={{ marginBottom: '56px' }}
+          style={{ marginBottom: '40px' }}
         >
           <span className="section-label">Czym się zajmujemy</span>
           <h2
@@ -193,7 +193,7 @@ function Services() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            marginTop: '40px',
+            marginTop: '24px',
             padding: '28px 30px',
             border: '1px solid rgba(43,127,255,0.16)',
             borderRadius: '4px',

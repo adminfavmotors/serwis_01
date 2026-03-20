@@ -27,7 +27,7 @@ function Testimonials() {
     <section id="opinie" style={{ backgroundColor: '#16181C', borderTop: '1px solid #252830' }} className="section-padding">
       <div className="container-site">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
-          style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px', marginBottom: '56px' }}>
+          style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px', marginBottom: '40px' }}>
           <div>
             <span className="section-label">Opinie klientów</span>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 700, color: '#EAEDF2', textTransform: 'uppercase', lineHeight: 0.92 }}>
@@ -67,7 +67,7 @@ function Testimonials() {
           ))}
         </div>
 
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }} style={{ marginTop: '40px', textAlign: 'center' }}>
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }} style={{ marginTop: '28px', textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: '#3A4150' }}>
             Opinie pochodzą od prawdziwych klientów serwisu MotoFix • <span style={{ color: '#6B7280' }}>Kraków, ul. Przemysłowa 12</span>
           </p>

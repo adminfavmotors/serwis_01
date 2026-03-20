@@ -141,7 +141,7 @@ function ContactForm() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          style={{ marginBottom: '56px' }}
+          style={{ marginBottom: '40px' }}
         >
           <span className="section-label">Kontakt</span>
           <h2

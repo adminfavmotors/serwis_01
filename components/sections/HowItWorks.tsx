@@ -14,7 +14,7 @@ function HowItWorks() {
     <section style={{ backgroundColor: '#0E0F11', borderTop: '1px solid #252830' }} className="section-padding">
       <div className="container-site">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
-          style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px', marginBottom: '64px' }}>
+          style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px', marginBottom: '44px' }}>
           <div>
             <span className="section-label">Proces</span>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 700, color: '#EAEDF2', textTransform: 'uppercase', lineHeight: 0.92 }}>
@@ -52,7 +52,7 @@ function HowItWorks() {
         </div>
 
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
-          style={{ marginTop: '64px', padding: '28px 32px', backgroundColor: '#16181C', border: '1px solid #252830', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+          style={{ marginTop: '44px', padding: '28px 32px', backgroundColor: '#16181C', border: '1px solid #252830', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span className="glow-dot" />
             <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#EAEDF2' }}>
