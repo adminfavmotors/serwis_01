@@ -46,13 +46,14 @@ export function Navbar() {
         }}
       >
         <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 lg:px-20">
-          <Link href="#top" className="flex flex-col leading-none">
+          <a href="#top" className="flex shrink-0 flex-col gap-0 leading-none no-underline">
             <span
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "24px",
+                fontSize: "22px",
                 color: "#F0F0F0",
-                letterSpacing: "0.05em",
+                letterSpacing: "0.06em",
+                lineHeight: 1,
               }}
             >
               MOTOFIX
@@ -60,15 +61,17 @@ export function Navbar() {
             <span
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "10px",
+                fontSize: "9px",
                 color: "#FF6B00",
-                letterSpacing: "0.25em",
+                letterSpacing: "0.28em",
                 textTransform: "uppercase",
+                lineHeight: 1,
+                marginTop: "3px",
               }}
             >
               SERWIS
             </span>
-          </Link>
+          </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
             {navLinks.map((link) => (
