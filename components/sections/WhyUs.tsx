@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { cn } from "@/lib/utils";
 
 const stats = [
   { value: 15, suffix: "+", label: "LAT NA RYNKU", animate: true },
@@ -45,6 +46,9 @@ const trustPoints = [
   },
 ];
 
+const gearTexture =
+  "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1.4' opacity='1'%3E%3Cpath d='M30 18L33 22L38 21L39 26L44 28L42 33L46 37L42 40L43 46L38 47L36 52L30 50L24 52L22 47L17 46L18 40L14 37L18 33L16 28L21 26L22 21L27 22L30 18Z'/%3E%3Ccircle cx='30' cy='35' r='6'/%3E%3C/g%3E%3C/svg%3E\")";
+
 function useCountUp(target: number, shouldStart: boolean, duration = 1100) {
   const [count, setCount] = useState(0);
 
@@ -84,11 +88,13 @@ function StatCounter({
   suffix,
   label,
   animate,
+  index,
 }: {
   value: number;
   suffix: string;
   label: string;
   animate: boolean;
+  index: number;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
@@ -101,13 +107,23 @@ function StatCounter({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.5 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="space-y-2 rounded-[8px] border-2 border-white/15 bg-white/5 p-6"
+      className={cn(
+        "space-y-3 bg-transparent px-0 py-6 sm:px-6",
+        index < 3 && "border-b border-white/10",
+        index === 0 && "sm:border-r",
+        index === 1 && "sm:border-b",
+        index === 2 && "sm:border-r sm:border-b-0",
+      )}
     >
-      <p className="font-mono text-5xl text-accent md:text-[64px]">
-        {animate ? formatStatValue(count) : formatStatValue(value)}
-        {suffix}
-      </p>
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
+      <div className="flex items-end gap-1">
+        <span className="font-mono text-[56px] font-bold leading-none text-accent md:text-[72px]">
+          {animate ? formatStatValue(count) : formatStatValue(value)}
+        </span>
+        <span className="font-mono text-[28px] font-bold leading-none text-accent md:text-[36px]">
+          {suffix}
+        </span>
+      </div>
+      <p className="text-[13px] uppercase tracking-[0.15em] text-white/60">
         {label}
       </p>
     </motion.div>
@@ -116,7 +132,15 @@ function StatCounter({
 
 export function WhyUs() {
   return (
-    <section id="o-nas" className="section-shell section-dark scroll-mt-28">
+    <section
+      id="o-nas"
+      className="section-shell section-dark scroll-mt-28"
+      style={{
+        backgroundImage: gearTexture,
+        backgroundRepeat: "repeat",
+        backgroundSize: "60px 60px",
+      }}
+    >
       <div className="container">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
           <div className="space-y-8">
@@ -124,9 +148,9 @@ export function WhyUs() {
               title="DLACZEGO MY"
               subtitle="Łączymy sprawny serwis, uczciwą komunikację i tempo, które naprawdę ułatwia życie."
             />
-            <div className="grid gap-4 sm:grid-cols-2">
-              {stats.map((stat) => (
-                <StatCounter key={stat.label} {...stat} />
+            <div className="grid rounded-[8px] border border-white/10 bg-white/5 sm:grid-cols-2">
+              {stats.map((stat, index) => (
+                <StatCounter key={stat.label} index={index} {...stat} />
               ))}
             </div>
           </div>
