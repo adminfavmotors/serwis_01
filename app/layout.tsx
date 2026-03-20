@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "MotoFix Serwis — Warsztat Samochodowy Kraków",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MotoFix Serwis — Warsztat Samochodowy Kraków",
     description: "Profesjonalny serwis samochodowy w Krakowie.",
-    images: ["/og-image.jpg"],
+    images: ["/twitter-image"],
   },
   robots: {
     index: true,
@@ -85,7 +85,7 @@ const autoRepairSchema = {
   "@context": "https://schema.org",
   "@type": "AutoRepair",
   name: "MotoFix Serwis",
-  image: "https://serwis01.vercel.app/og-image.jpg",
+  image: "https://serwis01.vercel.app/opengraph-image",
   url: "https://serwis01.vercel.app",
   telephone: "+48123456789",
   email: "kontakt@motofix-serwis.pl",
