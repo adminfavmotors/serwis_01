@@ -1,55 +1,67 @@
 "use client";
 
-import { CheckCheck, Clock3, Loader2, MapPin, Phone } from "lucide-react";
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import { CheckCheck, Clock3, Loader2, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/Button";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { cn } from "@/lib/utils";
 
-const phoneRegex = /^(?:\+48)?[\s-]?(?:\d[\s-]?){9}$/;
-
-const contactSchema = z.object({
-  fullName: z.string().min(2, "Podaj imię i nazwisko."),
+const formSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "Imię i nazwisko musi mieć co najmniej 2 znaki" }),
   phone: z
     .string()
-    .min(1, "Podaj numer telefonu.")
-    .refine(
-      (value) => phoneRegex.test(value.trim()),
-      "Podaj poprawny polski numer telefonu.",
-    ),
-  vehicle: z.string().min(2, "Podaj markę i model pojazdu."),
-  problem: z.string().min(10, "Opisz problem w co najmniej 10 znakach."),
-  preferredDate: z.string().min(1, "Wybierz preferowany termin."),
-  consent: z
+    .min(9, { message: "Podaj prawidłowy numer telefonu" })
+    .regex(/^[\d\s\+\-\(\)]{9,}$/, {
+      message: "Nieprawidłowy format numeru telefonu",
+    }),
+  car: z.string().min(2, { message: "Podaj markę i model pojazdu" }),
+  problem: z
+    .string()
+    .min(10, { message: "Opis musi mieć co najmniej 10 znaków" }),
+  date: z.string().min(1, { message: "Wybierz preferowany termin" }),
+  rodo: z
     .boolean()
-    .refine(
-      (value) => value,
-      "Musisz wyrazić zgodę na przetwarzanie danych osobowych.",
-    ),
+    .refine((val) => val === true, {
+      message: "Zgoda na przetwarzanie danych jest wymagana",
+    }),
 });
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+type ContactFormValues = z.infer<typeof formSchema>;
 
 const contactInfo = [
   {
     icon: MapPin,
     title: "Adres",
-    value: "ul. Przemysłowa 12, 30-701 Kraków",
+    content: (
+      <p className="text-base leading-relaxed text-white">
+        ul. Przemysłowa 12, 30-701 Kraków
+      </p>
+    ),
   },
   {
     icon: Phone,
     title: "Telefon",
-    value: "+48 123 456 789",
+    content: (
+      <p className="text-base leading-relaxed text-white">+48 123 456 789</p>
+    ),
   },
   {
     icon: Clock3,
     title: "Godziny",
-    value: "Pn-Pt 08:00-18:00, Sob 09:00-14:00",
+    content: (
+      <div className="space-y-1 text-base leading-relaxed text-white">
+        <p>Pn-Pt 08:00–18:00</p>
+        <p>Sob 09:00–14:00</p>
+      </div>
+    ),
   },
 ];
 
@@ -63,14 +75,14 @@ export function ContactForm() {
     .split("T")[0];
 
   const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: "",
+      name: "",
       phone: "",
-      vehicle: "",
+      car: "",
       problem: "",
-      preferredDate: "",
-      consent: false,
+      date: "",
+      rodo: false,
     },
   });
 
@@ -83,20 +95,26 @@ export function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          fullName: values.name,
+          phone: values.phone,
+          vehicle: values.car,
+          problem: values.problem,
+          preferredDate: values.date,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Nie udało się wysłać formularza.");
+        throw new Error(
+          "Wystąpił błąd. Spróbuj ponownie lub zadzwoń do nas bezpośrednio.",
+        );
       }
 
       setIsSubmitted(true);
       form.reset();
-    } catch (error) {
+    } catch {
       setSubmitError(
-        error instanceof Error
-          ? error.message
-          : "Wystąpił błąd. Spróbuj ponownie za chwilę.",
+        "Wystąpił błąd. Spróbuj ponownie lub zadzwoń do nas bezpośrednio.",
       );
     }
   });
@@ -126,62 +144,68 @@ export function ContactForm() {
                   >
                     <CheckCheck size={40} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="text-[20px] text-white">
-                    Dziękujemy! Odezwiemy się wkrótce.
-                  </h3>
+                  <p className="text-[20px] text-white">
+                    Dziękujemy! Odezwiemy się wkrótce z potwierdzeniem terminu.
+                  </p>
                 </motion.div>
               ) : (
                 <form className="space-y-5" onSubmit={onSubmit} noValidate>
                   <FormField
                     label="Imię i nazwisko"
-                    error={form.formState.errors.fullName?.message}
+                    htmlFor="name"
+                    error={form.formState.errors.name?.message}
                   >
                     <input
-                      {...form.register("fullName")}
+                      {...form.register("name")}
+                      id="name"
                       type="text"
-                      placeholder="Jan Kowalski"
-                      className={inputClassName(
-                        form.formState.errors.fullName?.message,
-                      )}
+                      placeholder="np. Jan Kowalski"
+                      aria-label="Imię i nazwisko"
+                      className={inputClassName(form.formState.errors.name?.message)}
                     />
                   </FormField>
 
                   <FormField
                     label="Numer telefonu"
+                    htmlFor="phone"
                     error={form.formState.errors.phone?.message}
                   >
                     <input
                       {...form.register("phone")}
+                      id="phone"
                       type="tel"
-                      placeholder="+48 123 456 789"
-                      className={inputClassName(
-                        form.formState.errors.phone?.message,
-                      )}
+                      placeholder="np. +48 600 000 000"
+                      aria-label="Numer telefonu"
+                      className={inputClassName(form.formState.errors.phone?.message)}
                     />
                   </FormField>
 
                   <FormField
                     label="Marka i model pojazdu"
-                    error={form.formState.errors.vehicle?.message}
+                    htmlFor="car"
+                    error={form.formState.errors.car?.message}
                   >
                     <input
-                      {...form.register("vehicle")}
+                      {...form.register("car")}
+                      id="car"
                       type="text"
-                      placeholder="Volkswagen Golf VII"
-                      className={inputClassName(
-                        form.formState.errors.vehicle?.message,
-                      )}
+                      placeholder="np. Volkswagen Golf VII 1.6 TDI"
+                      aria-label="Marka i model pojazdu"
+                      className={inputClassName(form.formState.errors.car?.message)}
                     />
                   </FormField>
 
                   <FormField
                     label="Opis problemu"
+                    htmlFor="problem"
                     error={form.formState.errors.problem?.message}
                   >
                     <textarea
                       {...form.register("problem")}
+                      id="problem"
                       rows={5}
-                      placeholder="Opisz, co dzieje się z autem."
+                      placeholder="Opisz objawy lub usterkę, którą chcesz naprawić..."
+                      aria-label="Opis problemu z pojazdem"
                       className={inputClassName(
                         form.formState.errors.problem?.message,
                       )}
@@ -190,28 +214,34 @@ export function ContactForm() {
 
                   <FormField
                     label="Preferowany termin"
-                    error={form.formState.errors.preferredDate?.message}
+                    htmlFor="date"
+                    error={form.formState.errors.date?.message}
                   >
                     <input
-                      {...form.register("preferredDate")}
+                      {...form.register("date")}
+                      id="date"
                       type="date"
                       min={today}
-                      className={inputClassName(
-                        form.formState.errors.preferredDate?.message,
-                      )}
+                      aria-label="Preferowany termin wizyty"
+                      className={inputClassName(form.formState.errors.date?.message)}
                     />
                   </FormField>
 
                   <div className="space-y-2">
-                    <label className="flex cursor-pointer items-start gap-3">
+                    <label
+                      htmlFor="rodo"
+                      className="flex cursor-pointer items-start gap-3"
+                    >
                       <input
-                        {...form.register("consent")}
+                        {...form.register("rodo")}
+                        id="rodo"
                         type="checkbox"
                         className="mt-1 h-4 w-4 accent-[#FF6B00]"
                       />
                       <span className="text-sm text-muted">
                         Wyrażam zgodę na przetwarzanie moich danych osobowych
-                        przez MotoFix Serwis w celu odpowiedzi na zapytanie,
+                        przez MotoFix Serwis{" "}
+                        w celu udzielenia odpowiedzi na przesłane zapytanie,
                         zgodnie z{" "}
                         <a
                           href="/polityka-prywatnosci"
@@ -219,12 +249,12 @@ export function ContactForm() {
                         >
                           Polityką Prywatności
                         </a>
-                        . *
+                        . Zgoda jest wymagana.*
                       </span>
                     </label>
-                    {form.formState.errors.consent?.message ? (
+                    {form.formState.errors.rodo?.message ? (
                       <p className="text-[13px] text-accent">
-                        {form.formState.errors.consent.message}
+                        {form.formState.errors.rodo.message}
                       </p>
                     ) : null}
                   </div>
@@ -277,9 +307,7 @@ export function ContactForm() {
                         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-muted">
                           {item.title}
                         </p>
-                        <p className="text-base leading-relaxed text-white">
-                          {item.value}
-                        </p>
+                        {item.content}
                       </div>
                     </div>
                   );
@@ -333,23 +361,26 @@ export function ContactForm() {
 
 function FormField({
   label,
+  htmlFor,
   error,
   children,
 }: {
   label: string;
+  htmlFor: string;
   error?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
-    <label className="block space-y-2">
-      <span className="text-sm font-semibold uppercase tracking-[0.12em] text-white">
+    <div className="space-y-2">
+      <label
+        htmlFor={htmlFor}
+        className="block text-sm font-semibold uppercase tracking-[0.12em] text-white"
+      >
         {label}
-      </span>
+      </label>
       {children}
-      {error ? (
-        <span className="block text-[13px] text-accent">{error}</span>
-      ) : null}
-    </label>
+      {error ? <span className="block text-[13px] text-accent">{error}</span> : null}
+    </div>
   );
 }
 
