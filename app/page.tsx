@@ -1,3 +1,4 @@
+import { ContactForm } from "@/components/sections/ContactForm";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Navbar } from "@/components/sections/Navbar";
@@ -15,6 +16,7 @@ export default function Home() {
         <WhyUs />
         <HowItWorks />
         <Testimonials />
+        <ContactForm />
       </main>
     </>
   );
