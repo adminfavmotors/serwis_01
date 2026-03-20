@@ -1,99 +1,278 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import {
-  Crosshair,
   Droplets,
-  Hammer,
+  Crosshair,
   MonitorCheck,
   RotateCcw,
+  Hammer,
   Wind,
-} from "lucide-react";
-
-import { SectionTitle } from "@/components/ui/SectionTitle";
+} from 'lucide-react'
 
 const services = [
   {
     icon: Droplets,
-    title: "Wymiana oleju i filtrów",
+    name: 'Wymiana oleju i filtrów',
     description:
-      "Szybki serwis eksploatacyjny z doborem części i płynów do konkretnego silnika.",
-    price: "od 89 zł",
+      'Szybki serwis eksploatacyjny z doborem części i płynów do konkretnego silnika.',
+    price: 'od 89 zł',
   },
   {
     icon: Crosshair,
-    title: "Geometria kół",
+    name: 'Geometria kół',
     description:
-      "Precyzyjne ustawienie zbieżności poprawiające prowadzenie i zużycie opon.",
-    price: "od 120 zł",
+      'Precyzyjne ustawienie zbieżności poprawiające prowadzenie i zużycie opon.',
+    price: 'od 120 zł',
   },
   {
     icon: MonitorCheck,
-    title: "Diagnostyka komputerowa",
+    name: 'Diagnostyka komputerowa',
     description:
-      "Odczyt błędów, analiza parametrów i wskazanie realnej przyczyny problemu.",
-    price: "od 150 zł",
+      'Odczyt błędów, analiza parametrów i wskazanie realnej przyczyny problemu.',
+    price: 'od 150 zł',
   },
   {
     icon: RotateCcw,
-    title: "Wymiana i wyważanie opon",
+    name: 'Wymiana i wyważanie opon',
     description:
-      "Kompleksowa obsługa sezonowa z kontrolą stanu bieżnika i ciśnienia.",
-    price: "od 40 zł/szt",
+      'Kompleksowa obsługa sezonowa z kontrolą stanu bieżnika i ciśnienia.',
+    price: 'od 40 zł/szt',
   },
   {
     icon: Hammer,
-    title: "Naprawy blacharsko-lakiernicze",
+    name: 'Naprawy blacharsko-lakiernicze',
     description:
-      "Od drobnych poprawek po większe naprawy po kolizjach i uszkodzeniach parkingowych.",
-    price: "wycena indywidualna",
+      'Od drobnych poprawek po większe naprawy po kolizjach i uszkodzeniach.',
+    price: 'wycena indywidualna',
   },
   {
     icon: Wind,
-    title: "Serwis klimatyzacji",
+    name: 'Serwis klimatyzacji',
     description:
-      "Odgrzybianie, szczelność układu i nabijanie czynnika dla pełnego komfortu jazdy.",
-    price: "od 199 zł",
+      'Odgrzybianie, szczelność układu i nabijanie czynnika dla komfortu jazdy.',
+    price: 'od 199 zł',
   },
-];
+]
 
-export function Services() {
+export default function Services() {
   return (
-    <section id="uslugi" className="section-padding scroll-mt-28 bg-bg">
-      <div className="h-1 w-full bg-accent" />
-      <div className="container-site pt-12">
-        <div className="space-y-12">
-          <SectionTitle title="NASZE USŁUGI" align="center" />
+    <section
+      id="uslugi"
+      style={{
+        backgroundColor: '#0E0F11',
+        borderTop: '1px solid #252830',
+      }}
+      className="section-padding"
+    >
+      <div className="container-site">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          style={{ marginBottom: '56px' }}
+        >
+          <span className="section-label">Czym się zajmujemy</span>
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(36px, 5vw, 64px)',
+              fontWeight: 700,
+              color: '#EAEDF2',
+              textTransform: 'uppercase',
+              lineHeight: 0.92,
+              maxWidth: '480px',
+            }}
+          >
+            NASZE
+            <br />
+            USŁUGI
+          </h2>
+        </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {services.map((service) => {
-              const Icon = service.icon;
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '1px',
+            backgroundColor: '#252830',
+            border: '1px solid #252830',
+            borderRadius: '4px',
+            overflow: 'hidden',
+          }}
+        >
+          {services.map((service, index) => {
+            const Icon = service.icon
 
-              return (
-                <article
-                  key={service.title}
-                  className="flex h-full flex-col rounded-[4px] border border-border border-l-[3px] border-l-accent bg-surface p-7 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-accent"
+            return (
+              <motion.div
+                key={service.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: (index % 3) * 0.08,
+                  ease: [0.22, 1, 0.36, 1] as const,
+                }}
+                style={{
+                  backgroundColor: '#16181C',
+                  padding: '32px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
+                  borderLeft: '3px solid transparent',
+                  transition: 'background-color 0.2s ease, border-color 0.2s ease',
+                  cursor: 'default',
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLDivElement
+                  el.style.backgroundColor = '#1E2026'
+                  el.style.borderLeftColor = '#2B7FFF'
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLDivElement
+                  el.style.backgroundColor = '#16181C'
+                  el.style.borderLeftColor = 'transparent'
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                  }}
                 >
-                  <div className="mb-8 flex items-start justify-between gap-4">
-                    <div className="rounded-[6px] bg-accent p-[10px] text-bg">
-                      <Icon size={24} strokeWidth={1.5} />
-                    </div>
-                    <span className="rounded-[2px] bg-accent-glow px-[10px] py-1 font-mono text-[13px] text-accent">
-                      {service.price}
-                    </span>
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      backgroundColor: 'rgba(43,127,255,0.1)',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon size={22} color="#2B7FFF" strokeWidth={1.5} />
                   </div>
 
-                  <div className="space-y-4">
-                    <h3 className="font-display text-[20px] text-text">
-                      {service.title}
-                    </h3>
-                    <p className="text-body-sm text-muted">
-                      {service.description}
-                    </p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '12px',
+                      color: '#2B7FFF',
+                      backgroundColor: 'rgba(43,127,255,0.08)',
+                      padding: '4px 10px',
+                      borderRadius: '2px',
+                      letterSpacing: '0.04em',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {service.price}
+                  </span>
+                </div>
+
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '20px',
+                    fontWeight: 700,
+                    color: '#EAEDF2',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.03em',
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {service.name}
+                </h3>
+
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px',
+                    color: '#6B7280',
+                    lineHeight: 1.6,
+                    marginTop: 'auto',
+                  }}
+                >
+                  {service.description}
+                </p>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    marginTop: '8px',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '12px',
+                      color: '#3A4150',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      transition: 'color 0.15s ease',
+                    }}
+                  >
+                    Dowiedz się więcej
+                  </span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#3A4150"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          style={{
+            marginTop: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px',
+            paddingTop: '32px',
+            borderTop: '1px solid #252830',
+          }}
+        >
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '15px',
+              color: '#6B7280',
+            }}
+          >
+            Nie widzisz swojej usługi?{' '}
+            <span style={{ color: '#EAEDF2' }}>
+              Zadzwoń — wycenimy każdą naprawę.
+            </span>
+          </p>
+          <a href="#kontakt" className="btn-secondary" style={{ flexShrink: 0 }}>
+            Umów wizytę
+          </a>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }
+
+export { Services }
