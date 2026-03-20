@@ -49,17 +49,14 @@ export function Navbar() {
         >
           <Link
             href="#top"
-            className="flex min-w-[120px] flex-col leading-none"
+            className="inline-flex min-w-[126px] flex-col items-start rounded-[4px] bg-dark px-3 py-2 leading-none text-white"
             aria-label="MotoFix Serwis Kraków"
           >
-            <span className="font-display text-[28px] uppercase tracking-[0.04em]">
+            <span className="block font-display text-[26px] uppercase leading-none tracking-[0.04em] text-white">
               MOTOFIX
             </span>
             <span
-              className={cn(
-                "font-body text-[11px] uppercase tracking-[0.24em]",
-                isScrolled ? "text-white/60" : "text-muted",
-              )}
+              className="mt-1 block font-body text-[11px] uppercase leading-none tracking-[0.2em] text-accent"
             >
               SERWIS
             </span>

@@ -58,9 +58,6 @@ export function Hero() {
                   >
                     <h1 className="font-display text-display-hero-mobile uppercase leading-[0.9] tracking-[-0.02em] text-white md:text-display-hero">
                       {line}
-                      {index === headingLines.length - 1 ? (
-                        <span className="sr-only"> Kraków</span>
-                      ) : null}
                     </h1>
                   </motion.div>
                 ))}
