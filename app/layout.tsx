@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Sans, Space_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -46,8 +47,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "AutoRepair",
   name: "MotoFix Serwis",
-  image: "https://motofix-serwis.vercel.app/og-image.jpg",
-  url: "https://motofix-serwis.vercel.app",
+  url: "https://serwis01.vercel.app",
   telephone: "+48123456789",
   address: {
     "@type": "PostalAddress",
@@ -93,11 +93,10 @@ export default function RootLayout({
       <body
         className={`${bebasNeue.variable} ${dmSans.variable} ${spaceMono.variable} bg-bg font-body text-body text-dark antialiased`}
       >
-        <script
+        <Script
+          id="autrepair-schema"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
         {children}
       </body>
