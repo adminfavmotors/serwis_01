@@ -1,38 +1,44 @@
-"use client";
+'use client'
 
-import { Clock3, Shield, Sparkles, Users } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { ShieldCheck, Clock, Wrench, ThumbsUp } from 'lucide-react'
 
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { useCountUp } from "@/hooks/useCountUp";
-import { cn } from "@/lib/utils";
+function useCountUp(target: number, duration: number = 2000) {
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLDivElement>(null)
+  const started = useRef(false)
 
-const trustPoints = [
-  {
-    icon: Shield,
-    title: "Jasne zasady napraw",
-    description:
-      "Najpierw diagnozujemy i wyceniamy. Bez niespodzianek przy odbiorze auta.",
-  },
-  {
-    icon: Sparkles,
-    title: "Nowoczesne zaplecze",
-    description:
-      "Pracujemy na sprawdzonym sprzęcie diagnostycznym i dobrych częściach.",
-  },
-  {
-    icon: Users,
-    title: "Zespół z doświadczeniem",
-    description:
-      "Mechanicy i doradcy, którzy potrafią wytłumaczyć problem prostym językiem.",
-  },
-  {
-    icon: Clock3,
-    title: "Szybkie terminy",
-    description:
-      "Dbamy o sprawny proces, dlatego większość prac zamykamy nawet w 24 godziny.",
-  },
-];
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true
+          const startTime = Date.now()
+          const tick = () => {
+            const elapsed = Date.now() - startTime
+            const progress = Math.min(elapsed / duration, 1)
+            const eased = 1 - Math.pow(1 - progress, 3)
+            setCount(Math.floor(eased * target))
+            if (progress < 1) requestAnimationFrame(tick)
+            else setCount(target)
+          }
+          requestAnimationFrame(tick)
+        }
+      },
+      { threshold: 0.3 },
+    )
+
+    const el = ref.current
+    if (el) observer.observe(el)
+
+    return () => {
+      if (el) observer.unobserve(el)
+    }
+  }, [target, duration])
+
+  return { count, ref }
+}
 
 function StatCounter({
   target,
@@ -40,145 +46,358 @@ function StatCounter({
   label,
   index,
 }: {
-  target: number;
-  suffix: string;
-  label: string;
-  index: number;
+  target: number
+  suffix: string
+  label: string
+  index: number
 }) {
-  const { count, elementRef } = useCountUp(target, 2000);
+  const { count, ref } = useCountUp(target, 2200)
 
   return (
-    <div
-      ref={elementRef}
-      className={cn(
-        "space-y-2 px-0 py-6 sm:px-6",
-        index < 3 && "border-b border-border",
-        index === 0 && "sm:border-r sm:border-border",
-        index === 2 && "sm:border-r sm:border-border sm:border-b-0",
-        index === 1 && "sm:border-b sm:border-border",
-      )}
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '6px',
+        padding: '32px 0',
+        flex: 1,
+        minWidth: '140px',
+      }}
     >
-      <div
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "clamp(56px, 7vw, 80px)",
-          color: "var(--accent)",
-          lineHeight: 1,
-        }}
-      >
-        {count}
-        {suffix}
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'clamp(48px, 6vw, 72px)',
+            fontWeight: 500,
+            color: '#EAEDF2',
+            lineHeight: 1,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          {count.toLocaleString('pl-PL')}
+        </span>
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'clamp(24px, 3vw, 36px)',
+            color: '#2B7FFF',
+            lineHeight: 1,
+          }}
+        >
+          {suffix}
+        </span>
       </div>
-      <div
+      <span
         style={{
-          fontFamily: "var(--font-body)",
-          fontSize: "12px",
-          textTransform: "uppercase",
-          letterSpacing: "0.2em",
-          color: "var(--muted)",
-          marginTop: "8px",
+          fontFamily: 'var(--font-body)',
+          fontSize: '12px',
+          color: '#6B7280',
+          textTransform: 'uppercase',
+          letterSpacing: '0.18em',
         }}
       >
         {label}
-      </div>
-    </div>
-  );
+      </span>
+    </motion.div>
+  )
 }
 
-export function WhyUs() {
+function StatStatic({
+  value,
+  label,
+  index,
+}: {
+  value: string
+  label: string
+  index: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '6px',
+        padding: '32px 0',
+        flex: 1,
+        minWidth: '140px',
+      }}
+    >
+      <span
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 'clamp(48px, 6vw, 72px)',
+          fontWeight: 500,
+          color: '#EAEDF2',
+          lineHeight: 1,
+          letterSpacing: '-0.02em',
+        }}
+      >
+        {value}
+        <span style={{ color: '#2B7FFF', fontSize: '0.5em' }}></span>
+      </span>
+      <span
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '12px',
+          color: '#6B7280',
+          textTransform: 'uppercase',
+          letterSpacing: '0.18em',
+        }}
+      >
+        {label}
+      </span>
+    </motion.div>
+  )
+}
+
+const trustPoints = [
+  {
+    icon: ShieldCheck,
+    title: 'Jasne zasady napraw',
+    description:
+      'Najpierw diagnozujemy i wyceniamy. Bez niespodzianek przy odbiorze auta.',
+  },
+  {
+    icon: Wrench,
+    title: 'Nowoczesne zaplecze',
+    description:
+      'Pracujemy na sprawdzonym sprzęcie diagnostycznym i dobrych częściach.',
+  },
+  {
+    icon: ThumbsUp,
+    title: 'Zespół z doświadczeniem',
+    description:
+      'Mechanicy i doradcy, którzy potrafią wytłumaczyć problem prostym językiem.',
+  },
+  {
+    icon: Clock,
+    title: 'Szybkie terminy',
+    description:
+      'Dbamy o sprawny proces, dlatego większość prac zamykamy nawet w 24 godziny.',
+  },
+]
+
+export default function WhyUs() {
   return (
     <section
       id="o-nas"
-      className="section-padding scroll-mt-28 bg-bg"
-      style={{ borderTop: "3px solid var(--accent)" }}
+      style={{
+        backgroundColor: '#16181C',
+        borderTop: '1px solid #252830',
+        borderBottom: '1px solid #252830',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+      className="section-padding"
     >
-      <div className="container-site">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
-          <div className="space-y-8">
-            <SectionTitle
-              title="DLACZEGO MY"
-              subtitle="Łączymy sprawny serwis, uczciwą komunikację i tempo, które naprawdę ułatwia życie."
-            />
-            <div className="grid border-y border-border sm:grid-cols-2">
-              <StatCounter target={15} suffix="+" label="LAT NA RYNKU" index={0} />
-              <StatCounter
-                target={3000}
-                suffix="+"
-                label="ZADOWOLONYCH KLIENTÓW"
-                index={1}
-              />
-              <StatCounter
-                target={98}
-                suffix="%"
-                label="POZYTYWNYCH OPINII"
-                index={2}
-              />
+      <div
+        className="grid-texture"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          opacity: 0.4,
+        }}
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '-10%',
+          transform: 'translateY(-50%)',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(43,127,255,0.06) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div className="container-site" style={{ position: 'relative', zIndex: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          style={{ marginBottom: '16px' }}
+        >
+          <span className="section-label">Dlaczego my</span>
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(36px, 5vw, 64px)',
+              fontWeight: 700,
+              color: '#EAEDF2',
+              textTransform: 'uppercase',
+              lineHeight: 0.92,
+            }}
+          >
+            LICZBY MÓWIĄ
+            <br />
+            <span style={{ color: '#2B7FFF' }}>ZA SIEBIE</span>
+          </h2>
+        </motion.div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0',
+            marginBottom: '64px',
+            borderBottom: '1px solid #252830',
+          }}
+        >
+          <StatCounter target={15} suffix="+" label="Lat na rynku" index={0} />
+          <div
+            style={{
+              width: '1px',
+              backgroundColor: '#252830',
+              margin: '32px 40px 32px 40px',
+              flexShrink: 0,
+            }}
+            className="stat-divider"
+          />
+          <StatCounter
+            target={3000}
+            suffix="+"
+            label="Zadowolonych klientów"
+            index={1}
+          />
+          <div
+            style={{
+              width: '1px',
+              backgroundColor: '#252830',
+              margin: '32px 40px 32px 40px',
+              flexShrink: 0,
+            }}
+            className="stat-divider"
+          />
+          <StatCounter
+            target={98}
+            suffix="%"
+            label="Pozytywnych opinii"
+            index={2}
+          />
+          <div
+            style={{
+              width: '1px',
+              backgroundColor: '#252830',
+              margin: '32px 40px 32px 40px',
+              flexShrink: 0,
+            }}
+            className="stat-divider"
+          />
+          <StatStatic value="24H" label="Czas realizacji" index={3} />
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: '24px',
+          }}
+        >
+          {trustPoints.map((point, index) => {
+            const Icon = point.icon
+            return (
               <motion.div
+                key={point.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="space-y-2 px-0 py-6 sm:px-6"
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: [0.22, 1, 0.36, 1] as const,
+                }}
+                style={{
+                  backgroundColor: '#1E2026',
+                  border: '1px solid #252830',
+                  borderRadius: '4px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '14px',
+                  transition: 'border-color 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.borderColor = '#2B7FFF'
+                }}
+                onMouseLeave={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.borderColor = '#252830'
+                }}
               >
                 <div
                   style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(56px, 7vw, 80px)",
-                    color: "var(--accent)",
-                    lineHeight: 1,
+                    width: '40px',
+                    height: '40px',
+                    backgroundColor: 'rgba(43,127,255,0.1)',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  24H
+                  <Icon size={20} color="#2B7FFF" strokeWidth={1.5} />
                 </div>
-                <div
+
+                <h3
                   style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.2em",
-                    color: "var(--muted)",
-                    marginTop: "8px",
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '18px',
+                    fontWeight: 700,
+                    color: '#EAEDF2',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.03em',
+                    lineHeight: 1.1,
                   }}
                 >
-                  CZAS REALIZACJI
-                </div>
+                  {point.title}
+                </h3>
+
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px',
+                    color: '#6B7280',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {point.description}
+                </p>
               </motion.div>
-            </div>
-          </div>
-
-          <div className="grid gap-4 self-center">
-            {trustPoints.map((point, index) => {
-              const Icon = point.icon;
-
-              return (
-                <motion.div
-                  key={point.title}
-                  initial={{ opacity: 0, x: 24 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{
-                    duration: 0.35,
-                    delay: index * 0.08,
-                    ease: "easeOut",
-                  }}
-                  className="flex gap-5 rounded-[4px] border border-border bg-surface p-6"
-                >
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[4px] bg-accent text-bg">
-                    <Icon size={24} strokeWidth={1.5} />
-                  </div>
-
-                  <div className="space-y-2">
-                    <h3 className="text-[20px] text-text">{point.title}</h3>
-                    <p className="text-body-sm text-muted">
-                      {point.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+            )
+          })}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .stat-divider { display: none !important; }
+        }
+      `}</style>
     </section>
-  );
+  )
 }
+
+export { WhyUs }
