@@ -10,7 +10,7 @@ const navLinks = [
   { label: 'Kontakt', href: '#kontakt' },
 ]
 
-export default function Navbar() {
+function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -22,162 +22,47 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
+    return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
   return (
     <>
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          height: '68px',
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: scrolled ? 'rgba(14,15,17,0.96)' : 'transparent',
-          borderBottom: scrolled ? '1px solid #252830' : '1px solid transparent',
-          backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-          transition:
-            'background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
-        }}
-      >
-        <div
-          className="container-site"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <a
-            href="#top"
-            style={{
-              textDecoration: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              lineHeight: 1,
-              gap: '2px',
-              flexShrink: 0,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '22px',
-                fontWeight: 700,
-                color: '#EAEDF2',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-              }}
-            >
-              MOTOFIX
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '9px',
-                color: '#2B7FFF',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-              }}
-            >
-              SERWIS
-            </span>
+      <header style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        height: '68px', display: 'flex', alignItems: 'center',
+        backgroundColor: scrolled ? 'rgba(14,15,17,0.96)' : 'transparent',
+        borderBottom: scrolled ? '1px solid #252830' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'all 0.3s ease',
+      }}>
+        <div className="container-site" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+          <a href="#top" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', lineHeight: 1, gap: '2px', flexShrink: 0 }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: 700, color: '#EAEDF2', letterSpacing: '0.06em', textTransform: 'uppercase' }}>MOTOFIX</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: '#2B7FFF', letterSpacing: '0.3em', textTransform: 'uppercase' }}>SERWIS</span>
           </a>
 
-          <nav
-            style={{ display: 'flex', alignItems: 'center', gap: '36px' }}
-            className="hidden-mobile"
-          >
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '36px' }} className="nav-desktop">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: '#6B7280',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.12em',
-                  textDecoration: 'none',
-                  transition: 'color 0.15s ease',
-                }}
+              <a key={link.href} href={link.href} style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 500, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.12em', textDecoration: 'none', transition: 'color 0.15s ease' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
-              >
-                {link.label}
-              </a>
+              >{link.label}</a>
             ))}
           </nav>
 
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '20px',
-              flexShrink: 0,
-            }}
-            className="hidden-mobile"
-          >
-            <a
-              href="tel:+48123456789"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '13px',
-                color: '#6B7280',
-                textDecoration: 'none',
-                letterSpacing: '0.05em',
-                transition: 'color 0.15s ease',
-              }}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexShrink: 0 }} className="nav-desktop">
+            <a href="tel:+48123456789" style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#6B7280', textDecoration: 'none', transition: 'color 0.15s ease' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#EAEDF2')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
-            >
-              +48 123 456 789
-            </a>
-
-            <a
-              href="#kontakt"
-              className="btn-primary"
-              style={{ padding: '10px 22px', fontSize: '13px' }}
-            >
-              Umów wizytę
-            </a>
+            >+48 123 456 789</a>
+            <a href="#kontakt" className="btn-primary" style={{ padding: '10px 22px', fontSize: '13px' }}>Umów wizytę</a>
           </div>
 
-          <button
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '8px',
-              display: 'none',
-              flexDirection: 'column',
-              gap: '5px',
-            }}
-            className="show-mobile"
-          >
+          <button onClick={() => setMenuOpen((v) => !v)} aria-label="Menu" className="nav-mobile"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
             {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                style={{
-                  display: 'block',
-                  width: i === 1 ? '20px' : '28px',
-                  height: '2px',
-                  backgroundColor: '#EAEDF2',
-                  transition: 'all 0.2s ease',
-                  marginLeft: i === 1 ? '4px' : '0',
-                }}
-              />
+              <span key={i} style={{ display: 'block', width: i === 1 ? '20px' : '28px', height: '2px', backgroundColor: '#EAEDF2', marginLeft: i === 1 ? '4px' : '0' }} />
             ))}
           </button>
         </div>
@@ -185,101 +70,38 @@ export default function Navbar() {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              position: 'fixed',
-              top: '68px',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 99,
-              backgroundColor: '#0E0F11',
-              borderTop: '1px solid #252830',
-              display: 'flex',
-              flexDirection: 'column',
-              padding: '40px 24px',
-              gap: '8px',
-            }}
-          >
+          <motion.div key="menu"
+            initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] as const }}
+            style={{ position: 'fixed', top: '68px', left: 0, right: 0, bottom: 0, zIndex: 99, backgroundColor: '#0E0F11', borderTop: '1px solid #252830', display: 'flex', flexDirection: 'column', padding: '40px 24px', gap: '8px' }}>
             {navLinks.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  delay: i * 0.06,
-                  duration: 0.3,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '36px',
-                  fontWeight: 700,
-                  color: '#EAEDF2',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                  textDecoration: 'none',
-                  padding: '12px 0',
-                  borderBottom: '1px solid #252830',
-                  transition: 'color 0.15s ease',
-                }}
+              <motion.a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06, duration: 0.3 }}
+                style={{ fontFamily: 'var(--font-display)', fontSize: '36px', fontWeight: 700, color: '#EAEDF2', textTransform: 'uppercase', textDecoration: 'none', padding: '12px 0', borderBottom: '1px solid #252830', transition: 'color 0.15s' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#2B7FFF')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#EAEDF2')}
-              >
-                {link.label}
-              </motion.a>
+              >{link.label}</motion.a>
             ))}
-
-            <div
-              style={{
-                marginTop: '32px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px',
-              }}
-            >
-              <a
-                href="tel:+48123456789"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '18px',
-                  color: '#6B7280',
-                  textDecoration: 'none',
-                }}
-              >
-                +48 123 456 789
-              </a>
-              <a
-                href="#kontakt"
-                onClick={() => setMenuOpen(false)}
-                className="btn-primary"
-                style={{ width: '100%', justifyContent: 'center' }}
-              >
-                Umów wizytę
-              </a>
+            <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <a href="tel:+48123456789" style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: '#6B7280', textDecoration: 'none' }}>+48 123 456 789</a>
+              <a href="#kontakt" onClick={() => setMenuOpen(false)} className="btn-primary" style={{ textAlign: 'center' }}>Umów wizytę</a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
       <style>{`
-        .hidden-mobile { display: flex !important; }
-        .show-mobile   { display: none  !important; }
-
+        .nav-desktop { display: flex !important; }
+        .nav-mobile  { display: none  !important; }
         @media (max-width: 768px) {
-          .hidden-mobile { display: none  !important; }
-          .show-mobile   { display: flex  !important; }
+          .nav-desktop { display: none  !important; }
+          .nav-mobile  { display: flex  !important; }
         }
       `}</style>
     </>
   )
 }
 
+export default Navbar
 export { Navbar }
