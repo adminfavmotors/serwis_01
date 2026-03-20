@@ -194,20 +194,48 @@ function Services() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           style={{
             marginTop: '40px',
+            padding: '28px 30px',
+            border: '1px solid rgba(43,127,255,0.16)',
+            borderRadius: '4px',
+            background:
+              'linear-gradient(90deg, rgba(22,24,28,0.98) 0%, rgba(26,95,204,0.16) 54%, rgba(22,24,28,0.94) 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '16px',
-            paddingTop: '32px',
-            borderTop: '1px solid #252830',
+            gap: '18px',
+            boxShadow: '0 16px 40px rgba(0,0,0,0.18)',
           }}
         >
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#6B7280' }}>
-            Nie widzisz swojej usługi?{' '}
-            <span style={{ color: '#EAEDF2' }}>Zadzwoń, wycenimy każdą naprawę.</span>
-          </p>
-          <a href="#kontakt" className="btn-secondary" style={{ flexShrink: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                color: '#2B7FFF',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Indywidualna wycena
+            </span>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '16px',
+                color: '#D7DCE6',
+                lineHeight: 1.7,
+                maxWidth: '56ch',
+              }}
+            >
+              Nie widzisz swojej usługi?{' '}
+              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>
+                Zadzwoń, wycenimy każdą naprawę.
+              </span>
+            </p>
+          </div>
+
+          <a href="#kontakt" className="btn-primary" style={{ flexShrink: 0 }}>
             Umów wizytę
           </a>
         </motion.div>
