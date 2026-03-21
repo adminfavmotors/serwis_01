@@ -1,18 +1,26 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { motion } from 'framer-motion'
+import {
+  ArrowRight,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  MapPin,
+  Phone,
+} from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, ChevronLeft, ChevronRight, Clock, MapPin, Phone } from 'lucide-react'
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Imię i nazwisko musi mieć co najmniej 2 znaki' }),
   phone: z
     .string()
     .min(9, { message: 'Podaj prawidłowy numer telefonu' })
-    .regex(/^[\d\s\+\-\(\)]{9,}$/, { message: 'Nieprawidłowy format numeru' }),
+    .regex(/^[\d\s+\-()]{9,}$/, { message: 'Nieprawidłowy format numeru' }),
   car: z.string().min(2, { message: 'Podaj markę i model pojazdu' }),
   problem: z.string().min(10, { message: 'Opis musi mieć co najmniej 10 znaków' }),
   date: z.string().min(1, { message: 'Wybierz preferowany termin' }),
@@ -31,9 +39,9 @@ type DatePickerProps = {
 
 const inputStyle = {
   width: '100%',
-  backgroundColor: '#16181C',
-  border: '1px solid #252830',
-  color: '#EAEDF2',
+  backgroundColor: '#1A1D22',
+  border: '1px solid #2D3340',
+  color: '#F2F5F8',
   fontFamily: 'var(--font-body)',
   fontSize: '15px',
   padding: '14px 16px',
@@ -46,7 +54,7 @@ const labelStyle = {
   fontFamily: 'var(--font-body)',
   fontSize: '12px',
   fontWeight: 600,
-  color: '#6B7280',
+  color: '#98A2B3',
   textTransform: 'uppercase',
   letterSpacing: '0.1em',
   display: 'block',
@@ -60,13 +68,16 @@ const errorStyle = {
   marginTop: '6px',
 } as const
 
-function applyInputFocus(target: HTMLInputElement | HTMLTextAreaElement) {
+function applyInputFocus(target: HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement) {
   target.style.borderColor = '#2B7FFF'
   target.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
 }
 
-function clearInputFocus(target: HTMLInputElement | HTMLTextAreaElement, hasError: boolean) {
-  target.style.borderColor = hasError ? '#FF3B3B' : '#252830'
+function clearInputFocus(
+  target: HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement,
+  hasError: boolean
+) {
+  target.style.borderColor = hasError ? '#FF3B3B' : '#2D3340'
   target.style.boxShadow = 'none'
 }
 
@@ -176,17 +187,10 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
     }
   }, [])
 
-  const monthLabel = new Intl.DateTimeFormat(locale, {
-    month: 'long',
-    year: 'numeric',
-  }).format(viewDate)
+  const monthLabel = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(viewDate)
 
   const displayValue = selectedDate
-    ? new Intl.DateTimeFormat(locale, {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }).format(selectedDate)
+    ? new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'long', year: 'numeric' }).format(selectedDate)
     : copy.placeholder
 
   const weekdayLabels = Array.from({ length: 7 }, (_, index) => {
@@ -202,23 +206,17 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
         onClick={() => setIsOpen((open) => !open)}
         style={{
           ...inputStyle,
-          borderColor: hasError ? '#FF3B3B' : '#252830',
+          borderColor: hasError ? '#FF3B3B' : '#2D3340',
           boxShadow: 'none',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           cursor: 'pointer',
           textAlign: 'left',
-          color: selectedDate ? '#EAEDF2' : '#6B7280',
+          color: selectedDate ? '#F2F5F8' : '#A7B1C1',
         }}
-        onFocus={(event) => {
-          event.currentTarget.style.borderColor = '#2B7FFF'
-          event.currentTarget.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
-        }}
-        onBlur={(event) => {
-          event.currentTarget.style.borderColor = hasError ? '#FF3B3B' : '#252830'
-          event.currentTarget.style.boxShadow = 'none'
-        }}
+        onFocus={(event) => applyInputFocus(event.currentTarget)}
+        onBlur={(event) => clearInputFocus(event.currentTarget, hasError)}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
       >
@@ -240,21 +238,14 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
             zIndex: 30,
             width: '320px',
             maxWidth: '100%',
-            backgroundColor: '#16181C',
-            border: '1px solid #252830',
+            backgroundColor: '#1A1D22',
+            border: '1px solid #2D3340',
             borderRadius: '4px',
             boxShadow: '0 18px 40px rgba(0,0,0,0.28)',
             padding: '16px',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '14px',
-            }}
-          >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
             <button
               type="button"
               onClick={() => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))}
@@ -262,9 +253,9 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
               style={{
                 width: '32px',
                 height: '32px',
-                border: '1px solid #252830',
+                border: '1px solid #2D3340',
                 background: 'transparent',
-                color: '#EAEDF2',
+                color: '#F2F5F8',
                 borderRadius: '2px',
                 display: 'flex',
                 alignItems: 'center',
@@ -279,7 +270,7 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '18px',
-                color: '#EAEDF2',
+                color: '#F2F5F8',
                 textTransform: 'uppercase',
                 letterSpacing: '0.03em',
               }}
@@ -294,9 +285,9 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
               style={{
                 width: '32px',
                 height: '32px',
-                border: '1px solid #252830',
+                border: '1px solid #2D3340',
                 background: 'transparent',
-                color: '#EAEDF2',
+                color: '#F2F5F8',
                 borderRadius: '2px',
                 display: 'flex',
                 alignItems: 'center',
@@ -322,7 +313,7 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '10px',
-                  color: '#6B7280',
+                  color: '#98A2B3',
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                   textAlign: 'center',
@@ -358,11 +349,7 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
                     height: '36px',
                     border: isSelected ? '1px solid #2B7FFF' : '1px solid transparent',
                     backgroundColor: isSelected ? 'rgba(43,127,255,0.14)' : 'transparent',
-                    color: isPast
-                      ? '#3A4150'
-                      : isCurrentMonth
-                        ? '#EAEDF2'
-                        : '#6B7280',
+                    color: isPast ? '#748094' : isCurrentMonth ? '#F2F5F8' : '#98A2B3',
                     borderRadius: '2px',
                     fontFamily: 'var(--font-body)',
                     fontSize: '13px',
@@ -423,22 +410,14 @@ function ContactForm() {
     <section
       id="kontakt"
       style={{
-        backgroundColor: '#0E0F11',
-        borderTop: '1px solid #252830',
+        backgroundColor: '#121418',
+        borderTop: '1px solid #2D3340',
         position: 'relative',
         overflow: 'hidden',
       }}
       className="section-padding"
     >
-      <div
-        className="grid-texture"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0.35,
-          pointerEvents: 'none',
-        }}
-      />
+      <div className="grid-texture" style={{ position: 'absolute', inset: 0, opacity: 0.28, pointerEvents: 'none' }} />
 
       <div
         style={{
@@ -467,7 +446,7 @@ function ContactForm() {
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(36px, 5vw, 64px)',
               fontWeight: 700,
-              color: '#EAEDF2',
+              color: '#F2F5F8',
               textTransform: 'uppercase',
               lineHeight: 0.92,
             }}
@@ -501,10 +480,10 @@ function ContactForm() {
                   alignItems: 'flex-start',
                   gap: '18px',
                   padding: '40px',
-                  backgroundColor: '#16181C',
-                  border: '1px solid #252830',
+                  backgroundColor: '#1A1D22',
+                  border: '1px solid #2D3340',
                   borderRadius: '4px',
-                  boxShadow: '0 18px 40px rgba(0,0,0,0.22)',
+                  boxShadow: '0 18px 40px rgba(0,0,0,0.18)',
                 }}
               >
                 <CheckCircle size={40} color="#2B7FFF" strokeWidth={1.5} />
@@ -512,24 +491,15 @@ function ContactForm() {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '28px',
-                    color: '#EAEDF2',
+                    color: '#F2F5F8',
                     textTransform: 'uppercase',
                     letterSpacing: '0.03em',
                   }}
                 >
                   Dziękujemy
                 </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '15px',
-                    color: '#6B7280',
-                    lineHeight: 1.7,
-                    maxWidth: '520px',
-                  }}
-                >
-                  Twoje zgłoszenie zostało przyjęte. Odezwiemy się w ciągu 15 minut, żeby
-                  potwierdzić termin i ustalić kolejne kroki.
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#A7B1C1', lineHeight: 1.75, maxWidth: '520px' }}>
+                  Twoje zgłoszenie zostało przyjęte. Odezwiemy się możliwie szybko, żeby potwierdzić termin i ustalić kolejne kroki.
                 </p>
               </div>
             ) : (
@@ -540,18 +510,14 @@ function ContactForm() {
                     flexDirection: 'column',
                     gap: '24px',
                     padding: '32px',
-                    backgroundColor: '#16181C',
-                    border: '1px solid #252830',
+                    backgroundColor: '#1A1D22',
+                    border: '1px solid #2D3340',
                     borderRadius: '4px',
-                    boxShadow: '0 18px 40px rgba(0,0,0,0.22)',
+                    boxShadow: '0 18px 40px rgba(0,0,0,0.18)',
                   }}
                 >
                   <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                      gap: '24px',
-                    }}
+                    style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '24px' }}
                     className="contact-form-grid"
                   >
                     <div>
@@ -562,11 +528,11 @@ function ContactForm() {
                         id="name"
                         {...register('name')}
                         placeholder="np. Jan Kowalski"
-                        style={{ ...inputStyle, borderColor: errors.name ? '#FF3B3B' : '#252830' }}
+                        style={{ ...inputStyle, borderColor: errors.name ? '#FF3B3B' : '#2D3340' }}
                         onFocus={(event) => applyInputFocus(event.target)}
                         onBlur={(event) => clearInputFocus(event.target, Boolean(errors.name))}
                       />
-                      {errors.name && <p style={errorStyle}>{errors.name.message}</p>}
+                      {errors.name ? <p style={errorStyle}>{errors.name.message}</p> : null}
                     </div>
 
                     <div>
@@ -578,14 +544,11 @@ function ContactForm() {
                         {...register('phone')}
                         type="tel"
                         placeholder="np. +48 600 000 000"
-                        style={{
-                          ...inputStyle,
-                          borderColor: errors.phone ? '#FF3B3B' : '#252830',
-                        }}
+                        style={{ ...inputStyle, borderColor: errors.phone ? '#FF3B3B' : '#2D3340' }}
                         onFocus={(event) => applyInputFocus(event.target)}
                         onBlur={(event) => clearInputFocus(event.target, Boolean(errors.phone))}
                       />
-                      {errors.phone && <p style={errorStyle}>{errors.phone.message}</p>}
+                      {errors.phone ? <p style={errorStyle}>{errors.phone.message}</p> : null}
                     </div>
                   </div>
 
@@ -597,11 +560,11 @@ function ContactForm() {
                       id="car"
                       {...register('car')}
                       placeholder="np. Volkswagen Golf VII 1.6 TDI"
-                      style={{ ...inputStyle, borderColor: errors.car ? '#FF3B3B' : '#252830' }}
+                      style={{ ...inputStyle, borderColor: errors.car ? '#FF3B3B' : '#2D3340' }}
                       onFocus={(event) => applyInputFocus(event.target)}
                       onBlur={(event) => clearInputFocus(event.target, Boolean(errors.car))}
                     />
-                    {errors.car && <p style={errorStyle}>{errors.car.message}</p>}
+                    {errors.car ? <p style={errorStyle}>{errors.car.message}</p> : null}
                   </div>
 
                   <div>
@@ -615,14 +578,14 @@ function ContactForm() {
                       placeholder="Opisz objawy lub usterkę, którą chcesz naprawić..."
                       style={{
                         ...inputStyle,
-                        borderColor: errors.problem ? '#FF3B3B' : '#252830',
+                        borderColor: errors.problem ? '#FF3B3B' : '#2D3340',
                         minHeight: '136px',
                         resize: 'vertical',
                       }}
                       onFocus={(event) => applyInputFocus(event.target)}
                       onBlur={(event) => clearInputFocus(event.target, Boolean(errors.problem))}
                     />
-                    {errors.problem && <p style={errorStyle}>{errors.problem.message}</p>}
+                    {errors.problem ? <p style={errorStyle}>{errors.problem.message}</p> : null}
                   </div>
 
                   <div>
@@ -641,10 +604,10 @@ function ContactForm() {
                       }}
                     />
                     <input type="hidden" {...register('date')} />
-                    {errors.date && <p style={errorStyle}>{errors.date.message}</p>}
+                    {errors.date ? <p style={errorStyle}>{errors.date.message}</p> : null}
                   </div>
 
-                  <div style={{ paddingTop: '8px', borderTop: '1px solid #252830' }}>
+                  <div style={{ paddingTop: '8px', borderTop: '1px solid #2D3340' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                       <div style={{ position: 'relative', flexShrink: 0, marginTop: '2px' }}>
                         <input
@@ -665,7 +628,7 @@ function ContactForm() {
                           style={{
                             width: '20px',
                             height: '20px',
-                            border: `2px solid ${rodoValue ? '#2B7FFF' : '#252830'}`,
+                            border: `2px solid ${rodoValue ? '#2B7FFF' : '#2D3340'}`,
                             borderRadius: '2px',
                             backgroundColor: rodoValue ? 'rgba(43,127,255,0.12)' : 'transparent',
                             display: 'flex',
@@ -694,13 +657,12 @@ function ContactForm() {
                         style={{
                           fontFamily: 'var(--font-body)',
                           fontSize: '13px',
-                          color: '#6B7280',
-                          lineHeight: 1.65,
+                          color: '#A7B1C1',
+                          lineHeight: 1.7,
                           cursor: 'pointer',
                         }}
                       >
-                        Wyrażam zgodę na przetwarzanie moich danych osobowych przez{' '}
-                        <span style={{ color: '#EAEDF2' }}>MotoFix Serwis</span> w celu
+                        Wyrażam zgodę na przetwarzanie moich danych osobowych przez <span style={{ color: '#F2F5F8' }}>MotoFix Serwis</span> w celu
                         udzielenia odpowiedzi na przesłane zapytanie, zgodnie z{' '}
                         <a
                           href="/polityka-prywatnosci"
@@ -708,12 +670,12 @@ function ContactForm() {
                           rel="noopener noreferrer"
                           style={{ color: '#2B7FFF', textDecoration: 'underline' }}
                         >
-                          Polityką Prywatności
+                          polityką prywatności
                         </a>
                         . <span style={{ color: '#2B7FFF' }}>*</span>
                       </label>
                     </div>
-                    {errors.rodo && <p style={errorStyle}>{errors.rodo.message}</p>}
+                    {errors.rodo ? <p style={errorStyle}>{errors.rodo.message}</p> : null}
                   </div>
 
                   {error ? (
@@ -736,11 +698,7 @@ function ContactForm() {
                     type="submit"
                     disabled={isSubmitting}
                     className="btn-primary"
-                    style={{
-                      width: '100%',
-                      opacity: isSubmitting ? 0.72 : 1,
-                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                    }}
+                    style={{ width: '100%', opacity: isSubmitting ? 0.72 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
                   >
                     {isSubmitting ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
                     {isSubmitting ? null : <ArrowRight size={16} />}
@@ -759,11 +717,11 @@ function ContactForm() {
           >
             <div
               style={{
-                backgroundColor: '#16181C',
-                border: '1px solid #252830',
+                backgroundColor: '#1A1D22',
+                border: '1px solid #2D3340',
                 borderRadius: '4px',
                 overflow: 'hidden',
-                boxShadow: '0 18px 40px rgba(0,0,0,0.22)',
+                boxShadow: '0 18px 40px rgba(0,0,0,0.18)',
               }}
             >
               <div style={{ height: '3px', backgroundColor: '#2B7FFF' }} />
@@ -778,7 +736,7 @@ function ContactForm() {
                       fontFamily: 'var(--font-display)',
                       fontSize: '22px',
                       fontWeight: 700,
-                      color: '#EAEDF2',
+                      color: '#F2F5F8',
                       textTransform: 'uppercase',
                       letterSpacing: '0.04em',
                     }}
@@ -788,22 +746,9 @@ function ContactForm() {
                 </div>
 
                 {[
-                  {
-                    icon: MapPin,
-                    label: 'Adres',
-                    value: 'ul. Przemysłowa 12, 30-701 Kraków',
-                  },
-                  {
-                    icon: Phone,
-                    label: 'Telefon',
-                    value: '+48 123 456 789',
-                    href: 'tel:+48123456789',
-                  },
-                  {
-                    icon: Clock,
-                    label: 'Godziny',
-                    value: 'Pn–Pt 08:00–18:00\nSob 09:00–14:00',
-                  },
+                  { icon: MapPin, label: 'Adres', value: 'ul. Przemysłowa 12, 30-701 Kraków' },
+                  { icon: Phone, label: 'Telefon', value: '+48 123 456 789', href: 'tel:+48123456789' },
+                  { icon: Clock, label: 'Godziny', value: 'Pn–Pt 08:00–18:00\nSob 09:00–14:00' },
                 ].map((item) => {
                   const Icon = item.icon
 
@@ -829,7 +774,7 @@ function ContactForm() {
                           style={{
                             fontFamily: 'var(--font-body)',
                             fontSize: '11px',
-                            color: '#3A4150',
+                            color: '#8691A3',
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em',
                           }}
@@ -837,13 +782,13 @@ function ContactForm() {
                           {item.label}
                         </span>
 
-                        {item.href ? (
+                        {'href' in item && item.href ? (
                           <a
                             href={item.href}
                             style={{
                               fontFamily: 'var(--font-mono)',
                               fontSize: '15px',
-                              color: '#EAEDF2',
+                              color: '#F2F5F8',
                               textDecoration: 'none',
                               transition: 'color 0.15s ease',
                             }}
@@ -851,7 +796,7 @@ function ContactForm() {
                               event.currentTarget.style.color = '#2B7FFF'
                             }}
                             onMouseLeave={(event) => {
-                              event.currentTarget.style.color = '#EAEDF2'
+                              event.currentTarget.style.color = '#F2F5F8'
                             }}
                           >
                             {item.value}
@@ -861,9 +806,9 @@ function ContactForm() {
                             style={{
                               fontFamily: item.label === 'Godziny' ? 'var(--font-mono)' : 'var(--font-body)',
                               fontSize: '14px',
-                              color: '#EAEDF2',
+                              color: '#F2F5F8',
                               whiteSpace: 'pre-line',
-                              lineHeight: 1.6,
+                              lineHeight: 1.65,
                             }}
                           >
                             {item.value}
@@ -880,8 +825,8 @@ function ContactForm() {
               style={{
                 borderRadius: '4px',
                 overflow: 'hidden',
-                border: '1px solid #252830',
-                boxShadow: '0 18px 40px rgba(0,0,0,0.22)',
+                border: '1px solid #2D3340',
+                boxShadow: '0 18px 40px rgba(0,0,0,0.18)',
               }}
             >
               <iframe

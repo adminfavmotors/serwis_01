@@ -47,8 +47,8 @@ function CookiesBanner() {
         style={{
           width: '100%',
           maxWidth: '1180px',
-          backgroundColor: 'rgba(22,24,28,0.96)',
-          border: '1px solid #252830',
+          backgroundColor: 'rgba(26,29,34,0.97)',
+          border: '1px solid #2D3340',
           borderRadius: '4px',
           boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
           backdropFilter: 'blur(16px)',
@@ -86,18 +86,14 @@ function CookiesBanner() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '13px',
-                color: '#6B7280',
-                lineHeight: 1.65,
+                color: '#A7B1C1',
+                lineHeight: 1.7,
               }}
             >
-              Ta strona używa plików <span style={{ color: '#EAEDF2' }}>cookies</span> do
-              analizy ruchu i poprawy jakości usług. Kontynuując przeglądanie, akceptujesz
-              ich użycie zgodnie z naszą{' '}
-              <a
-                href="/polityka-prywatnosci"
-                style={{ color: '#2B7FFF', textDecoration: 'underline' }}
-              >
-                Polityką Prywatności
+              Ta strona używa plików <span style={{ color: '#F2F5F8' }}>cookies</span> do analizy ruchu i poprawy jakości usług.
+              Kontynuując przeglądanie, akceptujesz ich użycie zgodnie z naszą{' '}
+              <a href="/polityka-prywatnosci" style={{ color: '#2B7FFF', textDecoration: 'underline' }}>
+                polityką prywatności
               </a>
               .
             </p>
@@ -117,32 +113,27 @@ function CookiesBanner() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '13px',
-                color: '#6B7280',
+                color: '#A7B1C1',
                 textDecoration: 'none',
-                border: '1px solid #252830',
+                border: '1px solid #2D3340',
                 padding: '10px 16px',
                 borderRadius: '2px',
                 transition: 'color 0.15s ease, border-color 0.15s ease',
                 whiteSpace: 'nowrap',
               }}
               onMouseEnter={(event) => {
-                event.currentTarget.style.color = '#EAEDF2'
+                event.currentTarget.style.color = '#F2F5F8'
                 event.currentTarget.style.borderColor = '#2B7FFF'
               }}
               onMouseLeave={(event) => {
-                event.currentTarget.style.color = '#6B7280'
-                event.currentTarget.style.borderColor = '#252830'
+                event.currentTarget.style.color = '#A7B1C1'
+                event.currentTarget.style.borderColor = '#2D3340'
               }}
             >
               Więcej informacji
             </a>
 
-            <button
-              type="button"
-              onClick={accept}
-              className="btn-primary"
-              style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}
-            >
+            <button type="button" onClick={accept} className="btn-primary" style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}>
               Akceptuję
             </button>
           </div>

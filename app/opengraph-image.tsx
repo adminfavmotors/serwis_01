@@ -13,7 +13,7 @@ export default async function Image() {
           width: '1200px',
           height: '630px',
           display: 'flex',
-          backgroundColor: '#0E0F11',
+          backgroundColor: '#121418',
           position: 'relative',
           overflow: 'hidden',
           fontFamily: 'sans-serif',
@@ -49,7 +49,7 @@ export default async function Image() {
             width: '680px',
             height: '680px',
             borderRadius: '999px',
-            background: 'radial-gradient(circle, rgba(43,127,255,0.10) 0%, transparent 72%)',
+            background: 'radial-gradient(circle, rgba(43,127,255,0.1) 0%, transparent 72%)',
           }}
         />
 
@@ -75,21 +75,8 @@ export default async function Image() {
             padding: '78px 84px',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-              marginBottom: '24px',
-            }}
-          >
-            <div
-              style={{
-                width: '26px',
-                height: '2px',
-                backgroundColor: '#2B7FFF',
-              }}
-            />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
+            <div style={{ width: '26px', height: '2px', backgroundColor: '#2B7FFF' }} />
             <span
               style={{
                 fontSize: '14px',
@@ -108,7 +95,7 @@ export default async function Image() {
               flexDirection: 'column',
               fontSize: '96px',
               fontWeight: 900,
-              color: '#EAEDF2',
+              color: '#F2F5F8',
               lineHeight: 0.88,
               letterSpacing: '-0.03em',
               marginBottom: '28px',
@@ -119,35 +106,21 @@ export default async function Image() {
             <span style={{ color: '#2B7FFF' }}>Serwis</span>
           </div>
 
-          <div
-            style={{
-              width: '64px',
-              height: '4px',
-              backgroundColor: '#2B7FFF',
-              marginBottom: '24px',
-            }}
-          />
+          <div style={{ width: '64px', height: '4px', backgroundColor: '#2B7FFF', marginBottom: '24px' }} />
 
           <div
             style={{
               display: 'flex',
               maxWidth: '760px',
               fontSize: '26px',
-              color: '#6B7280',
+              color: '#A7B1C1',
               lineHeight: 1.45,
             }}
           >
-            Diagnostyka, serwis i naprawy premium. Uczciwa wycena, szybkie terminy i
-            konkretna komunikacja.
+            Diagnostyka, serwis i naprawy premium. Uczciwa wycena, szybkie terminy i konkretna komunikacja.
           </div>
 
-          <div
-            style={{
-              display: 'flex',
-              gap: '44px',
-              marginTop: '42px',
-            }}
-          >
+          <div style={{ display: 'flex', gap: '44px', marginTop: '42px' }}>
             {[
               { value: '15+', label: 'lat doświadczenia' },
               { value: '3000+', label: 'napraw' },
@@ -158,7 +131,7 @@ export default async function Image() {
                   style={{
                     fontSize: '34px',
                     fontWeight: 700,
-                    color: '#EAEDF2',
+                    color: '#F2F5F8',
                     lineHeight: 1,
                   }}
                 >
@@ -193,7 +166,7 @@ export default async function Image() {
             <span
               style={{
                 fontSize: '15px',
-                color: '#EAEDF2',
+                color: '#F2F5F8',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
               }}
@@ -203,7 +176,7 @@ export default async function Image() {
             <span
               style={{
                 fontSize: '13px',
-                color: '#6B7280',
+                color: '#A7B1C1',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
               }}
@@ -214,6 +187,6 @@ export default async function Image() {
         </div>
       </div>
     ),
-    { ...size },
+    { ...size }
   )
 }

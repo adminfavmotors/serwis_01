@@ -57,21 +57,13 @@ export default function PolitykaPrywatnosci() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0E0F11',
-        color: '#EAEDF2',
+        backgroundColor: '#121418',
+        color: '#F2F5F8',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      <div
-        className="grid-texture"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0.32,
-          pointerEvents: 'none',
-        }}
-      />
+      <div className="grid-texture" style={{ position: 'absolute', inset: 0, opacity: 0.28, pointerEvents: 'none' }} />
 
       <div
         style={{
@@ -103,7 +95,7 @@ export default function PolitykaPrywatnosci() {
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(42px, 6vw, 72px)',
-              color: '#EAEDF2',
+              color: '#F2F5F8',
               lineHeight: 0.9,
               textTransform: 'uppercase',
             }}
@@ -117,57 +109,30 @@ export default function PolitykaPrywatnosci() {
               marginTop: '18px',
               fontFamily: 'var(--font-body)',
               fontSize: '15px',
-              color: '#6B7280',
+              color: '#A7B1C1',
               maxWidth: '620px',
-              lineHeight: 1.7,
+              lineHeight: 1.75,
             }}
           >
-            Poniżej znajdziesz najważniejsze informacje o przetwarzaniu danych osobowych,
-            plikach cookies i Twoich prawach jako użytkownika serwisu MotoFix.
+            Poniżej znajdziesz najważniejsze informacje o przetwarzaniu danych osobowych, plikach cookies i Twoich prawach jako użytkownika serwisu MotoFix.
           </p>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '18px',
-          }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {sections.map((section) => (
             <section
               key={section.number}
               style={{
-                backgroundColor: '#16181C',
-                border: '1px solid #252830',
+                backgroundColor: '#1A1D22',
+                border: '1px solid #2D3340',
                 borderRadius: '4px',
                 padding: '26px 28px',
-                boxShadow: '0 16px 36px rgba(0,0,0,0.2)',
+                boxShadow: '0 16px 36px rgba(0,0,0,0.16)',
               }}
             >
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '72px minmax(0, 1fr)',
-                  gap: '18px',
-                }}
-                className="privacy-row"
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    justifyContent: 'flex-start',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '12px',
-                      color: '#2B7FFF',
-                      letterSpacing: '0.16em',
-                    }}
-                  >
+              <div style={{ display: 'grid', gridTemplateColumns: '72px minmax(0, 1fr)', gap: '18px' }} className="privacy-row">
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#2B7FFF', letterSpacing: '0.16em' }}>
                     {section.number}
                   </span>
                 </div>
@@ -177,7 +142,7 @@ export default function PolitykaPrywatnosci() {
                     style={{
                       fontFamily: 'var(--font-display)',
                       fontSize: '22px',
-                      color: '#EAEDF2',
+                      color: '#F2F5F8',
                       letterSpacing: '0.03em',
                       textTransform: 'uppercase',
                       marginBottom: '12px',
@@ -185,14 +150,7 @@ export default function PolitykaPrywatnosci() {
                   >
                     {section.title}
                   </h2>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '15px',
-                      color: '#6B7280',
-                      lineHeight: 1.8,
-                    }}
-                  >
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#A7B1C1', lineHeight: 1.8 }}>
                     {section.content}
                   </p>
                 </div>
@@ -201,13 +159,7 @@ export default function PolitykaPrywatnosci() {
           ))}
         </div>
 
-        <div
-          style={{
-            marginTop: '40px',
-            paddingTop: '24px',
-            borderTop: '1px solid #252830',
-          }}
-        >
+        <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid #2D3340' }}>
           <a
             href="/"
             style={{
@@ -220,14 +172,7 @@ export default function PolitykaPrywatnosci() {
               textDecoration: 'none',
             }}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="15 18 9 12 15 6" />
             </svg>
             Powrót do strony głównej

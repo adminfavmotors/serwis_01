@@ -16,7 +16,7 @@ function Hero() {
         minHeight: '100svh',
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: '#0E0F11',
+        backgroundColor: '#121418',
         overflow: 'hidden',
       }}
     >
@@ -25,20 +25,12 @@ function Hero() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(14,15,17,0.94) 0%, rgba(14,15,17,0.88) 56%, rgba(14,15,17,0.74) 72%, rgba(14,15,17,0.96) 100%)',
+            'linear-gradient(90deg, rgba(18,20,24,0.9) 0%, rgba(18,20,24,0.82) 55%, rgba(18,20,24,0.72) 72%, rgba(18,20,24,0.94) 100%)',
           pointerEvents: 'none',
         }}
       />
 
-      <div
-        className="grid-texture"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0.42,
-          pointerEvents: 'none',
-        }}
-      />
+      <div className="grid-texture" style={{ position: 'absolute', inset: 0, opacity: 0.36, pointerEvents: 'none' }} />
 
       <div
         style={{
@@ -59,86 +51,6 @@ function Hero() {
           height: '520px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(43,127,255,0.11) 0%, transparent 72%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: '-4%',
-          top: '14%',
-          width: '36%',
-          height: '70%',
-          border: '1px solid rgba(43,127,255,0.16)',
-          background:
-            'linear-gradient(180deg, rgba(22,24,28,0.76) 0%, rgba(14,15,17,0.28) 100%)',
-          boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.02)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: '8%',
-          top: '18%',
-          width: '22%',
-          height: '56%',
-          borderLeft: '1px solid rgba(43,127,255,0.18)',
-          borderTop: '1px solid rgba(43,127,255,0.18)',
-          opacity: 0.8,
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: '10%',
-          bottom: '18%',
-          width: '18%',
-          height: '22%',
-          border: '1px solid rgba(58,65,80,0.6)',
-          background:
-            'linear-gradient(135deg, rgba(43,127,255,0.08) 0%, rgba(22,24,28,0.14) 38%, rgba(14,15,17,0.04) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: '12%',
-          top: '26%',
-          width: '16%',
-          height: '2px',
-          backgroundColor: 'rgba(43,127,255,0.48)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: '12%',
-          top: '32%',
-          width: '10%',
-          height: '2px',
-          backgroundColor: 'rgba(43,127,255,0.24)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: '12%',
-          bottom: '24%',
-          width: '22%',
-          height: '1px',
-          background:
-            'linear-gradient(90deg, rgba(43,127,255,0.02) 0%, rgba(43,127,255,0.35) 42%, rgba(43,127,255,0.02) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -176,7 +88,7 @@ function Hero() {
                 lineHeight: 1.02,
                 letterSpacing: '-0.016em',
                 textTransform: 'none',
-                color: '#EAEDF2',
+                color: '#F2F5F8',
                 maxWidth: '12ch',
               }}
             >
@@ -200,24 +112,18 @@ function Hero() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: 'clamp(17px, 1.8vw, 20px)',
-                color: '#A9B2C3',
+                color: '#C1CAD7',
                 lineHeight: 1.78,
                 maxWidth: '64ch',
                 marginBottom: '40px',
               }}
             >
-              Profesjonalny serwis samochodowy w Krakowie. Szybka diagnostyka, uczciwa
-              wycena i naprawy, po których wracasz na drogę bez stresu.
+              Profesjonalny serwis samochodowy w Krakowie. Szybka diagnostyka, uczciwa wycena i naprawy, po których wracasz na drogę bez stresu.
             </motion.p>
 
             <motion.div
               {...fadeUp(0.38)}
-              style={{
-                display: 'flex',
-                gap: '16px',
-                flexWrap: 'wrap',
-                marginBottom: '54px',
-              }}
+              style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '54px' }}
             >
               <a href="#kontakt" className="btn-primary">
                 Umów wizytę
@@ -257,8 +163,8 @@ function Hero() {
                 <div
                   key={badge.value}
                   style={{
-                    backgroundColor: 'rgba(22,24,28,0.88)',
-                    border: '1px solid #252830',
+                    backgroundColor: 'rgba(26,29,34,0.92)',
+                    border: '1px solid #2D3340',
                     borderRadius: '4px',
                     padding: '18px 18px 16px',
                     backdropFilter: 'blur(8px)',
@@ -270,7 +176,7 @@ function Hero() {
                       fontFamily: 'var(--font-mono)',
                       fontSize: '20px',
                       fontWeight: 500,
-                      color: '#EAEDF2',
+                      color: '#F2F5F8',
                       lineHeight: 1.1,
                       marginBottom: '8px',
                     }}
@@ -281,8 +187,8 @@ function Hero() {
                     style={{
                       display: 'block',
                       fontFamily: 'var(--font-body)',
-                      fontSize: '11px',
-                      color: '#6B7280',
+                      fontSize: '12px',
+                      color: '#A7B1C1',
                       textTransform: 'uppercase',
                       letterSpacing: '0.12em',
                       lineHeight: 1.5,
@@ -297,11 +203,7 @@ function Hero() {
 
           <motion.div
             {...fadeUp(0.28)}
-            style={{
-              alignSelf: 'stretch',
-              minHeight: '420px',
-              position: 'relative',
-            }}
+            style={{ alignSelf: 'stretch', minHeight: '420px', position: 'relative' }}
             className="hero-side-panel"
           >
             <motion.div
@@ -312,10 +214,10 @@ function Hero() {
                 position: 'absolute',
                 inset: 0,
                 backgroundImage:
-                  "linear-gradient(180deg, rgba(14,15,17,0.18) 0%, rgba(14,15,17,0.12) 32%, rgba(14,15,17,0.34) 100%), url('/hero-f1.jpg')",
+                  "linear-gradient(180deg, rgba(18,20,24,0.14) 0%, rgba(18,20,24,0.1) 32%, rgba(18,20,24,0.3) 100%), url('/hero-f1.jpg')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center center',
-                filter: 'saturate(0.9) contrast(1.02) brightness(0.84)',
+                filter: 'saturate(0.9) contrast(1.02) brightness(0.9)',
                 transformOrigin: 'center center',
               }}
             />
@@ -323,11 +225,10 @@ function Hero() {
             <div
               style={{
                 position: 'absolute',
-                inset: '0 0 0 auto',
-                width: '100%',
+                inset: 0,
                 border: '1px solid rgba(43,127,255,0.18)',
                 background:
-                  'linear-gradient(180deg, rgba(14,15,17,0.16) 0%, rgba(14,15,17,0.06) 100%)',
+                  'linear-gradient(180deg, rgba(18,20,24,0.12) 0%, rgba(18,20,24,0.04) 100%)',
               }}
             />
 
@@ -336,7 +237,7 @@ function Hero() {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(90deg, rgba(14,15,17,0.16) 0%, rgba(14,15,17,0.04) 35%, rgba(14,15,17,0.18) 100%)',
+                  'linear-gradient(90deg, rgba(18,20,24,0.16) 0%, rgba(18,20,24,0.04) 35%, rgba(18,20,24,0.18) 100%)',
               }}
             />
 
@@ -347,7 +248,7 @@ function Hero() {
                 left: '18px',
                 right: '18px',
                 bottom: '18px',
-                border: '1px solid rgba(58,65,80,0.45)',
+                border: '1px solid rgba(116,128,148,0.42)',
               }}
             />
 
@@ -382,7 +283,7 @@ function Hero() {
                 height: '28%',
                 border: '1px solid rgba(43,127,255,0.14)',
                 background:
-                  'linear-gradient(135deg, rgba(43,127,255,0.10) 0%, rgba(14,15,17,0.16) 100%)',
+                  'linear-gradient(135deg, rgba(43,127,255,0.1) 0%, rgba(18,20,24,0.16) 100%)',
               }}
             />
 
