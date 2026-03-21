@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Car } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowLeft, ArrowRight, Car } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const testimonials = [
   {
@@ -30,14 +31,14 @@ const testimonials = [
   },
 ]
 
-function Stars({ count }: { count: number }) {
+function Stars({ count, size = 14 }: { count: number; size?: number }) {
   return (
-    <div style={{ display: 'flex', gap: '3px' }}>
+    <div style={{ display: 'flex', gap: '4px' }}>
       {Array.from({ length: 5 }).map((_, index) => (
         <svg
           key={index}
-          width="14"
-          height="14"
+          width={size}
+          height={size}
           viewBox="0 0 24 24"
           fill={index < count ? '#2B7FFF' : 'none'}
           stroke={index < count ? '#2B7FFF' : '#748094'}
@@ -51,6 +52,26 @@ function Stars({ count }: { count: number }) {
 }
 
 function Testimonials() {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % testimonials.length)
+    }, 6500)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
+  const activeTestimonial = testimonials[activeIndex]
+
+  const goPrev = () => {
+    setActiveIndex((current) => (current - 1 + testimonials.length) % testimonials.length)
+  }
+
+  const goNext = () => {
+    setActiveIndex((current) => (current + 1) % testimonials.length)
+  }
+
   return (
     <section id="opinie" style={{ backgroundColor: '#1A1D22', borderTop: '1px solid #2D3340' }} className="section-padding">
       <div className="container-site">
@@ -65,7 +86,7 @@ function Testimonials() {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '24px',
-            marginBottom: '40px',
+            marginBottom: '36px',
           }}
         >
           <div>
@@ -88,145 +109,314 @@ function Testimonials() {
 
           <div
             style={{
-              backgroundColor: '#22272F',
-              border: '1px solid #2D3340',
-              borderRadius: '4px',
-              padding: '20px 28px',
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
-              gap: '6px',
+              gap: '14px',
+              flexWrap: 'wrap',
+              justifyContent: 'flex-end',
             }}
           >
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '40px',
-                color: '#F2F5F8',
-                lineHeight: 1,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              4.9
-            </span>
-            <Stars count={5} />
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '12px',
-                color: '#A7B1C1',
-                textTransform: 'uppercase',
-                letterSpacing: '0.15em',
-                marginTop: '2px',
-              }}
-            >
-              127 opinii
-            </span>
-          </div>
-        </motion.div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.author}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            <div
               style={{
                 backgroundColor: '#22272F',
                 border: '1px solid #2D3340',
                 borderRadius: '4px',
-                padding: '28px',
+                padding: '18px 24px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '20px',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(event) => {
-                const element = event.currentTarget as HTMLDivElement
-                element.style.borderColor = '#2B7FFF'
-                element.style.transform = 'translateY(-3px)'
-              }}
-              onMouseLeave={(event) => {
-                const element = event.currentTarget as HTMLDivElement
-                element.style.borderColor = '#2D3340'
-                element.style.transform = 'translateY(0)'
+                alignItems: 'center',
+                gap: '6px',
               }}
             >
               <span
-                aria-hidden="true"
                 style={{
-                  position: 'absolute',
-                  top: '-10px',
-                  right: '16px',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '120px',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '36px',
+                  color: '#F2F5F8',
                   lineHeight: 1,
-                  color: 'transparent',
-                  WebkitTextStroke: '1px rgba(43,127,255,0.12)',
-                  pointerEvents: 'none',
-                  userSelect: 'none',
+                  letterSpacing: '-0.02em',
                 }}
               >
-                &ldquo;
+                4.9
               </span>
-
-              <Stars count={testimonial.rating} />
-
-              <p
+              <Stars count={5} />
+              <span
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '15px',
-                  color: '#D2D9E3',
-                  lineHeight: 1.75,
-                  fontStyle: 'italic',
-                  position: 'relative',
-                  zIndex: 1,
-                  flexGrow: 1,
+                  fontSize: '12px',
+                  color: '#A7B1C1',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.15em',
                 }}
               >
-                {testimonial.text}
-              </p>
+                127 opinii
+              </span>
+            </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '16px', borderTop: '1px solid #2D3340' }}>
-                <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 600, color: '#F2F5F8' }}>
-                  {testimonial.author}
-                </span>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              {[
+                { label: 'Poprzednia opinia', onClick: goPrev, icon: ArrowLeft },
+                { label: 'Następna opinia', onClick: goNext, icon: ArrowRight },
+              ].map((control) => {
+                const Icon = control.icon
+
+                return (
+                  <button
+                    key={control.label}
+                    type="button"
+                    aria-label={control.label}
+                    onClick={control.onClick}
+                    style={{
+                      width: '46px',
+                      height: '46px',
+                      borderRadius: '50%',
+                      border: '1px solid #2D3340',
+                      backgroundColor: '#22272F',
+                      color: '#F2F5F8',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      transition: 'border-color 0.15s ease, color 0.15s ease, transform 0.15s ease',
+                    }}
+                    onMouseEnter={(event) => {
+                      event.currentTarget.style.borderColor = '#2B7FFF'
+                      event.currentTarget.style.color = '#2B7FFF'
+                      event.currentTarget.style.transform = 'translateY(-1px)'
+                    }}
+                    onMouseLeave={(event) => {
+                      event.currentTarget.style.borderColor = '#2D3340'
+                      event.currentTarget.style.color = '#F2F5F8'
+                      event.currentTarget.style.transform = 'translateY(0)'
+                    }}
+                  >
+                    <Icon size={18} />
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: 'relative',
+            background:
+              'linear-gradient(135deg, rgba(34,39,47,1) 0%, rgba(28,33,40,1) 52%, rgba(24,28,34,1) 100%)',
+            border: '1px solid #2D3340',
+            borderRadius: '4px',
+            overflow: 'hidden',
+            boxShadow: '0 22px 48px rgba(0,0,0,0.16)',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(90deg, rgba(43,127,255,0.08) 0%, transparent 32%, transparent 100%)',
+              pointerEvents: 'none',
+            }}
+          />
+
+          <div
+            style={{
+              position: 'absolute',
+              top: '18px',
+              right: '26px',
+              fontFamily: 'var(--font-display)',
+              fontSize: '140px',
+              lineHeight: 1,
+              color: 'transparent',
+              WebkitTextStroke: '1px rgba(43,127,255,0.12)',
+              pointerEvents: 'none',
+              userSelect: 'none',
+            }}
+          >
+            &ldquo;
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTestimonial.author}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -18 }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                display: 'grid',
+                gridTemplateColumns: 'minmax(0, 1.55fr) minmax(240px, 0.75fr)',
+                gap: '0',
+              }}
+              className="testimonial-carousel"
+            >
+              <div style={{ padding: '40px 40px 34px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                  <Stars count={activeTestimonial.rating} size={16} />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      color: '#2B7FFF',
+                      letterSpacing: '0.18em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Opinia klienta
+                  </span>
+                </div>
+
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 'clamp(18px, 2vw, 24px)',
+                    color: '#E3E8EF',
+                    lineHeight: 1.75,
+                    fontStyle: 'italic',
+                    maxWidth: '40ch',
+                  }}
+                >
+                  {activeTestimonial.text}
+                </p>
+              </div>
+
+              <div
+                style={{
+                  padding: '40px 34px 34px',
+                  borderLeft: '1px solid #2D3340',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '24px',
+                }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '12px',
+                      color: '#98A2B3',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.16em',
+                    }}
+                  >
+                    Poleca nas
+                  </span>
+
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '28px',
+                      color: '#F2F5F8',
+                      textTransform: 'uppercase',
+                      lineHeight: 1,
+                      letterSpacing: '0.02em',
+                    }}
+                  >
+                    {activeTestimonial.author}
+                  </span>
+                </div>
 
                 <div
                   style={{
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '6px',
+                    gap: '8px',
+                    width: 'fit-content',
                     backgroundColor: 'rgba(43,127,255,0.08)',
-                    border: '1px solid rgba(43,127,255,0.15)',
+                    border: '1px solid rgba(43,127,255,0.16)',
                     borderRadius: '2px',
-                    padding: '4px 10px',
+                    padding: '8px 12px',
                   }}
                 >
-                  <Car size={12} color="#2B7FFF" strokeWidth={1.5} />
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#2B7FFF' }}>{testimonial.car}</span>
+                  <Car size={14} color="#2B7FFF" strokeWidth={1.5} />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '12px',
+                      color: '#2B7FFF',
+                      letterSpacing: '0.08em',
+                    }}
+                  >
+                    {activeTestimonial.car}
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ width: '100%', height: '1px', backgroundColor: '#2D3340' }} />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '13px',
+                      color: '#A7B1C1',
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    Każda opinia pochodzi od realnego klienta serwisu MotoFix i dotyczy wykonanej usługi.
+                  </span>
                 </div>
               </div>
             </motion.div>
-          ))}
-        </div>
+          </AnimatePresence>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          style={{ marginTop: '28px', textAlign: 'center' }}
-        >
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: '#8691A3' }}>
-            Opinie pochodzą od prawdziwych klientów serwisu MotoFix • <span style={{ color: '#A7B1C1' }}>Kraków, ul. Przemysłowa 12</span>
-          </p>
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '16px',
+              padding: '18px 28px 22px',
+              borderTop: '1px solid #2D3340',
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ display: 'flex', gap: '10px' }}>
+              {testimonials.map((testimonial, index) => (
+                <button
+                  key={testimonial.author}
+                  type="button"
+                  aria-label={`Przejdź do opinii ${index + 1}`}
+                  onClick={() => setActiveIndex(index)}
+                  style={{
+                    width: index === activeIndex ? '34px' : '10px',
+                    height: '10px',
+                    borderRadius: '999px',
+                    border: 'none',
+                    backgroundColor: index === activeIndex ? '#2B7FFF' : '#536074',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                />
+              ))}
+            </div>
+
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: '#8691A3' }}>
+              Opinie pochodzą od prawdziwych klientów serwisu MotoFix • <span style={{ color: '#A7B1C1' }}>Kraków, ul. Przemysłowa 12</span>
+            </p>
+          </div>
         </motion.div>
       </div>
+
+      <style>{`
+        @media (max-width: 860px) {
+          .testimonial-carousel {
+            grid-template-columns: 1fr !important;
+          }
+
+          .testimonial-carousel > div:last-child {
+            border-left: none !important;
+            border-top: 1px solid #2D3340 !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
