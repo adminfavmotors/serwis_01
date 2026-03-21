@@ -252,19 +252,23 @@ function Hero() {
               }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 top: '17%',
                 right: '18px',
                 width: '36%',
-                height: '1px',
+                height: '2px',
                 background:
                   'linear-gradient(90deg, rgba(43,127,255,0.02) 0%, rgba(43,127,255,0.4) 38%, rgba(43,127,255,0.02) 100%)',
+                transformOrigin: 'right center',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.38, 0.92, 0.38], scaleX: [0.94, 1.04, 0.94] }}
+              transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 top: '17%',
@@ -272,22 +276,29 @@ function Hero() {
                 width: '1px',
                 height: '12%',
                 backgroundColor: 'rgba(43,127,255,0.24)',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.26, 0.72, 0.26], scaleY: [0.94, 1.06, 0.94] }}
+              transition={{ duration: 3.8, delay: 0.18, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 top: '31%',
                 left: '18px',
                 width: '28%',
-                height: '1px',
+                height: '2px',
                 background:
                   'linear-gradient(90deg, rgba(43,127,255,0.34) 0%, rgba(43,127,255,0.04) 100%)',
+                transformOrigin: 'left center',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.4, 1, 0.4], scaleX: [0.92, 1.05, 0.92] }}
+              transition={{ duration: 4.2, delay: 0.4, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 top: '31%',
@@ -295,22 +306,29 @@ function Hero() {
                 width: '1px',
                 height: '16%',
                 backgroundColor: 'rgba(43,127,255,0.18)',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.22, 0.64, 0.22], scaleY: [0.95, 1.08, 0.95] }}
+              transition={{ duration: 4.2, delay: 0.55, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 bottom: '26%',
                 right: '18px',
                 width: '34%',
-                height: '1px',
+                height: '2px',
                 background:
                   'linear-gradient(90deg, rgba(43,127,255,0.04) 0%, rgba(43,127,255,0.38) 58%, rgba(43,127,255,0.02) 100%)',
+                transformOrigin: 'right center',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.34, 0.88, 0.34], scaleX: [0.95, 1.03, 0.95] }}
+              transition={{ duration: 4.6, delay: 0.8, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 bottom: '26%',
@@ -318,7 +336,10 @@ function Hero() {
                 width: '1px',
                 height: '14%',
                 backgroundColor: 'rgba(43,127,255,0.2)',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.24, 0.68, 0.24], scaleY: [0.95, 1.06, 0.95] }}
+              transition={{ duration: 4.6, delay: 0.96, repeat: Infinity, ease: 'easeInOut' }}
             />
 
             <div
@@ -334,42 +355,51 @@ function Hero() {
               }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 top: '26%',
                 right: '20px',
                 width: '18%',
                 height: '12%',
-                borderTop: '2px solid rgba(43,127,255,0.3)',
-                borderRight: '2px solid rgba(43,127,255,0.3)',
+                borderTop: '3px solid rgba(43,127,255,0.32)',
+                borderRight: '3px solid rgba(43,127,255,0.32)',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.35, 0.9, 0.35], scale: [0.98, 1.02, 0.98] }}
+              transition={{ duration: 5.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 bottom: '18%',
                 right: '20px',
-                width: '12px',
-                height: '12px',
+                width: '13px',
+                height: '13px',
                 borderRadius: '50%',
                 backgroundColor: '#2B7FFF',
                 boxShadow: '0 0 0 6px rgba(43,127,255,0.12)',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.55, 1, 0.55], scale: [0.95, 1.12, 0.95] }}
+              transition={{ duration: 3.2, delay: 0.7, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            <div
+            <motion.div
               style={{
                 position: 'absolute',
                 top: '28%',
                 left: '22%',
-                width: '10px',
-                height: '10px',
+                width: '11px',
+                height: '11px',
                 borderRadius: '50%',
                 backgroundColor: 'rgba(43,127,255,0.86)',
                 boxShadow: '0 0 0 5px rgba(43,127,255,0.1)',
+                willChange: 'transform, opacity',
               }}
+              animate={{ opacity: [0.48, 0.92, 0.48], scale: [0.94, 1.12, 0.94] }}
+              transition={{ duration: 3.6, delay: 0.24, repeat: Infinity, ease: 'easeInOut' }}
             />
           </motion.div>
         </div>
