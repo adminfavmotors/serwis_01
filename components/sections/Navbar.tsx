@@ -1,18 +1,25 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-
-const navLinks = [
-  { label: 'Usługi', href: '#uslugi' },
-  { label: 'O nas', href: '#o-nas' },
-  { label: 'Opinie', href: '#opinie' },
-  { label: 'Kontakt', href: '#kontakt' },
-]
+import { usePathname } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
 
 function Navbar() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const isServicesPage = pathname === '/uslugi'
+
+  const navLinks = useMemo(
+    () => [
+      { label: 'Usługi', href: isServicesPage ? '#uslugi-katalog' : '#uslugi' },
+      { label: 'O nas', href: isServicesPage ? '/#o-nas' : '#o-nas' },
+      { label: 'Opinie', href: isServicesPage ? '/#opinie' : '#opinie' },
+      { label: 'Kontakt', href: isServicesPage ? '#kontakt' : '#kontakt' },
+    ],
+    [isServicesPage]
+  )
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -51,7 +58,7 @@ function Navbar() {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}
         >
           <a
-            href="#top"
+            href={isServicesPage ? '/' : '#top'}
             style={{
               textDecoration: 'none',
               display: 'flex',
@@ -132,7 +139,7 @@ function Navbar() {
             >
               +48 123 456 789
             </a>
-            <a href="#kontakt" className="btn-primary" style={{ padding: '10px 22px', fontSize: '13px' }}>
+            <a href={isServicesPage ? '#kontakt' : '#kontakt'} className="btn-primary" style={{ padding: '10px 22px', fontSize: '13px' }}>
               Umów wizytę
             </a>
           </div>
@@ -232,7 +239,7 @@ function Navbar() {
               >
                 +48 123 456 789
               </a>
-              <a href="#kontakt" onClick={() => setMenuOpen(false)} className="btn-primary" style={{ textAlign: 'center' }}>
+              <a href={isServicesPage ? '#kontakt' : '#kontakt'} onClick={() => setMenuOpen(false)} className="btn-primary" style={{ textAlign: 'center' }}>
                 Umów wizytę
               </a>
             </div>

@@ -1,15 +1,23 @@
 'use client'
 
 import { Clock, MapPin, Phone } from 'lucide-react'
-
-const quickLinks = [
-  { label: 'Usługi', href: '#uslugi' },
-  { label: 'O nas', href: '#o-nas' },
-  { label: 'Opinie', href: '#opinie' },
-  { label: 'Kontakt', href: '#kontakt' },
-]
+import { usePathname } from 'next/navigation'
+import { useMemo } from 'react'
 
 function Footer() {
+  const pathname = usePathname()
+  const isServicesPage = pathname === '/uslugi'
+
+  const quickLinks = useMemo(
+    () => [
+      { label: 'Usługi', href: isServicesPage ? '/uslugi' : '#uslugi' },
+      { label: 'O nas', href: isServicesPage ? '/#o-nas' : '#o-nas' },
+      { label: 'Opinie', href: isServicesPage ? '/#opinie' : '#opinie' },
+      { label: 'Kontakt', href: isServicesPage ? '#kontakt' : '#kontakt' },
+    ],
+    [isServicesPage]
+  )
+
   return (
     <footer style={{ backgroundColor: '#101317', borderTop: '1px solid #2D3340' }}>
       <div
