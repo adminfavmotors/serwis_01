@@ -315,6 +315,7 @@ function ContactForm() {
                       id="date"
                       {...register('date')}
                       type="date"
+                      lang="pl-PL"
                       min={new Date().toISOString().split('T')[0]}
                       style={{
                         ...inputStyle,

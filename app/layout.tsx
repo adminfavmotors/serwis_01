@@ -176,7 +176,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pl">
+    <html lang="pl-PL">
       <head>
         <Script
           id="schema-autorepar"
