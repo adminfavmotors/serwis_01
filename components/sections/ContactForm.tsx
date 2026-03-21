@@ -133,14 +133,19 @@ function getDatePickerCopy(locale: string) {
 
 function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
   const rootRef = useRef<HTMLDivElement>(null)
+  const [isMounted, setIsMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [locale, setLocale] = useState('pl-PL')
   const [viewDate, setViewDate] = useState(() => parseDateString(value) ?? getToday())
 
   const selectedDate = parseDateString(value)
   const copy = getDatePickerCopy(locale)
-  const days = buildCalendarDays(viewDate)
-  const today = getToday()
+  const days = isMounted ? buildCalendarDays(viewDate) : []
+  const today = isMounted ? getToday() : null
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   useEffect(() => {
     const updateLocale = () => {
@@ -187,16 +192,22 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
     }
   }, [])
 
-  const monthLabel = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(viewDate)
+  const monthLabel = isMounted
+    ? new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(viewDate)
+    : ''
 
-  const displayValue = selectedDate
-    ? new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'long', year: 'numeric' }).format(selectedDate)
+  const displayValue = isMounted
+    ? selectedDate
+      ? new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'long', year: 'numeric' }).format(selectedDate)
+      : copy.placeholder
     : copy.placeholder
 
-  const weekdayLabels = Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(2024, 0, 1 + index)
-    return new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date)
-  })
+  const weekdayLabels = isMounted
+    ? Array.from({ length: 7 }, (_, index) => {
+        const date = new Date(2024, 0, 1 + index)
+        return new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date)
+      })
+    : []
 
   return (
     <div ref={rootRef} style={{ position: 'relative' }}>
@@ -227,7 +238,7 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
         </svg>
       </button>
 
-      {isOpen ? (
+      {isMounted && isOpen ? (
         <div
           role="dialog"
           aria-label={copy.placeholder}
@@ -334,7 +345,7 @@ function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
             {days.map((day) => {
               const isCurrentMonth = day.getMonth() === viewDate.getMonth()
               const isSelected = value === formatDateValue(day)
-              const isPast = day < today
+              const isPast = today ? day < today : false
 
               return (
                 <button
