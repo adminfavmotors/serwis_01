@@ -57,17 +57,17 @@ function Navbar() {
               display: 'flex',
               flexDirection: 'column',
               lineHeight: 1,
-              gap: '2px',
+              gap: '1px',
               flexShrink: 0,
             }}
           >
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '22px',
+                fontSize: '27px',
                 fontWeight: 700,
                 color: '#F2F5F8',
-                letterSpacing: '0.06em',
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
               }}
             >
@@ -76,9 +76,9 @@ function Navbar() {
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '9px',
+                fontSize: '10px',
                 color: '#2B7FFF',
-                letterSpacing: '0.3em',
+                letterSpacing: '0.34em',
                 textTransform: 'uppercase',
               }}
             >
