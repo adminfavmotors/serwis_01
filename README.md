@@ -31,7 +31,5 @@ The project is intended for Vercel deployment without additional platform config
 After the first production deployment, the client should:
 
 1. Add the property `https://serwis01.vercel.app` in Google Search Console.
-2. Replace the placeholder verification value in `app/layout.tsx`:
-   `REPLACE_WITH_GOOGLE_VERIFICATION_CODE`
-3. Open the `Sitemaps` section and submit:
+2. Open the `Sitemaps` section and submit:
    `sitemap.xml`

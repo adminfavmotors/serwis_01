@@ -15,8 +15,6 @@ export async function POST(request: Request) {
   const telegramChatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!telegramBotToken || !telegramChatId) {
-    console.log("MotoFix contact fallback:", payload);
-
     return NextResponse.json({ success: true });
   }
 
