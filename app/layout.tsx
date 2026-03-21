@@ -82,6 +82,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  other: {
+    google: 'notranslate',
+  },
 }
 
 const autoRepairSchema = {
@@ -173,8 +176,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pl-PL">
+    <html lang="pl-PL" translate="no">
       <head>
+        <meta name="google" content="notranslate" />
         <Script
           id="schema-autorepar"
           type="application/ld+json"
