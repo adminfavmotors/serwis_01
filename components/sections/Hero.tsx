@@ -237,7 +237,7 @@ function Hero() {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(90deg, rgba(18,20,24,0.16) 0%, rgba(18,20,24,0.04) 35%, rgba(18,20,24,0.18) 100%)',
+                  'linear-gradient(90deg, rgba(18,20,24,0.18) 0%, rgba(18,20,24,0.02) 35%, rgba(18,20,24,0.18) 100%)',
               }}
             />
 
@@ -255,64 +255,122 @@ function Hero() {
             <div
               style={{
                 position: 'absolute',
-                top: '22%',
-                left: '18px',
+                top: '17%',
                 right: '18px',
+                width: '36%',
                 height: '1px',
-                backgroundColor: 'rgba(43,127,255,0.22)',
+                background:
+                  'linear-gradient(90deg, rgba(43,127,255,0.02) 0%, rgba(43,127,255,0.4) 38%, rgba(43,127,255,0.02) 100%)',
               }}
             />
 
             <div
               style={{
                 position: 'absolute',
-                top: '22%',
-                bottom: '18px',
-                left: '42%',
+                top: '17%',
+                right: '34%',
                 width: '1px',
-                backgroundColor: 'rgba(43,127,255,0.16)',
+                height: '12%',
+                backgroundColor: 'rgba(43,127,255,0.24)',
               }}
             />
 
             <div
               style={{
                 position: 'absolute',
-                bottom: '18px',
+                top: '31%',
                 left: '18px',
+                width: '28%',
+                height: '1px',
+                background:
+                  'linear-gradient(90deg, rgba(43,127,255,0.34) 0%, rgba(43,127,255,0.04) 100%)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                top: '31%',
+                left: '28%',
+                width: '1px',
+                height: '16%',
+                backgroundColor: 'rgba(43,127,255,0.18)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '26%',
+                right: '18px',
+                width: '34%',
+                height: '1px',
+                background:
+                  'linear-gradient(90deg, rgba(43,127,255,0.04) 0%, rgba(43,127,255,0.38) 58%, rgba(43,127,255,0.02) 100%)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '26%',
+                right: '23%',
+                width: '1px',
+                height: '14%',
+                backgroundColor: 'rgba(43,127,255,0.2)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '14%',
+                left: '20px',
                 width: '44%',
-                height: '28%',
+                height: '22%',
                 border: '1px solid rgba(43,127,255,0.14)',
                 background:
-                  'linear-gradient(135deg, rgba(43,127,255,0.1) 0%, rgba(18,20,24,0.16) 100%)',
+                  'linear-gradient(135deg, rgba(43,127,255,0.08) 0%, rgba(18,20,24,0.14) 100%)',
               }}
             />
 
             <div
               style={{
                 position: 'absolute',
-                right: '18px',
+                top: '26%',
+                right: '20px',
+                width: '18%',
+                height: '12%',
+                borderTop: '2px solid rgba(43,127,255,0.3)',
+                borderRight: '2px solid rgba(43,127,255,0.3)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '18%',
+                right: '20px',
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                backgroundColor: '#2B7FFF',
+                boxShadow: '0 0 0 6px rgba(43,127,255,0.12)',
+              }}
+            />
+
+            <div
+              style={{
+                position: 'absolute',
                 top: '28%',
-                width: '28%',
-                height: '20%',
-                borderTop: '2px solid rgba(43,127,255,0.34)',
-                borderRight: '2px solid rgba(43,127,255,0.34)',
+                left: '22%',
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(43,127,255,0.86)',
+                boxShadow: '0 0 0 5px rgba(43,127,255,0.1)',
               }}
             />
-
-            <div
-              style={{
-                position: 'absolute',
-                left: '18px',
-                top: '14%',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                color: '#2B7FFF',
-              }}
-            >
-              Premium service system
-            </div>
           </motion.div>
         </div>
       </div>
