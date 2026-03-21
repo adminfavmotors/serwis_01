@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, Clock, MapPin, Phone } from 'lucide-react'
+import { ArrowRight, CheckCircle, ChevronLeft, ChevronRight, Clock, MapPin, Phone } from 'lucide-react'
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Imię i nazwisko musi mieć co najmniej 2 znaki' }),
@@ -22,6 +22,12 @@ const schema = z.object({
 })
 
 type FormData = z.infer<typeof schema>
+
+type DatePickerProps = {
+  value: string
+  hasError: boolean
+  onChange: (value: string) => void
+}
 
 const inputStyle = {
   width: '100%',
@@ -64,6 +70,316 @@ function clearInputFocus(target: HTMLInputElement | HTMLTextAreaElement, hasErro
   target.style.boxShadow = 'none'
 }
 
+function normalizeLocale(lang?: string) {
+  return lang?.toLowerCase().startsWith('en') ? 'en-US' : 'pl-PL'
+}
+
+function parseDateString(value?: string) {
+  if (!value) return null
+
+  const parts = value.split('-').map(Number)
+  if (parts.length !== 3 || parts.some(Number.isNaN)) return null
+
+  const [year, month, day] = parts
+  return new Date(year, month - 1, day)
+}
+
+function formatDateValue(date: Date) {
+  const year = date.getFullYear()
+  const month = `${date.getMonth() + 1}`.padStart(2, '0')
+  const day = `${date.getDate()}`.padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+function getToday() {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return today
+}
+
+function buildCalendarDays(viewDate: Date) {
+  const firstDayOfMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1)
+  const mondayOffset = (firstDayOfMonth.getDay() + 6) % 7
+  const firstVisibleDay = new Date(firstDayOfMonth)
+  firstVisibleDay.setDate(firstVisibleDay.getDate() - mondayOffset)
+
+  return Array.from({ length: 42 }, (_, index) => {
+    const date = new Date(firstVisibleDay)
+    date.setDate(firstVisibleDay.getDate() + index)
+    return date
+  })
+}
+
+function getDatePickerCopy(locale: string) {
+  const isEnglish = locale.startsWith('en')
+
+  return {
+    placeholder: isEnglish ? 'Select preferred date' : 'Wybierz preferowany termin',
+    previousMonth: isEnglish ? 'Previous month' : 'Poprzedni miesiąc',
+    nextMonth: isEnglish ? 'Next month' : 'Następny miesiąc',
+  }
+}
+
+function LocalizedDatePicker({ value, hasError, onChange }: DatePickerProps) {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [locale, setLocale] = useState('pl-PL')
+  const [viewDate, setViewDate] = useState(() => parseDateString(value) ?? getToday())
+
+  const selectedDate = parseDateString(value)
+  const copy = getDatePickerCopy(locale)
+  const days = buildCalendarDays(viewDate)
+  const today = getToday()
+
+  useEffect(() => {
+    const updateLocale = () => {
+      setLocale(normalizeLocale(document.documentElement.lang))
+    }
+
+    updateLocale()
+
+    const observer = new MutationObserver(updateLocale)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['lang'],
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const parsedDate = parseDateString(value)
+    if (parsedDate) {
+      setViewDate(parsedDate)
+    }
+  }, [value])
+
+  useEffect(() => {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  const monthLabel = new Intl.DateTimeFormat(locale, {
+    month: 'long',
+    year: 'numeric',
+  }).format(viewDate)
+
+  const displayValue = selectedDate
+    ? new Intl.DateTimeFormat(locale, {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      }).format(selectedDate)
+    : copy.placeholder
+
+  const weekdayLabels = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(2024, 0, 1 + index)
+    return new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date)
+  })
+
+  return (
+    <div ref={rootRef} style={{ position: 'relative' }}>
+      <button
+        id="date"
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        style={{
+          ...inputStyle,
+          borderColor: hasError ? '#FF3B3B' : '#252830',
+          boxShadow: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          cursor: 'pointer',
+          textAlign: 'left',
+          color: selectedDate ? '#EAEDF2' : '#6B7280',
+        }}
+        onFocus={(event) => {
+          event.currentTarget.style.borderColor = '#2B7FFF'
+          event.currentTarget.style.boxShadow = '0 0 0 3px rgba(43,127,255,0.12)'
+        }}
+        onBlur={(event) => {
+          event.currentTarget.style.borderColor = hasError ? '#FF3B3B' : '#252830'
+          event.currentTarget.style.boxShadow = 'none'
+        }}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+      >
+        <span>{displayValue}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="5" width="18" height="16" rx="2" />
+          <path d="M16 3V7M8 3V7M3 11H21" />
+        </svg>
+      </button>
+
+      {isOpen ? (
+        <div
+          role="dialog"
+          aria-label={copy.placeholder}
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 10px)',
+            left: 0,
+            zIndex: 30,
+            width: '320px',
+            maxWidth: '100%',
+            backgroundColor: '#16181C',
+            border: '1px solid #252830',
+            borderRadius: '4px',
+            boxShadow: '0 18px 40px rgba(0,0,0,0.28)',
+            padding: '16px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '14px',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))}
+              aria-label={copy.previousMonth}
+              style={{
+                width: '32px',
+                height: '32px',
+                border: '1px solid #252830',
+                background: 'transparent',
+                color: '#EAEDF2',
+                borderRadius: '2px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              <ChevronLeft size={16} />
+            </button>
+
+            <span
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '18px',
+                color: '#EAEDF2',
+                textTransform: 'uppercase',
+                letterSpacing: '0.03em',
+              }}
+            >
+              {monthLabel}
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1))}
+              aria-label={copy.nextMonth}
+              style={{
+                width: '32px',
+                height: '32px',
+                border: '1px solid #252830',
+                background: 'transparent',
+                color: '#EAEDF2',
+                borderRadius: '2px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, minmax(0, 1fr))',
+              gap: '6px',
+              marginBottom: '8px',
+            }}
+          >
+            {weekdayLabels.map((label) => (
+              <span
+                key={label}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  color: '#6B7280',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  textAlign: 'center',
+                }}
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, minmax(0, 1fr))',
+              gap: '6px',
+            }}
+          >
+            {days.map((day) => {
+              const isCurrentMonth = day.getMonth() === viewDate.getMonth()
+              const isSelected = value === formatDateValue(day)
+              const isPast = day < today
+
+              return (
+                <button
+                  key={formatDateValue(day)}
+                  type="button"
+                  disabled={isPast}
+                  onClick={() => {
+                    onChange(formatDateValue(day))
+                    setIsOpen(false)
+                  }}
+                  style={{
+                    height: '36px',
+                    border: isSelected ? '1px solid #2B7FFF' : '1px solid transparent',
+                    backgroundColor: isSelected ? 'rgba(43,127,255,0.14)' : 'transparent',
+                    color: isPast
+                      ? '#3A4150'
+                      : isCurrentMonth
+                        ? '#EAEDF2'
+                        : '#6B7280',
+                    borderRadius: '2px',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '13px',
+                    cursor: isPast ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {day.getDate()}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState(false)
@@ -72,13 +388,15 @@ function ContactForm() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { rodo: false },
+    defaultValues: { rodo: false, date: '' },
   })
 
   const rodoValue = useWatch({ control, name: 'rodo' })
+  const dateValue = useWatch({ control, name: 'date' }) ?? ''
 
   const onSubmit = async (data: FormData) => {
     setError(false)
@@ -311,20 +629,18 @@ function ContactForm() {
                     <label htmlFor="date" style={labelStyle}>
                       Preferowany termin *
                     </label>
-                    <input
-                      id="date"
-                      {...register('date')}
-                      type="date"
-                      lang="pl-PL"
-                      min={new Date().toISOString().split('T')[0]}
-                      style={{
-                        ...inputStyle,
-                        borderColor: errors.date ? '#FF3B3B' : '#252830',
-                        colorScheme: 'dark',
+                    <LocalizedDatePicker
+                      value={dateValue}
+                      hasError={Boolean(errors.date)}
+                      onChange={(nextDate) => {
+                        setValue('date', nextDate, {
+                          shouldDirty: true,
+                          shouldTouch: true,
+                          shouldValidate: true,
+                        })
                       }}
-                      onFocus={(event) => applyInputFocus(event.target)}
-                      onBlur={(event) => clearInputFocus(event.target, Boolean(errors.date))}
                     />
+                    <input type="hidden" {...register('date')} />
                     {errors.date && <p style={errorStyle}>{errors.date.message}</p>}
                   </div>
 
