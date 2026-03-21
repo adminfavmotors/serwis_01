@@ -287,6 +287,7 @@ function Testimonials() {
               </div>
 
               <div
+                className="testimonial-meta"
                 style={{
                   padding: '40px 34px 34px',
                   borderLeft: '1px solid #2D3340',
@@ -411,7 +412,7 @@ function Testimonials() {
             grid-template-columns: 1fr !important;
           }
 
-          .testimonial-carousel > div:last-child {
+          .testimonial-meta {
             border-left: none !important;
             border-top: 1px solid #2D3340 !important;
           }
