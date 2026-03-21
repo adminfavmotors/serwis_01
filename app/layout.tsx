@@ -49,9 +49,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  verification: {
-    google: 'REPLACE_WITH_GOOGLE_VERIFICATION_CODE',
-  },
   openGraph: {
     title: 'MotoFix Serwis — Warsztat Samochodowy Kraków',
     description:
